@@ -10,32 +10,27 @@ int kmp(string s, string w) {
   if (n == 0) return 0;
 
   // compute table using two pointers
-  int t[n], p = 1, q = 0;
+  int t[n];
   t[0] = -1; // must restart all
-  while (p < n) {
+  for (int p = 1, q = 0; p < n; ++p, ++q) {
       if (w[p] == w[q]) t[p] = t[q];
       else {
           t[p] = q;
           q = t[q];
           while (q >= 0 && w[p] != w[q]) q = t[q];
       }
-      p++;
-      q++;
   }
 
   // search
-  int i = 0, j = 0;
-  while (i < m) {
+  for (int i = 0, j = 0; i < m; ) {
       if (w[j] == s[i]) {
-          i++;
-          j++;
+          ++i; ++j;
           if (j == n) return i-j; // found
       } else {
           assert(j < n);
           j = t[j];
           if (j < 0) { // start again
-              i++;
-              j++;
+              ++i; ++j;
           }
       }
   }

@@ -2,10 +2,10 @@
 using namespace std;
 
 /**
- * Knuth-Morris-Pratt algorithm for finding the ocurrence of a certain word 
+ * Knuth-Morris-Pratt algorithm for finding the occurrence of a certain word 
  * from some text.
  */
-int kmp(string s, string w) {
+int kmp_search(string s, string w) {
   int m = s.size(), n = w.size();
   if (n == 0) return 0;
 

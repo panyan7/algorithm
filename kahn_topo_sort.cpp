@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> topological_sort(vector<vector<int>> G) {
+vector<int> kahn_topo_sort(vector<vector<int>> G) {
     int n = G.size();
     vector<int> in_deg (n, 0);
     for (int i = 0; i < n; ++i) 

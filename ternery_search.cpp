@@ -18,3 +18,10 @@ int ternery_search(vector<int> a) {
     }
 }
 
+/** Examples **/
+int main() {
+    int b[] = {1, 3, 5, 6, 9, 14, 13, 10, 9, 3};
+    vector<int> a (b, b+10);
+    cout << ternery_search(a) << endl; // 5
+    return 0;
+}

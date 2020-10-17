@@ -16,7 +16,7 @@ int binary_search(vector<int> a, int k) {
 
 // Binary search to find boundary of monotonic function
 bool check(int k) {
-    return 1;
+    return k > 1000;
 }
 
 // Find minimum true
@@ -43,4 +43,15 @@ int binary_search_false(int n) {
         else lo = mid;
     }
     return lo;
+}
+
+/** Examples **/
+int main() {
+    int b[] = {1, 2, 5, 12, 34, 35, 45, 47, 51, 59, 80};
+    vector<int> a (b, b+11);
+    cout << binary_search(a, 35) << endl; // 5
+    cout << binary_search(a, 37) << endl; // -1
+    cout << binary_search_true(10000) << endl;
+    cout << binary_search_false(10000) << endl;
+    return 0;
 }

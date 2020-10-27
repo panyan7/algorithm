@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int mod = 1e9+7;
+const int mod = 11; // Some prime number
 
 int expmod(int a, int b) {
     int res = 1 % mod;
@@ -14,8 +14,12 @@ int expmod(int a, int b) {
     return res;
 }
 
+int inverse(int x) { // Only holds when mod is prime
+    return expmod(x, mod-2);
+}
 
 int main() {
     cout << expmod(5, 6) << endl;
+    cout << inverse(3) << endl;
     return 0;
 }

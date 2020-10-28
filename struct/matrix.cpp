@@ -27,10 +27,24 @@ struct matrix {
     }
 };
 
+template<typename T>
+matrix<T> expo(matrix<T> a, long long e) {
+    matrix<T> res = matrix<T>(a.m, a.n);
+	res.a[0][0] = res.a[1][1] = 1;
+	while(e) {
+		if(e % 2) {
+			res = res * a;
+		}
+		e /= 2;
+		a = a * a;
+	}
+	return res;
+}
+
 int main() {
     matrix<int> m = matrix<int>(2, 2);
     m.a[0][0] = 2;
     m.a[1][1] = 2;
-    cout << (m * m).a[0][0] << " " << (m * m).a[1][1] << endl;
+    cout << expo(m, 10).a[0][0] << " " << (m * m).a[1][1] << endl;
     return 0;
 }

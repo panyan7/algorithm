@@ -8,17 +8,17 @@ struct Matrix {
     vector<vector<T>> a;
     int m, n;
     Matrix<T>(int x, int y) {
-        m = x;
-        n = y;
-        a = vector<vector<T>> (m, vector<T> (n, 0));
+        this->m = x;
+        this->n = y;
+        this->a = vector<vector<T>> (m, vector<T> (n, 0));
     }
     Matrix<T> operator*(Matrix<T> other) {
-        assert(n == other.m);
-        Matrix<T> product = Matrix<T> (m, other.n);
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        assert(this->n == other.m);
+        Matrix<T> product = Matrix<T> (this->m, other.n);
+        for (int i = 0; i < this->m; i++) {
+            for (int j = 0; j < this->n; j++) {
                 for (int k = 0; k < other.n; k++) {
-                    product.a[i][k] += a[i][j] * other.a[j][k];
+                    product.a[i][k] += this->a[i][j] * other.a[j][k];
                     product.a[i][k] %= mod;
                 }
             }

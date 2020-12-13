@@ -3,4 +3,4 @@ A collection of useful algorithms for competitive programming and coding intervi
 
 Author: Elvis Pan
 
-Email: ypan2@andrew.cmu.edu
+Email: ypan2 \[at\] andrew \[dot\] cmu \[dot\] edu

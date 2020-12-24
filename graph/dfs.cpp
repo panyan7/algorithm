@@ -1,18 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfs(vector<vector<int>> G, int v) {
+int n = 100;
+vector<vector<int>> G;
+vector<bool> X (n, false);
+vector<bool> A (n, false);
+
+void dfs(int v) {
     int n = G.size();
-    vector<bool> visited (n, false);
-    vector<int> s; s.push_back(v); visited[v] = true;
+    vector<int> s; s.push_back(v); X[v] = true;
     while (!s.empty()) {
         int u = s.back();
         s.pop_back();
         for (auto w : G[u]) {
-            if (!visited[w]) {
+            if (!X[w]) {
                 s.push_back(w);
-                visited[w] = true;
+                X[w] = true;
             }
         }
     }
+}
+
+void dfs_rec(int v) {
+    X[v] = true;
+    for (auto u : G[v]) {
+        if (!X[u]) dfs_rec(u);
+    }
+}
+
+bool dfs_cycle(int v) {
+    X[v] = true;
+    A[v] = true;
+    for (auto u : G[v]) {
+        if (!X[u] && !dfs_cycle(u)) return false;
+        else if (A[u]) return false;
+    }
+    A[v] = false;
+    return true;
 }

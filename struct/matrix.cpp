@@ -24,6 +24,13 @@ public:
         n = y;
         data.assign(x, vector<int> (y, val));
     }
+    static matrix I(int x) {
+        matrix res (x, x);
+        for (int i = 0; i < x; ++i) {
+            res[i][i] = 1;
+        }
+        return res;
+    }
     matrix& operator += (matrix a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
@@ -76,7 +83,7 @@ public:
     }
     friend matrix operator * (matrix& a, matrix& b) {
         assert(a.n == b.m);
-        matrix product = matrix (a.m, b.n);
+        matrix product (a.m, b.n);
         for (int i = 0; i < a.m; ++i) {
             for (int j = 0; j < b.n; ++j) {
                 for (int k = 0; k < b.n; ++k) {
@@ -91,13 +98,13 @@ public:
     }
     matrix& operator *= (matrix& a) {
         assert(n == a.m);
-        matrix b = matrix (*this);
+        matrix b (*this);
         *this = b * a;
         return *this;
     }
     friend matrix pow(matrix a, int e) {
-        matrix res = matrix (a.m, a.n);
-        res[0][0] = res[1][1] = 1;
+        assert(a.m == a.n);
+        matrix res = I(a.m);
         while (e) {
             if (e % 2) {
                 res *= a;

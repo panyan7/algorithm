@@ -83,6 +83,15 @@ public:
     friend modnum operator / (const modnum& a, const modnum& b) {
         return modnum(a) /= b;
     }
+    friend modnum pow(const modnum& a, int e) {
+        modnum res = 1;
+        while (e) {
+            if (e % 2) res *= a;
+            e /= 2;
+            a *= a;
+        }
+        return res;
+    }
 };
 
 int main() {

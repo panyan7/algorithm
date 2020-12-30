@@ -34,4 +34,5 @@ In directory `string/`
 ### Data Structures
 In directory `struct/`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
+- Modular number `modnum.cpp`
 - Treap `treap.cpp`

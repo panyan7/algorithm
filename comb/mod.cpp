@@ -21,7 +21,7 @@ int inverse(int x) { // Only holds when mod is prime
 pair<int, int> exgcd(int a, int b) {
     if (b == 0) return make_pair(1, 0);
     auto r = exgcd(b, a%b);
-    return make_pair(r.second, r.first - (a/b)*r.second);
+    return {r.second, r.first - (a/b)*r.second};
 }
 
 int inv(int a) {

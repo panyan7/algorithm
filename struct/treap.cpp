@@ -13,10 +13,9 @@ struct node {
         l = nullptr;
         r = nullptr;
     }
-private:
+public:
     typedef node* node_t;
 
-public:
     friend void split(node_t t, T key, node_t low, node_t hi) {
         if (t == nullptr) low = hi = nullptr;
         else if (key < t->key)
@@ -40,7 +39,7 @@ public:
         else
             merge(r->l, l, r->l), t = r;
     }
-    friend void erase(node_t& t, int key) {
+    friend void erase(node_t& t, T key) {
         if (t->key == key) {
             node_t th = t;
             merge(t, t->l, t->r);
@@ -98,9 +97,9 @@ int main() {
     node<int>* n2 = new node<int> (2, 0);
     treap<int> t1 (n1), t2 (n2);
     cout << t1.key() << " " << t2.key() << endl;
-    // t1.insert(t2);
-    insert(n1, n2);
-    cout << n1->key << " " << n1->r->key << endl;
+    t1.insert(t2);
+    // insert(n1, n2);
+    // cout << n1->key << " " << n1->r->key << endl;
     // cout << t2.l().key() << " " << t2.l().priority() << endl;
     // cout << t2.r().key() << " " << t2.r().priority() << endl;
     return 0;

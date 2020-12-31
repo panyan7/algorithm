@@ -41,6 +41,17 @@ public:
         }
         return o;
     }
+    friend istream& operator >> (istream& i, const matrix& a) {
+        size_t m, n;
+        i >> m >> n;
+        a = matrix(m, n);
+        for (int k = 0; k < m; ++k) {
+            for (int j = 0; j < n; ++j) {
+                i >> a[k][j];
+            }
+        }
+        return i;
+    }
     matrix& operator += (const matrix& a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {

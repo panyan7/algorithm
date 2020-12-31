@@ -8,9 +8,7 @@ struct modnum {
     modnum() : v(0) {}
     modnum(int64_t v_) : v(int(v_ % MOD)) {}
 
-    explicit operator int() const {
-        return v;
-    }
+    explicit operator int() const { return v; }
 
     friend ostream& operator << (ostream& o, const modnum& m) {
         return o << int(m);
@@ -55,7 +53,7 @@ private:
     }
 
 public:
-    modnum inv() const {}
+    modnum inv() const { assert(v); return modnum(minv(v, MOD)); }
 
     modnum& operator += (const modnum& o) {
         v -= MOD - o.v;
@@ -71,6 +69,8 @@ public:
         v = int(int64_t(v) * int64_t(o.v) % MOD);
         return *this;
     }
+    modnum& operator /= (const modnum& o) { return *this *= inv(o); }
+
     friend modnum operator + (const modnum& a, const modnum& b) {
         return modnum(a) += b;
     }
@@ -99,5 +99,6 @@ int main() {
     num x = (int)1e9;
     num y = 8;
     cout << ++x << " " << (x + y) << endl;
+    cout << x.neg() << endl;
     return 0;
 }

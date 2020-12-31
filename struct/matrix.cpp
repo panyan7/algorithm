@@ -60,16 +60,16 @@ public:
                 i >> a[k][j];
         return i;
     }
-    matrix& operator += (const matrix& a) {
+    matrix& operator += (const matrix& o) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
-                data[i][j] += a.data[i][j];
+                data[i][j] += o.data[i][j];
         return *this;
     }
-    matrix& operator -= (const matrix& a) {
+    matrix& operator -= (const matrix& o) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
-                data[i][j] -= a.data[i][j];
+                data[i][j] -= o.data[i][j];
         return *this;
     }
     matrix& operator += (T c) {

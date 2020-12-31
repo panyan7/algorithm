@@ -13,8 +13,16 @@ struct node {
         l = nullptr;
         r = nullptr;
     }
+private:
+    typedef node * node_t;
+
 public:
-    typedef node* node_t;
+    friend bool operator > (const node& a, const node& b) { 
+        return a.key > b.key;
+    }
+    friend bool operator < (const node& a, const node& b) {
+        return a.key < b.key;
+    }
 
     friend void split(node_t t, T key, node_t low, node_t hi) {
         if (t == nullptr) low = hi = nullptr;
@@ -68,8 +76,8 @@ struct treap {
 public:
     T key() { assert(root != nullptr); return root->key; }
     int priority () { assert(root != nullptr); return root->prior; }
-    treap l() { assert(root != nullptr); return treap(root->l); }
-    treap r() { assert(root != nullptr); return treap(root->r); }
+    treap l() const { assert(root != nullptr); return treap(root->l); }
+    treap r() const { assert(root != nullptr); return treap(root->r); }
     treap split(int key, treap& low, treap& hi) {
         node<T>::split(root, key, low.root, hi.root);
         return *this;

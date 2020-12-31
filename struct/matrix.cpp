@@ -3,9 +3,9 @@ using namespace std;
 
 template <int MOD> 
 struct matrix {
-    vector<vector<int>> data;
     int m, n;
-    matrix(int x, int y) {
+    vector<vector<int>> data;
+    matrix(size_t x, size_t y) {
         m = x;
         n = y;
         data = vector<vector<int>> (m, vector<int> (n, 0));
@@ -19,10 +19,11 @@ public:
     vector<int>& operator [] (size_t i) {
         return data[i];
     }
-    matrix& resize(int x, int y, int val) {
+    matrix& resize(size_t x, size_t y, int val) {
         m = x;
         n = y;
-        data.assign(x, vector<int> (y, val));
+        data = vector<vector<int>> (x, vector<int> (y, val));
+        return *this;
     }
     static matrix I(int x) {
         matrix res (x, x);
@@ -31,22 +32,55 @@ public:
         }
         return res;
     }
-    matrix& operator += (matrix a) {
+    friend ostream& operator << (ostream& o, const matrix& a) {
+        for (int i = 0; i < a.m; ++i) {
+            for (int j = 0; j < a.n; ++j) {
+                o << a.data[i][j];
+                o << (j == a.n-1 ? "\n" : " ");
+            }
+        }
+        return o;
+    }
+    matrix& operator += (const matrix& a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 int p = data[i][j];
-                p -= MOD - a[i][j];
+                p -= MOD - a.data[i][j];
                 p = (p < 0 ? p + MOD : p);
                 data[i][j] = p;
             }
         }
         return *this;
     }
-    matrix& operator -= (matrix a) {
+    matrix& operator -= (const matrix& a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 int p = data[i][j];
-                p -= a[i][j];
+                p -= a.data[i][j];
+                p = (p < 0 ? p + MOD : p);
+                data[i][j] = p;
+            }
+        }
+        return *this;
+    }
+    matrix& operator += (int c) {
+        c %= MOD;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                int p = data[i][j];
+                p -= MOD - c;
+                p = (p < 0 ? p + MOD : p);
+                data[i][j] = p;
+            }
+        }
+        return *this;
+    }
+    matrix& operator -= (int c) {
+        c %= MOD;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                int p = data[i][j];
+                p -= c;
                 p = (p < 0 ? p + MOD : p);
                 data[i][j] = p;
             }
@@ -75,42 +109,43 @@ public:
     friend matrix operator - (const matrix& a, const matrix& b) {
         return matrix(a) -= b;
     }
+    friend matrix operator + (const matrix& a, const int c) {
+        return matrix(a) += c;
+    }
+    friend matrix operator - (const matrix& a, const int c) {
+        return matrix(a) -= c;
+    }
     friend matrix operator * (const matrix& a, const int c) {
         return matrix(a) *= c;
     }
     friend matrix operator / (const matrix& a, const int c) {
         return matrix(a) /= c;
     }
-    friend matrix operator * (matrix& a, matrix& b) {
+    friend matrix operator * (const matrix& a, const matrix& b) {
         assert(a.n == b.m);
-        matrix product (a.m, b.n);
+        matrix prod (a.m, b.n);
         for (int i = 0; i < a.m; ++i) {
-            for (int j = 0; j < b.n; ++j) {
+            for (int j = 0; j < b.m; ++j) {
                 for (int k = 0; k < b.n; ++k) {
-                    int p = product[i][k];
-                    p -= MOD - (a[i][j] * b[j][k] % MOD);
+                    int p = prod[i][k];
+                    p -= MOD - (a.data[i][j] * b.data[j][k] % MOD);
                     p = (p < 0 ? p + MOD : p);
-                    product[i][k] = p;
+                    prod[i][k] = p;
                 }
             }
         }
-        return product;
+        return prod;
     }
-    matrix& operator *= (matrix& a) {
-        assert(n == a.m);
-        matrix b (*this);
-        *this = b * a;
-        return *this;
-    }
-    friend matrix pow(matrix a, int e) {
+    friend matrix pow(const matrix& a, int e) {
         assert(a.m == a.n);
         matrix res = I(a.m);
+        matrix b (a.data);
         while (e) {
             if (e % 2) {
-                res *= a;
+                res = res * b;
             }
             e /= 2;
-            a *= a;
+            b = b * b;
         }
         return res;
     }
@@ -120,6 +155,13 @@ int main() {
     typedef matrix<(int)1e9+7> mat;
     mat m = mat(2, 2);
     m[0][0] = m[1][1] = 2;
-    cout << pow(m, 10)[0][0] << " " << (m * m)[1][1] << endl;
+    cout << pow(m, 10);
+    cout << (m * m) << endl;
+    m += m;
+    cout << m << endl;
+    m += 2;
+    cout << m << endl;
+    m /= 2;
+    cout << m << endl;
     return 0;
 }

@@ -94,11 +94,18 @@ public:
     }
 };
 
+
+const int MOD = 1e9+7;
+typedef modnum<MOD> num;
+int t;
+
+void solve() {}
+
 int main() {
-    typedef modnum<(int)1e9+7> num;
-    num x = (int)1e9;
-    num y = 8;
-    cout << ++x << " " << (x + y) << endl;
-    cout << x.neg() << endl;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }

@@ -136,19 +136,17 @@ public:
     }
 };
 
+
+
+int t;
+
+void solve() {}
+
 int main() {
-    typedef matrix<int> mat;
-    mat m = mat(2, 2);
-    m[{0,0}] = m[{1,1}] = 2;
-    cout << m << endl;
-    cout << pow(m, 10);
-    cout << (m * m) << endl;
-    cout << (m * m)[{0,0}] << endl;
-    m += m;
-    cout << m << endl;
-    m += 2;
-    cout << m << endl;
-    m /= 2;
-    cout << m << endl;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }

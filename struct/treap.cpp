@@ -7,10 +7,10 @@ struct TreapNode {
     int priority;
     TreapNode *l, *r;
     TreapNode(T d, int p) {
-        this->data = d;
-        this->priority = p;
-        this->l = nullptr;
-        this->r = nullptr;
+        data = d;
+        priority = p;
+        l = nullptr;
+        r = nullptr;
     }
 };
 
@@ -18,22 +18,22 @@ template<typename T>
 struct Treap {
     TreapNode<T> *root;
     Treap() {
-        this->root = nullptr;
+        root = nullptr;
     }
     void rot_left() {
         assert(root != nullptr);
-        TreapNode<T> *R = this->root->r;
-        TreapNode<T> *X = this->root->r->l;
-        R->l = this->root;
-        this->root->r = X;
-        this->root = R;
+        TreapNode<T> *R = root->r;
+        TreapNode<T> *X = root->r->l;
+        R->l = root;
+        root->r = X;
+        root = R;
     }
     void rot_right() {
         assert(root != nullptr);
-        TreapNode<T> *L = this->root->l;
-        TreapNode<T> *Y = this->root->l->r;
-        L->r = this->root;
-        this->root->l = Y;
-        this->root = L;
+        TreapNode<T> *L = root->l;
+        TreapNode<T> *Y = root->l->r;
+        L->r = root;
+        root->l = Y;
+        root = L;
     }
 };

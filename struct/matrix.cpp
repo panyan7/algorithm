@@ -1,33 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template <int MOD> 
+template <typename T> 
 struct matrix {
     int m, n;
-    vector<vector<int>> data;
+    vector<vector<T>> data;
     matrix(size_t x, size_t y) {
         m = x;
         n = y;
-        data = vector<vector<int>> (m, vector<int> (n, 0));
+        data.assign(m, vector<T> (n, (T)0));
     }
-    matrix(vector<vector<int>> a) {
+    matrix(size_t x, size_t y, T val) {
+        m = x;
+        n = y;
+        data.assign(m, vector<T> (n, val));
+    }
+    matrix(vector<vector<T>> a) {
         m = a.size();
         n = a[0].size();
         data = a;
     }
 public:
-    vector<int>& operator [] (size_t i) {
+    vector<T>& operator [] (size_t i) {
         return data[i];
     }
-    matrix& resize(size_t x, size_t y, int val) {
+    friend matrix& t(const matrix& a) {
+        
+    }
+    matrix& resize(size_t x, size_t y, T val) {
         m = x;
         n = y;
-        data = vector<vector<int>> (x, vector<int> (y, val));
+        data = vector<vector<T>> (x, vector<T> (y, val));
         return *this;
     }
-    static matrix I(int x) {
-        matrix res (x, x);
-        for (int i = 0; i < x; ++i) {
+    static matrix I(size_t n) {
+        matrix res (n, n);
+        for (int i = 0; i < n; ++i) {
             res[i][i] = 1;
         }
         return res;
@@ -55,10 +63,7 @@ public:
     matrix& operator += (const matrix& a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                int p = data[i][j];
-                p -= MOD - a.data[i][j];
-                p = (p < 0 ? p + MOD : p);
-                data[i][j] = p;
+                data[i][j] += a.data[i][j];
             }
         }
         return *this;
@@ -66,34 +71,23 @@ public:
     matrix& operator -= (const matrix& a) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                int p = data[i][j];
-                p -= a.data[i][j];
-                p = (p < 0 ? p + MOD : p);
-                data[i][j] = p;
+                data[i][j] -= a.data[i][j];
             }
         }
         return *this;
     }
-    matrix& operator += (int c) {
-        c %= MOD;
+    matrix& operator += (T c) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                int p = data[i][j];
-                p -= MOD - c;
-                p = (p < 0 ? p + MOD : p);
-                data[i][j] = p;
+                data[i][j] += c;
             }
         }
         return *this;
     }
-    matrix& operator -= (int c) {
-        c %= MOD;
+    matrix& operator -= (T c) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                int p = data[i][j];
-                p -= c;
-                p = (p < 0 ? p + MOD : p);
-                data[i][j] = p;
+                data[i][j] -= c;
             }
         }
         return *this;
@@ -101,7 +95,7 @@ public:
     matrix& operator *= (int c) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                data[i][j] = int(int64_t(data[i][j]) * int64_t(c) % MOD);
+                data[i][j] *= c;
             }
         }
         return *this;
@@ -109,7 +103,7 @@ public:
     matrix& operator /= (int c) {
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                data[i][j] = int(int64_t(data[i][j]) / int64_t(c) % MOD);
+                data[i][j] /= c;
             }
         }
         return *this;
@@ -138,10 +132,7 @@ public:
         for (int i = 0; i < a.m; ++i) {
             for (int j = 0; j < b.m; ++j) {
                 for (int k = 0; k < b.n; ++k) {
-                    int p = prod[i][k];
-                    p -= MOD - (a.data[i][j] * b.data[j][k] % MOD);
-                    p = (p < 0 ? p + MOD : p);
-                    prod[i][k] = p;
+                    prod[i][k] += a.data[i][j] * b.data[j][k];
                 }
             }
         }
@@ -163,11 +154,13 @@ public:
 };
 
 int main() {
-    typedef matrix<(int)1e9+7> mat;
+    typedef matrix<int> mat;
     mat m = mat(2, 2);
     m[0][0] = m[1][1] = 2;
+    cout << m << endl;
     cout << pow(m, 10);
     cout << (m * m) << endl;
+    cout << (m * m)[0][0] << endl;
     m += m;
     cout << m << endl;
     m += 2;

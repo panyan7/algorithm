@@ -14,7 +14,9 @@ In directory `graph/`:
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
+- Kruskal's algorithm (MST) `kruskal.cpp`
 - Lowest common ancestor `lca.cpp`
+- Prim's algorithm (MST) `prim.cpp`
 - Union find `union_find.cpp`
 
 ### Combinatorics
@@ -34,5 +36,6 @@ In directory `string/`
 ### Data Structures
 In directory `struct/`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
-- Modular number `modnum.cpp`
+- Modular number with exponentiation and inverse `modnum.cpp`
+- Segment tree `segment_tree.cpp`
 - Treap `treap.cpp`

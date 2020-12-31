@@ -9,10 +9,12 @@ Email: ypan2 \[at\] andrew \[dot\] cmu \[dot\] edu
 
 ### Graph Theory
 In directory `graph/`:
+- Bellman-Ford algorithm `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Bridge finding `bridge.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
+- Floyd-Warshall algorithm `floyd_warshall.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
 - Kruskal's algorithm (MST) `kruskal.cpp`
 - Lowest common ancestor `lca.cpp`

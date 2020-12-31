@@ -94,7 +94,6 @@ public:
     }
 };
 
-
 const int MOD = 1e9+7;
 typedef modnum<MOD> num;
 int t;

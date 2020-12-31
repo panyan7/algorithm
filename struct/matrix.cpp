@@ -136,8 +136,6 @@ public:
     }
 };
 
-
-
 int t;
 
 void solve() {}

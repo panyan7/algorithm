@@ -21,10 +21,10 @@ In directory `graph/`:
 - Prim's algorithm (MST) `prim.cpp`
 - Union find `union_find.cpp`
 
-### Combinatorics
-In directory `comb/`
-- Factorial `factorial.cpp`
-- Modular exponentiation, inverse, exgcd `mod.cpp`
+### Algebra
+In directory `algebra/`
+- Matrix with efficient multiplication and exponentiation `matrix.cpp`
+- Modular number with exponentiation and inverse `modnum.cpp`
 
 ### Optimization
 In directory `optim/`
@@ -33,11 +33,10 @@ In directory `optim/`
 
 ### String
 In directory `string/`
+- Aho-Corasick algorithm (string searching) `aho_corasick.cpp`
 - Knuth-Morris-Pratt (KMP) algorithm (string searching) `kmp.cpp`
 
 ### Data Structures
 In directory `struct/`
-- Matrix with efficient multiplication and exponentiation `matrix.cpp`
-- Modular number with exponentiation and inverse `modnum.cpp`
 - Segment tree `segment_tree.cpp`
 - Treap `treap.cpp`

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MAXN 10000
+const int MAXN = 10000;
 
 int n, t[4*MAXN], a[MAXN];
 

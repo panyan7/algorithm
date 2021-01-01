@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
+const int MOD = 1e9+7;
 
 template <typename T> 
 struct matrix {
@@ -138,7 +140,9 @@ public:
 
 int t;
 
-void solve() {}
+void solve() {
+
+}
 
 int main() {
     ios::sync_with_stdio(0);

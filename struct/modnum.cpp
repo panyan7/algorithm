@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+const int MOD = 1e9+7;
 
 template <int MOD>
 struct modnum {
     int v;
     modnum() : v(0) {}
     modnum(int64_t v_) : v(int(v_ % MOD)) {}
-
     explicit operator int() const { return v; }
-
     friend ostream& operator << (ostream& o, const modnum& m) {
         return o << int(m);
     }
@@ -45,16 +44,13 @@ struct modnum {
         else r.v = MOD - v;
         return r;
     }
-
 private:
     static int minv(int a, int m) {
         if (a <= 1) return a;
         return m - int(int64_t(minv(m % a, a)) * m / a);
     }
-
 public:
     modnum inv() const { assert(v); return modnum(minv(v, MOD)); }
-
     modnum& operator += (const modnum& o) {
         v -= MOD - o.v;
         v = (v < 0 ? v + MOD : v);
@@ -69,8 +65,9 @@ public:
         v = int(int64_t(v) * int64_t(o.v) % MOD);
         return *this;
     }
-    modnum& operator /= (const modnum& o) { return *this *= inv(o); }
-
+    modnum& operator /= (const modnum& o) {
+        return *this *= inv(o);
+    }
     friend modnum operator + (const modnum& a, const modnum& b) {
         return modnum(a) += b;
     }
@@ -94,11 +91,12 @@ public:
     }
 };
 
-const int MOD = 1e9+7;
 typedef modnum<MOD> num;
 int t;
 
-void solve() {}
+void solve() {
+
+}
 
 int main() {
     ios::sync_with_stdio(0);

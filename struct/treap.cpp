@@ -1,18 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
+const int MOD = 1e9+7;
 
 template <typename T>
 struct node {
     T key;
     int prior;
     node<T> *l, *r;
-
     node () {}
     node (T k, int p) { key = k; prior = p; l = nullptr; r = nullptr; }
-
 private:
     typedef node * node_t;
-
 public:
     friend bool operator > (const node& a, const node& b) { 
         return a.key > b.key;
@@ -72,11 +71,11 @@ public:
 template <typename T>
 struct treap {
     node<T> *root;
-
     treap () { root = nullptr; }
     treap (T d, int p) { root = new node<T> (d, p); }
     treap (node<T> *n) { root = n; }
 public:
+    explicit operator node<T>() { return *root; }
     // Overload operator
     friend bool operator < (const treap& a, const treap& b) {
         return *a.root < *b.root;
@@ -90,13 +89,11 @@ public:
     friend ostream& operator << (ostream& o, const treap& a) {
         o << *a.root; return o;
     }
-
     // Access variables
     T key() { assert(root != nullptr); return root->key; }
     int priority () { assert(root != nullptr); return root->prior; }
     treap l() const { assert(root != nullptr); return treap(root->l); }
     treap r() const { assert(root != nullptr); return treap(root->r); }
-
     // Functions
     treap split(int key, treap& low, treap& hi) {
         node<T>::split(root, key, low.root, hi.root);
@@ -119,6 +116,8 @@ public:
         return treap(res);
     }
 };
+
+int t;
 
 int main() {
     treap<int> t1 (1,1), t2 (2,0), t3 (3,2);

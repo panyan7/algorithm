@@ -1,24 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
+const int MOD = 1e9+7;
 
 struct frac {
     int64_t m, n;
-    frac () : m(0), n(1) {}
-    frac (int64_t a) : m(a), n(1) {}
 private:
     static int64_t gcd(int64_t a, int64_t b) {
-        if (a < 0) a = -a;
         if (a > b) swap(a, b);
         if (a == 0) return b;
         return gcd(b % a, a);
     }
     static void upd(int64_t& a, int64_t& b) {
-        int64_t g = a ? gcd(a, b) : b;
+        int64_t g = a ? gcd(abs(a), b) : b;
         a /= g, b /= g;
     }
 public:
+    frac () : m(0), n(1) {}
+    frac (int64_t a) : m(a), n(1) {}
     frac (int64_t a, int64_t b) {
-        assert(b != 0);
+        assert(b > 0);
         m = a, n = b;
         upd(m, n);
     }
@@ -88,10 +89,17 @@ public:
     }
 };
 
+int t;
+
+void solve() {
+
+}
+
 int main() {
-    frac a (1, 2), b (2, 3), c (0, 1), d (-2, 4), e (6, 3);
-    cout << a << " " << b << " " << c << " " << d << " " << e << "\n";
-    cout << a + b << " " << a * b << " " << a / b << "\n";
-    cout << c * d << " " << c + e << "\n";
-    cout << pow(d, 9) << " " << pow(d, -9) << "\n";
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> t;
+    while (t--)
+        solve();
+    return 0;
 }

@@ -127,8 +127,7 @@ public:
     }
     friend matrix pow(const matrix& a, int e) {
         assert(a.m == a.n);
-        matrix res = I(a.m);
-        matrix b (a.data);
+        matrix res = I(a.m), b = a;
         while (e) {
             if (e % 2) res = res * b;
             e /= 2;

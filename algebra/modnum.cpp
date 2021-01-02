@@ -9,14 +9,11 @@ struct modnum {
     modnum() : v(0) {}
     modnum(int64_t v_) : v(int(v_ % MOD)) {}
     explicit operator int() const { return v; }
-    friend ostream& operator << (ostream& o, const modnum& m) {
-        return o << int(m);
+    friend ostream& operator << (ostream& os, const modnum& m) {
+        return os << int(m);
     }
-    friend istream& operator >> (istream& i, const modnum& m) {
-        int64_t val;
-        i >> val;
-        m = modnum(val);
-        return i;
+    friend istream& operator >> (istream& is, modnum& m) {
+        return is >> m.v;
     }
     modnum& operator ++ () {
         ++v;
@@ -102,6 +99,9 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cin >> t;
+    num x;
+    cin >> x;
+    cout << x;
     while (t--)
         solve();
     return 0;

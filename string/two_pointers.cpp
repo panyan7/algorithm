@@ -17,11 +17,12 @@ void solve() {
             // Modify counter
         }
         while ( 0 /* valid */ ) {
+            // Update d if finding minimum
             if (mp[a[l++]]++ == 0) {
                 // Modify counter
             }
         }
-        // Update d
+        // Update d if finding maximum
     }
     cout << d << "\n";
 }

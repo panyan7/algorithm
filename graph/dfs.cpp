@@ -2,39 +2,40 @@
 using namespace std;
 
 int n = 100;
-vector<vector<int>> G;
-vector<bool> X (n, false);
-vector<bool> A (n, false);
+vector<vector<int>> adj;
+vector<bool> visited;
+vector<bool> ancestor (n, false);
 
 void dfs(int v) {
-    int n = G.size();
-    vector<int> s; s.push_back(v); X[v] = true;
+    stack<int> s;
+    s.push(v);
+    visited[v] = true;
     while (!s.empty()) {
-        int u = s.back();
-        s.pop_back();
-        for (auto w : G[u]) {
-            if (!X[w]) {
-                s.push_back(w);
-                X[w] = true;
+        int u = s.top();
+        s.pop();
+        for (auto w : adj[u]) {
+            if (!visited[w]) {
+                s.push(w);
+                visited[w] = true;
             }
         }
     }
 }
 
 void dfs_rec(int v) {
-    X[v] = true;
-    for (auto u : G[v]) {
-        if (!X[u]) dfs_rec(u);
-    }
+    visited[v] = true;
+    for (auto u : adj[v])
+        if (!visited[u])
+            dfs_rec(u);
 }
 
 bool dfs_cycle(int v) {
-    X[v] = true;
-    A[v] = true;
-    for (auto u : G[v]) {
-        if (!X[u] && !dfs_cycle(u)) return false;
-        else if (A[u]) return false;
+    visited[v] = true;
+    ancestor[v] = true;
+    for (auto u : adj[v]) {
+        if (!visited[u] && !dfs_cycle(u)) return false;
+        else if (ancestor[u]) return false;
     }
-    A[v] = false;
+    ancestor[v] = false;
     return true;
 }

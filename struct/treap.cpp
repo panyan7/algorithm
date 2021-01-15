@@ -1,38 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
+#define ll long long
+#define all(c) (c).begin(), (c).end()
 const int MOD = 1e9+7;
 
 template <typename T>
-struct node {
+struct Node {
     T key;
     int prior;
-    node<T> *l, *r;
-    node () {}
-    node (T k, int p) { key = k; prior = p; l = nullptr; r = nullptr; }
+    Node<T> *l, *r;
+    Node () {}
+    Node (T k, int p) { key = k; prior = p; l = nullptr; r = nullptr; }
 private:
-    typedef node * node_t;
+    typedef Node * Node_t;
 public:
-    friend bool operator > (const node& a, const node& b) { 
+    friend bool operator > (const Node& a, const Node& b) { 
         return a.key > b.key;
     }
-    friend bool operator < (const node& a, const node& b) {
+    friend bool operator < (const Node& a, const Node& b) {
         return a.key < b.key;
     }
-    friend bool operator == (const node& a, const node& b) {
+    friend bool operator == (const Node& a, const Node& b) {
         return a.key == b.key;
     }
-    friend ostream& operator << (ostream& o, const node& a) {
+    friend ostream& operator << (ostream& o, const Node& a) {
         o << a.key; return o;
     }
-    static void split(node_t t, T key, node_t low, node_t hi) {
+    static void split(Node_t t, T key, Node_t low, Node_t hi) {
         if (t == nullptr) low = hi = nullptr;
         else if (key < t->key)
             split(t->l, key, low, t->l), hi = t;
         else
             split(t->r, key, t->r, hi), low = t;
     }
-    static void insert(node_t& t, node_t it) {
+    static void insert(Node_t& t, Node_t it) {
         if (t == nullptr)
             t = it;
         else if (it->prior > t->prior)
@@ -40,7 +41,7 @@ public:
         else
             insert(it->key < t->key ? t->l : t->r, it);
     }
-    static void merge(node_t& t, node_t l, node_t r) {
+    static void merge(Node_t& t, Node_t l, Node_t r) {
         if (!l || !r)
             t = l ? l : r;
         else if (l->prior > r->prior)
@@ -48,86 +49,86 @@ public:
         else
             merge(r->l, l, r->l), t = r;
     }
-    static void erase(node_t& t, T key) {
+    static void erase(Node_t& t, T key) {
         if (t->key == key) {
-            node_t th = t;
+            Node_t th = t;
             merge(t, t->l, t->r);
             delete th;
         } else {
             erase(key < t->key ? t->l : t->r, key);
         }
     }
-    static node_t unite(node_t l, node_t r) {
+    static Node_t unite(Node_t l, Node_t r) {
         if (!l || !r) return l ? l : r;
         if (l->prior < r->prior) swap(l, r);
-        node_t lt, rt;
+        Node_t lt, rt;
         split(r, l->key, lt, rt);
         l->l = unite(l->l, lt);
         l->r = unite(l->r, rt);
         return l;
     }
 };
-
 template <typename T>
-struct treap {
-    node<T> *root;
-    treap () { root = nullptr; }
-    treap (T d, int p) { root = new node<T> (d, p); }
-    treap (node<T> *n) { root = n; }
+struct Treap {
+    Node<T> *root;
+    Treap () { root = nullptr; }
+    Treap (T d, int p) { root = new Node<T> (d, p); }
+    Treap (Node<T> *n) { root = n; }
 public:
-    explicit operator node<T>() { return *root; }
+    explicit operator Node<T>() { return *root; }
     // Overload operator
-    friend bool operator < (const treap& a, const treap& b) {
+    friend bool operator < (const Treap& a, const Treap& b) {
         return *a.root < *b.root;
     }
-    friend bool operator > (const treap& a, const treap& b) {
+    friend bool operator > (const Treap& a, const Treap& b) {
         return *a.root > *b.root;
     }
-    friend bool operator == (const treap& a, const treap& b) {
+    friend bool operator == (const Treap& a, const Treap& b) {
         return *a.root == *b.root;
     }
-    friend ostream& operator << (ostream& o, const treap& a) {
+    friend ostream& operator << (ostream& o, const Treap& a) {
         o << *a.root; return o;
     }
     // Access variables
     T key() { assert(root != nullptr); return root->key; }
     int priority () { assert(root != nullptr); return root->prior; }
-    treap l() const { assert(root != nullptr); return treap(root->l); }
-    treap r() const { assert(root != nullptr); return treap(root->r); }
+    Treap l() const { assert(root != nullptr); return Treap(root->l); }
+    Treap r() const { assert(root != nullptr); return Treap(root->r); }
     // Functions
-    treap split(int key, treap& low, treap& hi) {
-        node<T>::split(root, key, low.root, hi.root);
+    Treap split(int key, Treap& low, Treap& hi) {
+        Node<T>::split(root, key, low.root, hi.root);
         return *this;
     }
-    treap insert(treap& it) {
-        node<T>::insert(root, it.root);
+    Treap insert(Treap& it) {
+        Node<T>::insert(root, it.root);
         return *this;
     }
-    treap merge(treap& l, treap& r) {
-        node<T>::merge(root, l.root, r.root);
+    Treap merge(Treap& l, Treap& r) {
+        Node<T>::merge(root, l.root, r.root);
         return *this;
     }
-    treap erase(T key) {
-        node<T>::erase(root, key);
+    Treap erase(T key) {
+        Node<T>::erase(root, key);
         return *this;
     }
-    static treap unite(treap& l, treap& r) {
-        node<T> *res = node<T>::unite(l.root, r.root);
-        return treap(res);
+    static Treap unite(Treap& l, Treap& r) {
+        Node<T> *res = Node<T>::unite(l.root, r.root);
+        return Treap(res);
     }
 };
 
 int t;
 
+void solve() {
+
+}
+
 int main() {
-    treap<int> t1 (1,1), t2 (2,0), t3 (3,2);
-    cout << t1.key() << " " << t2.key() << endl;
-    t1.insert(t2);
-    t1.erase(1);
-    t1.merge(t2, t3);
-    treap<int> t4 = treap<int>::unite(t2, t3);
-    cout << t1.key() << endl;
-    cout << t1.l().key() << endl;
-    cout << t4 << t4.l() << endl;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> t;
+    while (t--) {
+        solve();
+    }
     return 0;
 }

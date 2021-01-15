@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define all(c) (c).begin(), (c).end()
 
 struct RMQ {
     vector<vector<int>> spt;
@@ -33,3 +35,19 @@ public:
         else return max(spt[k][i], spt[k][j-(i<<k)+1]);
     }
 };
+
+int t, n;
+
+void solve() {
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}

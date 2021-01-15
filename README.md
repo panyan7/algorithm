@@ -17,7 +17,6 @@ In directory `graph/`:
 - Floyd-Warshall algorithm `floyd_warshall.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
 - Kruskal's algorithm (MST) `kruskal.cpp`
-- Lowest common ancestor `lca.cpp`
 - Prim's algorithm (MST) `prim.cpp`
 - Union find `union_find.cpp`
 
@@ -38,5 +37,7 @@ In directory `string/`
 
 ### Data Structures
 In directory `struct/`
+- Lowest common ancestor `lca.cpp`
+- Range minimum query `rmq.cpp`
 - Segment tree `segment_tree.cpp`
 - Treap `treap.cpp`

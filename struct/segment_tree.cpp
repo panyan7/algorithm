@@ -1,19 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-const int MAXN = 10000;
-
-int n;
-vector<int> x;
+#define ll long long
 
 template<typename T>
-struct segtree {
+struct SegTree {
     int n;
-    vector<T> t, a;
+    vector<T> t;
 private:
-    void build(int v, int tl, int tr) {
+    void build(int v, int tl, int tr, vector<int>& arr) {
         if (tl == tr) {
-            t[v] = a[tl];
+            t[v] = arr[tl];
         } else {
             int m = tl + (tr-tl)/2;
             build(v*2, tl, m);
@@ -22,11 +18,9 @@ private:
         }
     }
 public:
-    segtree (vector<T>& b) {
-        a = b;
-        int n = a.size();
+    SegTree (vector<T>& arr) : n((int)arr.size()) {
         t = vector<T> (4*n);
-        build(1, 0, n-1);
+        build(1, 0, n-1, arr);
     }
     int sum(int v, int tl, int tr, int l, int r) {
         if (l > r) return 0;
@@ -47,3 +41,18 @@ public:
     }
 };
 
+int n, t;
+
+void solve() {
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}

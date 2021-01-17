@@ -6,15 +6,17 @@ const int INF = 1e9; // Large value, INT_MAX may cause overflow
 vector<vector<pii>> adj;
 vector<int> dist;
 
-void dijkstra(int s) {
+void dijkstra(vector<int>& source) {
     /**
      * Single-source Djikstra's algorithm with priority queue.
      **/
     int n = adj.size();
     dist.assign(n, INF);
     priority_queue<pii, vector<pii>, greater<pii>> pq;
-    pq.push({0, s});
-    dist[s] = 0;
+    for (int s : source) {
+        pq.push({0, s});
+        dist[s] = 0;
+    }
     while (!pq.empty()) {
         int d = pq.top().first;
         int v = pq.top().second;

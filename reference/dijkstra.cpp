@@ -1,6 +1,6 @@
 /**
  *  Reference solution using Dijkstra's Algorithm and Union Find
- *  Codeforces 312183 F "Cheap Robot"
+ *  Codeforces 1253 F "Cheap Robot"
  *  https://codeforces.com/problemset/problem/1253/F
  */
 #include <bits/stdc++.h>

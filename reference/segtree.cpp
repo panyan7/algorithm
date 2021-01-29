@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using Segment Tree
+ *  Codeforces 1478 E "Nezzar and Binary String"
+ *  https://codeforces.com/problemset/problem/1478/E
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -78,6 +83,42 @@ public:
 int t = 1, n, m, k, q;
 
 void solve() {
+    cin >> n >> q;
+    string s, f;
+    cin >> s;
+    cin >> f;
+    vector<int> a (n, 0);
+    for (int i = 0; i < n; ++i) {
+        if (f[i] == '1')
+            a[i] = 1;
+    }
+    SegTree<int> st (a);
+    vector<int> lx (q, 0);
+    vector<int> rx (q, 0);
+    for (int i = 0; i < q; ++i) {
+        cin >> lx[i] >> rx[i];
+        --lx[i], --rx[i];
+    }
+    for (int i = q-1; i >= 0; --i) {
+        int l = lx[i], r = rx[i];
+        int cnt = st.sum(l, r);
+        if (cnt * 2 > r-l+1)
+            st.update(1, l, r);
+        else if (cnt * 2 < r-l+1)
+            st.update(0, l, r);
+        else {
+            cout << "NO\n";
+            return;
+        }
+    }
+    int cnt = 0;
+    for (int i = 0; i < n; ++i) {
+        if (st.get(i) != (int)(s[i]-'0')) {
+            cout << "NO\n";
+            return;
+        }
+    }
+    cout << "YES\n";
 }
 
 int main() {
@@ -89,3 +130,4 @@ int main() {
     }
     return 0;
 }
+

@@ -1,8 +1,8 @@
-/*
-    Reference Solution using Range Minimun Query
-    Codeforces 1473 D "Program"
-    https://codeforces.com/contest/1473/problem/D
-*/
+/**
+ *  Reference Solution using Range Minimun Query
+ *  Codeforces 1473 D "Program"
+ *  https://codeforces.com/problemset/problem/1473/D
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

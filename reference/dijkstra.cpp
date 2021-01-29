@@ -1,7 +1,7 @@
 /**
  *  Reference solution using Dijkstra's Algorithm and Union Find
  *  Codeforces 312183 F "Cheap Robot"
- *  https://codeforces.com/group/epfzOGHwGd/contest/312183/problem/F
+ *  https://codeforces.com/problemset/problem/1253/F
  */
 #include <bits/stdc++.h>
 using namespace std;

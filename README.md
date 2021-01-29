@@ -1,9 +1,11 @@
 # Algorithms
-A collection of useful algorithms for competitive programming and coding interview. Currently, all algorithms are implemented in C++. Implementation in functional programming languages will be added in the future.
+A collection of useful algorithms for competitive programming and coding interview. All algorithms are implemented in C++.
+
+I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
 
 Author: Elvis Pan
 
-Email: ypan2 \[at\] andrew \[dot\] cmu \[dot\] edu
+Email: ypan2 [at] andrew [dot] cmu [dot] edu
 
 ## Full List of Algorithms
 
@@ -39,5 +41,6 @@ In directory `string/`
 In directory `struct/`
 - Lowest common ancestor `lca.cpp`
 - Range minimum query `rmq.cpp`
-- Segment tree `segment_tree.cpp`
+- Segment tree with range assignment query and range sum query `segtree.cpp`
+- Segment tree with range add query and range maximum query `segtree_add.cpp`
 - Treap `treap.cpp`

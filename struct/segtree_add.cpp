@@ -4,65 +4,65 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t, int64_t>
 
-/* Segment tree with range assignment query and range sum query */
+/* Segment tree with range add query and range maximum query */
 template<typename T>
 struct SegTree {
     int n;
+    const int NEG_INF = -1e9;
     vector<T> tree;
-    vector<bool> mark;
+    vector<T> add;
     SegTree (vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
-        mark.assign(4*n, false);
+        add.assign(4*n, 0);
         build(a, 1, 0, n-1);
     }
 private:
     void build(vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
             tree[v] = a[tl];
-            mark[v] = true;
         } else {
             int tmid = tl + (tr - tl) / 2;
             build(a, v*2, tl, tmid);
             build(a, v*2+1, tmid+1, tr);
-            tree[v] = 0;
+            tree[v] = max(tree[v*2], tree[v*2+1]);
         }
     }
     void push(int v) {
-        if (mark[v]) {
-            tree[v*2] = tree[v*2+1] = tree[v];
-            mark[v*2] = mark[v*2+1] = true;
-            mark[v] = false;
-        }
+        tree[v*2  ] += add[v];
+        tree[v*2+1] += add[v];
+        add[v*2  ] += add[v];
+        add[v*2+1] += add[v];
+        add[v] = 0;
     }
     void _update(int v, int tl, int tr, int l, int r, T val) {
         if (l > r)
             return;
         if (l == tl && r == tr) {
-            tree[v] = val;
-            mark[v] = true;
+            tree[v] += val;
+            add[v] += val;
             return;
         }
         push(v);
         int tmid = tl + (tr - tl) / 2;
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
+        tree[v] = max(tree[v*2], tree[v*2+1]);
     }
     T _query(int v, int tl, int tr, int l, int r) {
-        if (l > r || tr < l || tl > r)
-            return 0;
-        if (mark[v] && tr >= r && tl <= l)
-            return tree[v] * (r-l+1);
+        assert(v < 4*n);
+        if (l > r)
+            return NEG_INF;
+        if (l <= tl && r >= tr)
+            return tree[v];
+        push(v);
         int tmid = tl + (tr - tl) / 2;
-        return _query(v*2, tl, tmid, l, min(r, tmid)) +
-               _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
+        return max(_query(v*2, tl, tmid, l, min(r, tmid)),
+                   _query(v*2+1, tmid+1, tr, max(l, tmid+1), r));
     }
     T _get(int v, int tl, int tr, int pos) {
         if (tl == tr)
             return tree[v];
-        if (mark[v]) {
-            // push(v); /* Optional */
-            return tree[v];
-        }
+        push(v);
         int tmid = tl + (tr - tl) / 2;
         if (pos <= tmid)
             return _get(v*2, tl, tmid, pos);

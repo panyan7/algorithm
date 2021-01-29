@@ -38,7 +38,6 @@ public:
 int t, n, m;
 
 void solve() {
-
 }
 
 int main() {

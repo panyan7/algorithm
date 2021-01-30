@@ -10,6 +10,12 @@ struct SegTree {
     int n;
     vector<T> tree;
     vector<bool> mark;
+    SegTree (int n_) : n(n_) {
+        tree.assign(4*n, 0);
+        mark.assign(4*n, false);
+        vector<T> a (n, 0);
+        build(a, 1, 0, n-1);
+    }
     SegTree (vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
         mark.assign(4*n, false);
@@ -20,12 +26,12 @@ private:
         if (tl == tr) {
             tree[v] = a[tl];
             mark[v] = true;
-        } else {
-            int tmid = tl + (tr - tl) / 2;
-            build(a, v*2, tl, tmid);
-            build(a, v*2+1, tmid+1, tr);
-            tree[v] = 0;
+            return;
         }
+        int tmid = tl + (tr - tl) / 2;
+        build(a, v*2, tl, tmid);
+        build(a, v*2+1, tmid+1, tr);
+        tree[v] = 0;
     }
     void push(int v) {
         if (mark[v]) {
@@ -57,12 +63,8 @@ private:
                _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
     }
     T _get(int v, int tl, int tr, int pos) {
-        if (tl == tr)
+        if (tl == tr || mark[v])
             return tree[v];
-        if (mark[v]) {
-            // push(v); /* Optional */
-            return tree[v];
-        }
         int tmid = tl + (tr - tl) / 2;
         if (pos <= tmid)
             return _get(v*2, tl, tmid, pos);

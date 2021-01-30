@@ -11,6 +11,12 @@ struct SegTree {
     const int NEG_INF = -1e9;
     vector<T> tree;
     vector<T> add;
+    SegTree (int n_) : n(n_) {
+        tree.assign(4*n, 0);
+        add.assign(4*n, 0);
+        vector<T> a (n, 0);
+        build(a, 1, 0, n-1);
+    }
     SegTree (vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
         add.assign(4*n, 0);
@@ -20,12 +26,12 @@ private:
     void build(vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
             tree[v] = a[tl];
-        } else {
-            int tmid = tl + (tr - tl) / 2;
-            build(a, v*2, tl, tmid);
-            build(a, v*2+1, tmid+1, tr);
-            tree[v] = max(tree[v*2], tree[v*2+1]);
+            return;
         }
+        int tmid = tl + (tr - tl) / 2;
+        build(a, v*2, tl, tmid);
+        build(a, v*2+1, tmid+1, tr);
+        tree[v] = max(tree[v*2], tree[v*2+1]);
     }
     void push(int v) {
         tree[v*2  ] += add[v];

@@ -1,20 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define pii pair<int,int>
+#define pll pair<int64_t,int64_t>
+#define read(a) for (auto& x : a) cin >> x
+#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
-template <typename T> 
+template<typename T> 
 struct Matrix {
     int m, n;
     vector<vector<T>> data;
-    Matrix(size_t x, size_t y) {
+    Matrix (size_t x, size_t y) {
         m = x, n = y;
         data.assign(m, vector<T> (n, (T)0));
     }
-    Matrix(size_t x, size_t y, T val) {
+    Matrix (size_t x, size_t y, T val) {
         m = x, n = y;
         data.assign(m, vector<T> (n, val));
     }
-    Matrix(vector<vector<T>> a) {
+    Matrix (const vector<vector<T>>& a) {
         m = a.size(), n = a[0].size();
         data = a;
     }
@@ -103,16 +107,16 @@ public:
     friend Matrix operator - (const Matrix& a, const Matrix& b) {
         return Matrix(a) -= b;
     }
-    friend Matrix operator + (const Matrix& a, const int c) {
+    friend Matrix operator + (const Matrix& a, int c) {
         return Matrix(a) += c;
     }
-    friend Matrix operator - (const Matrix& a, const int c) {
+    friend Matrix operator - (const Matrix& a, int c) {
         return Matrix(a) -= c;
     }
-    friend Matrix operator * (const Matrix& a, const int c) {
+    friend Matrix operator * (const Matrix& a, int c) {
         return Matrix(a) *= c;
     }
-    friend Matrix operator / (const Matrix& a, const int c) {
+    friend Matrix operator / (const Matrix& a, int c) {
         return Matrix(a) /= c;
     }
     friend Matrix operator * (const Matrix& a, const Matrix& b) {
@@ -136,6 +140,7 @@ public:
     }
 };
 
+typedef Matrix<int> mat;
 int t;
 
 void solve() {

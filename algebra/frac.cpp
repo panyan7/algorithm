@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define pii pair<int,int>
+#define pll pair<int64_t,int64_t>
+#define read(a) for (auto& x : a) cin >> x
+#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
 struct Fraction {
     int64_t m, n;

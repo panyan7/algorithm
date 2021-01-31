@@ -2,7 +2,9 @@
 using namespace std;
 #define ll long long
 #define pii pair<int,int>
-#define pll pair<int64_t, int64_t>
+#define pll pair<int64_t,int64_t>
+#define read(a) for (auto& x : a) cin >> x
+#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
 /* Segment tree with range assignment query and range sum query */
 template<typename T>
@@ -14,26 +16,26 @@ struct SegTree {
         tree.assign(4*n, 0);
         mark.assign(4*n, false);
         vector<T> a (n, 0);
-        build(a, 1, 0, n-1);
+        _build(a, 1, 0, n-1);
     }
-    SegTree (vector<T>& a) : n(a.size()) {
+    SegTree (const vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
         mark.assign(4*n, false);
-        build(a, 1, 0, n-1);
+        _build(a, 1, 0, n-1);
     }
 private:
-    void build(vector<T>& a, int v, int tl, int tr) {
+    void _build(const vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
             tree[v] = a[tl];
             mark[v] = true;
             return;
         }
         int tmid = tl + (tr - tl) / 2;
-        build(a, v*2, tl, tmid);
-        build(a, v*2+1, tmid+1, tr);
+        _build(a, v*2, tl, tmid);
+        _build(a, v*2+1, tmid+1, tr);
         tree[v] = 0;
     }
-    void push(int v) {
+    void _push(int v) {
         if (mark[v]) {
             tree[v*2] = tree[v*2+1] = tree[v];
             mark[v*2] = mark[v*2+1] = true;
@@ -48,7 +50,7 @@ private:
             mark[v] = true;
             return;
         }
-        push(v);
+        _push(v);
         int tmid = tl + (tr - tl) / 2;
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
@@ -72,16 +74,17 @@ private:
             return _get(v*2+1, tmid+1, tr, pos);
     }
 public:
-    friend ostream& operator << (ostream& os, SegTree& st) {
+    friend ostream& operator << (ostream& os, const SegTree& st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");
         return os;
     }
+    void build(const vector<T>& a)   { _build(a, 1, 0, n-1); }
     void update(T val, int l, int r) { _update(1, 0, n-1, l,   r,   val); }
     void update(T val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
-    T query(int l, int r) { return _query(1, 0, n-1, l, r); }
-    T get(int pos)      { return _get(1, 0, n-1, pos);  }
-    T operator [] (int pos) { return get(pos); }
+    T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
+    T get(int pos)                   { return _get(1, 0, n-1, pos);  }
+    T operator [] (int pos)          { return get(pos); }
 };
 
 int t = 1, n, m, k, q;

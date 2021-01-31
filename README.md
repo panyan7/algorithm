@@ -9,23 +9,30 @@ Email: ypan2 [at] andrew [dot] cmu [dot] edu
 
 ## Full List of Algorithms
 
+### Algebra
+In directory `algebra/`
+- Fraction as pair of integers `frac.cpp`
+- Matrix with efficient multiplication and exponentiation `matrix.cpp`
+- Modular number with exponentiation and inverse `modnum.cpp`
+
+### Geometry
+In directory `geometry/`
+- Basic geometry operations `basic.cpp`
+
 ### Graph Theory
-In directory `graph/`:
+In directory `graph/`
 - Bellman-Ford algorithm `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Bridge finding `bridge.cpp`
+- Cycle detection (DFS) `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
 - Floyd-Warshall algorithm `floyd_warshall.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
 - Kruskal's algorithm (MST) `kruskal.cpp`
 - Prim's algorithm (MST) `prim.cpp`
+- Topological sorting (DFS) `toposort.cpp`
 - Union find `union_find.cpp`
-
-### Algebra
-In directory `algebra/`
-- Matrix with efficient multiplication and exponentiation `matrix.cpp`
-- Modular number with exponentiation and inverse `modnum.cpp`
 
 ### Optimization
 In directory `optim/`

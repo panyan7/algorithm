@@ -3,8 +3,6 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
 struct Fraction {
     int64_t m, n;
@@ -19,9 +17,9 @@ private:
         a /= g, b /= g;
     }
 public:
-    Fraction () : m(0), n(1) {}
-    Fraction (int64_t a) : m(a), n(1) {}
-    Fraction (int64_t a, int64_t b) {
+    Fraction() : m(0), n(1) {}
+    Fraction(int64_t a) : m(a), n(1) {}
+    Fraction(int64_t a, int64_t b) {
         assert(b > 0);
         m = a, n = b;
         upd(m, n);
@@ -29,18 +27,18 @@ public:
     explicit operator int () const { return int(m / n); }
     explicit operator int64_t () const { return m / n; }
     explicit operator double () const { return double(m) / double(n); }
-    friend ostream& operator << (ostream& os, const Fraction& x) {
+    friend ostream& operator<<(ostream& os, const Fraction& x) {
         if (x.m == 0) return os << 0;
         if (x.n == 1) return os << x.m;
         return os << x.m << "/" << x.n;
     }
-    friend istream& operator >> (istream& is, Fraction& x) {
+    friend istream& operator>>(istream& is, Fraction& x) {
         return is >> x.m >> x.n;
     }
-    friend bool operator == (const Fraction& a, const Fraction& b) {
+    friend bool operator==(const Fraction& a, const Fraction& b) {
         return a.m == b.m && a.n == b.n;
     }
-    friend bool operator != (const Fraction& a, const Fraction& b) {
+    friend bool operator!=(const Fraction& a, const Fraction& b) {
         return !(a == b);
     }
     Fraction neg() const { return Fraction(-m, n); }
@@ -48,36 +46,34 @@ public:
         assert(m != 0);
         return m < 0 ? Fraction(-n, -m) : Fraction(n, m);
     }
-    Fraction& operator ++ () { m += n; return *this; }
-    Fraction& operator -- () { m -= n; return *this; }
-    Fraction& operator += (const Fraction& o) {
+    Fraction& operator++() { m += n; return *this; }
+    Fraction& operator--() { m -= n; return *this; }
+    Fraction& operator+=(const Fraction& o) {
         int64_t g = gcd(n, o.n);
         m = m * (o.n / g) + o.m * (n / g);
         n *= (o.n / g);
         upd(m, n);
         return *this;
     }
-    Fraction& operator -= (const Fraction& o) {
-        return *this += o.neg();
-    }
-    Fraction& operator *= (const Fraction& o) {
+    Fraction& operator-=(const Fraction& o) { return *this += o.neg(); }
+    Fraction& operator*=(const Fraction& o) {
         m *= o.m, n *= o.n;
         upd(m, n);
         return *this;
     }
-    Fraction& operator /= (const Fraction& o) {
+    Fraction& operator/=(const Fraction& o) {
         return *this *= o.inv();
     }
-    friend Fraction operator + (const Fraction& a, const Fraction& b) {
+    friend Fraction operator+(const Fraction& a, const Fraction& b) {
         return Fraction(a) += b;
     }
-    friend Fraction operator - (const Fraction& a, const Fraction& b) {
+    friend Fraction operator-(const Fraction& a, const Fraction& b) {
         return Fraction(a) -= b;
     }
-    friend Fraction operator * (const Fraction& a, const Fraction& b) {
+    friend Fraction operator*(const Fraction& a, const Fraction& b) {
         return Fraction(a) *= b;
     }
-    friend Fraction operator / (const Fraction& a, const Fraction& b) {
+    friend Fraction operator/(const Fraction& a, const Fraction& b) {
         return Fraction(a) /= b;
     }
     friend Fraction pow(const Fraction& a, int e) {
@@ -92,10 +88,9 @@ public:
     }
 };
 
-int t;
+int t = 1, n, m, k, q;
 
 void solve() {
-
 }
 
 int main() {

@@ -3,16 +3,14 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
-template<typename T>
+template <typename T>
 struct RMQ {
     vector<vector<T>> spt;
     int n, lim;
     bool rev;
-    RMQ (const vector<T>& a) : rev(false) { _build(a); }
-    RMQ (const vector<T>& a, bool reversed) : rev(reversed) { _build(a); }
+    RMQ(const vector<T>& a) : rev(false) { _build(a); }
+    RMQ(const vector<T>& a, bool reversed) : rev(reversed) { _build(a); }
 private:
     void _build (const vector<T>& a) {
         n = a.size();
@@ -28,14 +26,14 @@ private:
         }
     }
 public:
-    T query(const int i, const int j) {
+    T query(int i, int j) const {
         int k = floor(log2(j-i+1));
         if (!rev) return min(spt[k][i], spt[k][j-(1<<k)+1]);
         else      return max(spt[k][i], spt[k][j-(1<<k)+1]);
     }
 };
 
-int t, n, m;
+int t = 1, n, m, k, q;
 
 void solve() {
 }

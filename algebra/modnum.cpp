@@ -3,8 +3,6 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
 template <int MOD>
 struct ModNum {
@@ -12,28 +10,28 @@ struct ModNum {
     ModNum() : v(0) {}
     ModNum(int64_t v_) : v(int(v_ % MOD)) {}
     explicit operator int() const { return v; }
-    friend ostream& operator << (ostream& os, const ModNum& m) {
+    friend ostream& operator<<(ostream& os, const ModNum& m) {
         return os << int(m);
     }
-    friend istream& operator >> (istream& is, ModNum& m) {
+    friend istream& operator>>(istream& is, ModNum& m) {
         return is >> m.v;
     }
-    ModNum& operator ++ () {
+    ModNum& operator++() {
         ++v;
         if (v == MOD) v = 0;
         return *this;
     }
-    ModNum operator ++ (int) {
+    ModNum operator++(int) {
         ModNum r = *this;
         ++*this;
         return r;
     }
-    ModNum& operator -- () {
+    ModNum& operator--() {
         --v;
         if (v == MOD) v = 0;
         return *this;
     }
-    ModNum operator -- (int) {
+    ModNum operator--(int) {
         ModNum r = *this;
         --*this;
         return r;
@@ -51,33 +49,33 @@ private:
     }
 public:
     ModNum inv() const { assert(v); return ModNum(minv(v, MOD)); }
-    ModNum& operator += (const ModNum& o) {
+    ModNum& operator+=(const ModNum& o) {
         v -= MOD - o.v;
         v = (v < 0 ? v + MOD : v);
         return *this;
     }
-    ModNum& operator -= (const ModNum& o) {
+    ModNum& operator-=(const ModNum& o) {
         v -= o.v;
         v = (v < 0 ? v + MOD : v);
         return *this;
     }
-    ModNum& operator *= (const ModNum& o) {
+    ModNum& operator*=(const ModNum& o) {
         v = int(int64_t(v) * int64_t(o.v) % MOD);
         return *this;
     }
-    ModNum& operator /= (const ModNum& o) {
+    ModNum& operator/=(const ModNum& o) {
         return *this *= o.inv();
     }
-    friend ModNum operator + (const ModNum& a, const ModNum& b) {
+    friend ModNum operator+(const ModNum& a, const ModNum& b) {
         return ModNum(a) += b;
     }
-    friend ModNum operator - (const ModNum& a, const ModNum& b) {
+    friend ModNum operator-(const ModNum& a, const ModNum& b) {
         return ModNum(a) -= b;
     }
-    friend ModNum operator * (const ModNum& a, const ModNum& b) {
+    friend ModNum operator*(const ModNum& a, const ModNum& b) {
         return ModNum(a) *= b;
     }
-    friend ModNum operator / (const ModNum& a, const ModNum& b) {
+    friend ModNum operator/(const ModNum& a, const ModNum& b) {
         return ModNum(a) /= b;
     }
     friend ModNum pow(const ModNum& a, int e) {
@@ -92,11 +90,10 @@ public:
 };
 
 const int MOD = 1e9+7;
-typedef ModNum<MOD> num;
-int t, n;
+using num = ModNum<MOD>;
+int t = 1, n, m, k, q;
 
 void solve() {
-
 }
 
 int main() {

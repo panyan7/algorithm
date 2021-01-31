@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define all(c) (c).begin(), (c).end()
-const int MOD = 1e9+7;
+#define pii pair<int,int>
+#define pll pair<int64_t,int64_t>
 
 template <typename T>
 struct Node {
     T key;
     int prior;
     Node<T> *l, *r;
-    Node () {}
-    Node (T k, int p) { key = k; prior = p; l = nullptr; r = nullptr; }
+    Node() : key(0), prior(0), l(nullptr), r(nullptr) {}
+    Node(T k, int p) : key(k), prior(p), l(nullptr), r(nullptr) {}
 private:
-    typedef Node * Node_t;
+    using Node_t = Node *;
 public:
     friend bool operator > (const Node& a, const Node& b) { 
         return a.key > b.key;
@@ -71,9 +71,9 @@ public:
 template <typename T>
 struct Treap {
     Node<T> *root;
-    Treap () { root = nullptr; }
-    Treap (T d, int p) { root = new Node<T> (d, p); }
-    Treap (Node<T> *n) { root = n; }
+    Treap() { root = nullptr; }
+    Treap(T d, int p) { root = new Node<T> (d, p); }
+    Treap(Node<T> *n) { root = n; }
 public:
     explicit operator Node<T>() { return *root; }
     // Overload operator
@@ -117,7 +117,7 @@ public:
     }
 };
 
-int t;
+int t = 1, n, m, k, q;
 
 void solve() {
 

@@ -3,123 +3,116 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
-template<typename T> 
+template <typename T> 
 struct Matrix {
     int m, n;
     vector<vector<T>> data;
-    Matrix (size_t x, size_t y) {
-        m = x, n = y;
-        data.assign(m, vector<T> (n, (T)0));
+    Matrix(int x, int y) : m(x), n(y) {
+        data.assign(m, vector<T>(n, (T)0));
     }
-    Matrix (size_t x, size_t y, T val) {
-        m = x, n = y;
-        data.assign(m, vector<T> (n, val));
+    Matrix(int x, int y, T val) : m(x), n(y) {
+        data.assign(m, vector<T>(n, val));
     }
-    Matrix (const vector<vector<T>>& a) {
-        m = a.size(), n = a[0].size();
+    Matrix(const vector<vector<T>>& a) : m(a.size()), n(a[0].size()) {
         data = a;
     }
 public:
-    vector<T>& operator [] (size_t i) { return data[i]; }
+    vector<T>& operator [] (int i) { return data[i]; }
     int& operator [] (pair<int, int> id) { return data[id.first][id.second]; }
     friend Matrix& t(const Matrix& a) {
         // Transpose the Matrix
-        Matrix<T> res (a.n, a.m);
+        Matrix<T> res(a.n, a.m);
         for (int i = 0; i < a.m; ++i)
             for (int j = 0; j < a.n; ++j)
                 res[j][i] = a.data[i][j];
         return res;
     }
-    Matrix& resize(size_t x, size_t y, T val) {
+    Matrix& resize(int x, int y, T val) {
         m = x, n = y;
         data = vector<vector<T>> (x, vector<T> (y, val));
         return *this;
     }
-    static Matrix I(size_t n) {
-        Matrix res (n, n);
+    static Matrix I(int n) {
+        Matrix res(n, n);
         for (int i = 0; i < n; ++i) res[{i, i}] = 1;
         return res;
     }
-    static Matrix I(size_t n, T one) {
-        Matrix res (n, n);
+    static Matrix I(int n, T one) {
+        Matrix res(n, n);
         for (int i = 0; i < n; ++i) res[{i, i}] = one;
         return res;
     }
-    friend ostream& operator << (ostream& o, const Matrix& a) {
-        for (int i = 0; i < a.m; ++i) {
-            for (int j = 0; j < a.n; ++j) {
-                o << a.data[i][j];
-                o << (j == a.n-1 ? "\n" : " ");
-            }
-        }
-        return o;
+    friend ostream& operator<<(ostream& os, const Matrix& a) {
+        for (int i = 0; i < a.m; ++i)
+            for (int j = 0; j < a.n; ++j)
+                os << a.data[i][j] << (j+1 == a.n ? "\n" : " ");
+        return os;
     }
-    friend istream& operator >> (istream& i, const Matrix& a) {
-        size_t m, n; i >> m >> n;
+    friend istream& operator>>(istream& is, const Matrix& a) {
+        int m, n;
+        is >> m >> n;
         a = Matrix(m, n);
-        for (int k = 0; k < m; ++k)
+        for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
-                i >> a[k][j];
-        return i;
+                is >> a[i][j];
+        return is;
     }
-    Matrix& operator += (const Matrix& o) {
+    Matrix& operator+=(const Matrix& o) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] += o.data[i][j];
         return *this;
     }
-    Matrix& operator -= (const Matrix& o) {
+    Matrix& operator-=(const Matrix& o) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] -= o.data[i][j];
         return *this;
     }
-    Matrix& operator += (T c) {
+    Matrix& operator+=(T c) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] += c;
         return *this;
     }
-    Matrix& operator -= (T c) {
+    Matrix& operator-=(T c) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] -= c;
         return *this;
     }
-    Matrix& operator *= (int c) {
+    Matrix& operator*=(T c) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] *= c;
         return *this;
     }
-    Matrix& operator /= (int c) {
+    Matrix& operator/=(T c) {
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
                 data[i][j] /= c;
         return *this;
     }
-    friend Matrix operator + (const Matrix& a, const Matrix& b) {
+    friend Matrix operator+(const Matrix& a, const Matrix& b) {
         return Matrix(a) += b;
     }
-    friend Matrix operator - (const Matrix& a, const Matrix& b) {
+    friend Matrix operator-(const Matrix& a, const Matrix& b) {
         return Matrix(a) -= b;
     }
-    friend Matrix operator + (const Matrix& a, int c) {
+    friend Matrix operator+(const Matrix& a, T c) {
         return Matrix(a) += c;
     }
-    friend Matrix operator - (const Matrix& a, int c) {
+    friend Matrix operator-(const Matrix& a, T c) {
         return Matrix(a) -= c;
     }
-    friend Matrix operator * (const Matrix& a, int c) {
+    friend Matrix operator*(const Matrix& a, T c) {
         return Matrix(a) *= c;
     }
-    friend Matrix operator / (const Matrix& a, int c) {
+    friend Matrix operator/(const Matrix& a, T c) {
         return Matrix(a) /= c;
     }
-    friend Matrix operator * (const Matrix& a, const Matrix& b) {
+    friend Matrix operator*(const Matrix& a, const Matrix& b) {
         assert(a.n == b.m);
         Matrix prod (a.m, b.n);
         for (int i = 0; i < a.m; ++i)
@@ -140,11 +133,10 @@ public:
     }
 };
 
-typedef Matrix<int> mat;
-int t;
+using mat = Matrix<int>;
+int t = 1, n, m, k, q;
 
 void solve() {
-
 }
 
 int main() {

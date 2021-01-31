@@ -43,6 +43,7 @@ In directory `optim/`
 In directory `string/`
 - Aho-Corasick algorithm (string searching) `aho_corasick.cpp`
 - Knuth-Morris-Pratt (KMP) algorithm (string searching) `kmp.cpp`
+- Two-pointers general template `two_pointers.cpp`
 
 ### Data Structures
 In directory `struct/`

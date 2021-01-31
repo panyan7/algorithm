@@ -3,22 +3,20 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
 
 /* Segment tree with range assignment query and range sum query */
-template<typename T>
+template <typename T>
 struct SegTree {
     int n;
     vector<T> tree;
     vector<bool> mark;
-    SegTree (int n_) : n(n_) {
+    SegTree(int n_) : n(n_) {
         tree.assign(4*n, 0);
         mark.assign(4*n, false);
         vector<T> a (n, 0);
         _build(a, 1, 0, n-1);
     }
-    SegTree (const vector<T>& a) : n(a.size()) {
+    SegTree(const vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
         mark.assign(4*n, false);
         _build(a, 1, 0, n-1);
@@ -55,7 +53,7 @@ private:
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
     }
-    T _query(int v, int tl, int tr, int l, int r) {
+    T _query(int v, int tl, int tr, int l, int r) const {
         if (l > r || tr < l || tl > r)
             return 0;
         if (mark[v] && tr >= r && tl <= l)
@@ -64,7 +62,7 @@ private:
         return _query(v*2, tl, tmid, l, min(r, tmid)) +
                _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
     }
-    T _get(int v, int tl, int tr, int pos) {
+    T _get(int v, int tl, int tr, int pos) const {
         if (tl == tr || mark[v])
             return tree[v];
         int tmid = tl + (tr - tl) / 2;
@@ -74,7 +72,7 @@ private:
             return _get(v*2+1, tmid+1, tr, pos);
     }
 public:
-    friend ostream& operator << (ostream& os, const SegTree& st) {
+    friend ostream& operator<<(ostream& os, const SegTree& st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");
         return os;
@@ -84,7 +82,7 @@ public:
     void update(T val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
     T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos)                   { return _get(1, 0, n-1, pos);  }
-    T operator [] (int pos)          { return get(pos); }
+    T operator [](int pos)           { return get(pos); }
 };
 
 int t = 1, n, m, k, q;

@@ -4,32 +4,24 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-template <typename T>
-struct RMQ {
+template <typename T, class Compare = less<T>>
+class RMQ {
     vector<vector<T>> spt;
     int n, lim;
-    bool rev;
-    RMQ(const vector<T>& a) : rev(false) { _build(a); }
-    RMQ(const vector<T>& a, bool reversed) : rev(reversed) { _build(a); }
 private:
     void _build (const vector<T>& a) {
-        n = a.size();
-        lim = floor(log2(n)+1);
-        spt = vector<vector<T>> (lim+1, vector<T> (n, 0));
+        spt.assign(lim+1, vector<T> (n, 0));
         for (int i = 0; i < n; ++i)
             spt[0][i] = a[i];
-        for (int k = 1; k <= lim; ++k) {
-            for (int i = 0; i <= n-(1<<k); ++i) {
-                if (!rev) spt[k][i] = min(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
-                else      spt[k][i] = max(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
-            }
-        }
+        for (int k = 1; k <= lim; ++k)
+            for (int i = 0; i <= n-(1<<k); ++i)
+                spt[k][i] = Compare(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
     }
 public:
+    RMQ(const vector<T>& a) : n(a.size()), lim(floor(log2(n)+1)) { _build(a); }
     T query(int i, int j) const {
         int k = floor(log2(j-i+1));
-        if (!rev) return min(spt[k][i], spt[k][j-(1<<k)+1]);
-        else      return max(spt[k][i], spt[k][j-(1<<k)+1]);
+        return Compare(spt[k][i], spt[k][j-(1<<k)+1]);
     }
 };
 

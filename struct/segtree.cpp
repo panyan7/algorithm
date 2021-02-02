@@ -10,17 +10,6 @@ struct SegTree {
     int n;
     vector<T> tree;
     vector<bool> mark;
-    SegTree(int n_) : n(n_) {
-        tree.assign(4*n, 0);
-        mark.assign(4*n, false);
-        vector<T> a (n, 0);
-        _build(a, 1, 0, n-1);
-    }
-    SegTree(const vector<T>& a) : n(a.size()) {
-        tree.assign(4*n, 0);
-        mark.assign(4*n, false);
-        _build(a, 1, 0, n-1);
-    }
 private:
     void _build(const vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
@@ -72,6 +61,17 @@ private:
             return _get(v*2+1, tmid+1, tr, pos);
     }
 public:
+    SegTree(int n_) : n(n_) {
+        tree.assign(4*n, 0);
+        mark.assign(4*n, false);
+        vector<T> a (n, 0);
+        _build(a, 1, 0, n-1);
+    }
+    SegTree(const vector<T>& a) : n(a.size()) {
+        tree.assign(4*n, 0);
+        mark.assign(4*n, false);
+        _build(a, 1, 0, n-1);
+    }
     friend ostream& operator<<(ostream& os, const SegTree& st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");
@@ -82,7 +82,7 @@ public:
     void update(T val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
     T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos)                   { return _get(1, 0, n-1, pos);  }
-    T operator [](int pos)           { return get(pos); }
+    T operator[](int pos)            { return get(pos); }
 };
 
 int t = 1, n, m, k, q;

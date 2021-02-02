@@ -4,13 +4,10 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-struct LCA {
+class LCA {
     int n, lim;
     vector<vector<int>> anc;
     vector<int> level;
-    LCA(const vector<vector<int>>& adj) : n(adj.size()), lim(log(n)+1) {
-        _build(1, 0, adj);
-    }
 private:
     void _build(int v, int p, const vector<vector<int>>& adj) {
         level[v] = level[p] + 1;
@@ -22,7 +19,10 @@ private:
                 _build(u, v, adj);
     }
 public:
-    int query(int u, int v) {
+    LCA(const vector<vector<int>>& adj) : n(adj.size()), lim(log(n)+1) {
+        _build(1, 0, adj);
+    }
+    int query(int u, int v) const {
         if (level[u] > level[v])
             swap(u, v);
         for (int k = lim; k >= 0; --k)

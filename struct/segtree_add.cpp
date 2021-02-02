@@ -6,22 +6,11 @@ using namespace std;
 
 /* Segment tree with range add query and range maximum query */
 template <typename T>
-struct SegTree {
+class SegTree {
     int n;
     const int NEG_INF = -1e9;
     vector<T> tree;
     vector<T> add;
-    SegTree(int n_) : n(n_) {
-        tree.assign(4*n, 0);
-        add.assign(4*n, 0);
-        vector<T> a (n, 0);
-        _build(a, 1, 0, n-1);
-    }
-    SegTree(vector<T>& a) : n(a.size()) {
-        tree.assign(4*n, 0);
-        add.assign(4*n, 0);
-        _build(a, 1, 0, n-1);
-    }
 private:
     void _build(const vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
@@ -76,6 +65,17 @@ private:
             return _get(v*2+1, tmid+1, tr, pos);
     }
 public:
+    SegTree(int n_) : n(n_) {
+        tree.assign(4*n, 0);
+        add.assign(4*n, 0);
+        vector<T> a (n, 0);
+        _build(a, 1, 0, n-1);
+    }
+    SegTree(vector<T>& a) : n(a.size()) {
+        tree.assign(4*n, 0);
+        add.assign(4*n, 0);
+        _build(a, 1, 0, n-1);
+    }
     friend ostream& operator<<(ostream& os, const SegTree& st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");

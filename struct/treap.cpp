@@ -5,7 +5,7 @@ using namespace std;
 #define pll pair<int64_t,int64_t>
 
 template <typename T>
-struct Node {
+class Node {
     T key;
     int prior;
     Node<T> *l, *r;
@@ -69,7 +69,7 @@ public:
     }
 };
 template <typename T>
-struct Treap {
+class Treap {
     Node<T> *root;
     Treap() { root = nullptr; }
     Treap(T d, int p) { root = new Node<T> (d, p); }

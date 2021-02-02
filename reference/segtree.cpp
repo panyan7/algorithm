@@ -7,27 +7,22 @@
 using namespace std;
 #define ll long long
 #define pii pair<int,int>
-#define pll pair<int64_t, int64_t>
+#define pll pair<int64_t,int64_t>
 
-template<typename T>
-struct SegTree {
+template <typename T>
+class SegTree {
     int n;
     vector<T> tree;
     vector<bool> mark;
-    SegTree (vector<T>& a) : n(a.size()) {
-        tree.assign(4*n, 0);
-        mark.assign(4*n, false);
-        build(a, 1, 0, n-1);
-    }
 private:
-    void build(vector<T>& a, int v, int tl, int tr) {
+    void _build(const vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
             tree[v] = a[tl];
             mark[v] = true;
         } else {
             int tmid = tl + (tr - tl) / 2;
-            build(a, v*2, tl, tmid);
-            build(a, v*2+1, tmid+1, tr);
+            _build(a, v*2, tl, tmid);
+            _build(a, v*2+1, tmid+1, tr);
             tree[v] = 0;
         }
     }
@@ -69,15 +64,21 @@ private:
             return _get(v*2+1, tmid+1, tr, pos);
     }
 public:
-    friend ostream& operator << (ostream& os, SegTree st) {
+    SegTree(const vector<T>& a) {
+        tree.assign(4*n, 0);
+        mark.assign(4*n, false);
+        _build(a, 1, 0, n-1);
+    }
+    friend ostream& operator<<(ostream& os, SegTree st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");
         return os;
     }
     void update(int val, int l, int r) { _update(1, 0, n-1, l,   r,   val); }
     void update(int val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
-    T sum(int l, int r) { return _sum(1, 0, n-1, l, r); }
-    T get(int pos)      { return _get(1, 0, n-1, pos);  }
+    T sum(int l, int r)                { return _sum(1, 0, n-1, l, r); }
+    T get(int pos)                     { return _get(1, 0, n-1, pos);  }
+    T operator[](int pos)              { return get(pos); }
 };
 
 int t = 1, n, m, k, q;

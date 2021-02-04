@@ -11,10 +11,16 @@ struct ModNum {
     ModNum(int64_t v_) : v(int(v_ % MOD)) {}
     explicit operator int() const { return v; }
     friend ostream& operator<<(ostream& os, const ModNum& m) {
-        return os << int(m);
+        return os << m.v;
     }
     friend istream& operator>>(istream& is, ModNum& m) {
         return is >> m.v;
+    }
+    friend bool operator==(const ModNum& a, const ModNum& b) {
+        return a.v == b.v;
+    }
+    friend bool operator!=(const ModNum& a, const ModNum& b) {
+        return !(a == b);
     }
     ModNum& operator++() {
         ++v;
@@ -36,12 +42,7 @@ struct ModNum {
         --*this;
         return r;
     }
-    ModNum neg() const {
-        ModNum r = *this;
-        if (v == 0) r.v = MOD;
-        else r.v = MOD - v;
-        return r;
-    }
+    ModNum neg() const { return ModNum(v == 0 ? 0 : MOD - v); }
 private:
     static int minv(int a, int m) {
         if (a <= 1) return a;

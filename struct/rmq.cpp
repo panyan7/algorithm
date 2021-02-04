@@ -10,7 +10,7 @@ class RMQ {
     int n, lim;
 private:
     void _build (const vector<T>& a) {
-        spt.assign(lim+1, vector<T> (n, 0));
+        spt.assign(lim+1, vector<T>(n, 0));
         for (int i = 0; i < n; ++i)
             spt[0][i] = a[i];
         for (int k = 1; k <= lim; ++k)

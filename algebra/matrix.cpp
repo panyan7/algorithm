@@ -121,6 +121,18 @@ public:
                     prod[i][k] += a.data[i][j] * b.data[j][k];
         return prod;
     }
+    friend Matrix operator==(const Matrix& a, const Matrix& b) {
+        assert(a.n == b.n);
+        assert(a.m == b.m);
+        for (int i = 0; i < a.m; ++i)
+            for (int j = 0; j < a.n; ++j)
+                if (a[i][j] != b[i][j])
+                    return false;
+        return true;
+    }
+    friend Matrix operator!=(const Matrix& a, const Matrix& b) {
+        return !(a == b);
+    }
     friend Matrix pow(const Matrix& a, int e) {
         assert(a.m == a.n);
         Matrix res = I(a.m), b = a;

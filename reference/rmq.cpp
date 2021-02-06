@@ -8,35 +8,30 @@ using namespace std;
 #define ll long long
 #define all(c) (c).begin(), (c).end()
 
-struct RMQ {
-    vector<vector<int>> spt;
-    int size, maxk;
-    bool rev;
+template <typename T, class Compare = less<T>>
+class RMQ : private Compare {
+    vector<vector<T>> spt;
+    Compare compare;
+    int n, lim;
 private:
-    void build (const vector<int>& a) {
-        size = a.size();
-        maxk = floor(log2(size)+1);
-        spt = vector<vector<int>> (maxk+1, vector<int> (size, 0));
-        for (int i = 0; i < size; ++i)
+    const T& _compare(const T& a, const T& b) const {
+        return Compare::operator()(a, b) ? a : b;
+    }
+    void _build (const vector<T>& a) {
+        spt.assign(lim+1, vector<T>(n, 0));
+        for (int i = 0; i < n; ++i)
             spt[0][i] = a[i];
-        for (int k = 1; k <= maxk; ++k) {
-            for (int i = 0; i <= size-(1<<k); ++i) {
-                if (!rev) spt[k][i] = min(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
-                else      spt[k][i] = max(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
-            }
-        }
+        for (int k = 1; k <= lim; ++k)
+            for (int i = 0; i <= n-(1<<k); ++i)
+                spt[k][i] = _compare(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
     }
 public:
-    RMQ (const vector<int>& a) : rev(false) {
-        build(a);
-    }
-    RMQ (const vector<int>& a, bool r) : rev(r) {
-        build(a);
-    }
-    int query(const int i, const int j) {
+    RMQ(const vector<T>& a, const Compare& comp_ = Compare()) :
+        n(a.size()), lim(floor(log2(n)+1)), compare(comp_) { _build(a); }
+    T query(int i, int j) const {
         int k = floor(log2(j-i+1));
-        if (!rev) return min(spt[k][i], spt[k][j-(1<<k)+1]);
-        else      return max(spt[k][i], spt[k][j-(1<<k)+1]);
+        T res = _compare(spt[k][i], spt[k][j-(1<<k)+1]);
+        return res;
     }
 };
 
@@ -49,7 +44,8 @@ void solve() {
     vector<int> arr (n+1, 0);
     for (int i = 1; i <= n; ++i)
         arr[i] = arr[i-1] + (s[i-1] == '+' ? 1 : -1);
-    RMQ mn (arr), mx (arr, true);
+    RMQ<int> mn(arr);
+    RMQ<int, greater<int>> mx(arr);
     int l, r;
     for (int i = 0; i < m; ++i) {
         cin >> l >> r;

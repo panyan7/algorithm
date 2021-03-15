@@ -3,10 +3,6 @@ A collection of useful algorithms for competitive programming and coding intervi
 
 I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
 
-Author: Elvis Pan
-
-Email: ypan2 [at] andrew [dot] cmu [dot] edu
-
 ## Full List of Algorithms
 
 ### Algebra

@@ -4,44 +4,55 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-/* Segment tree with assignment query and range sum query */
+/* Segment tree with range assignment query and range sum query */
 template <typename T>
 struct SegTree {
     int n;
     vector<T> tree;
+    vector<bool> mark;
 private:
     void _build(const vector<T>& a, int v, int tl, int tr) {
         if (tl == tr) {
             tree[v] = a[tl];
+            mark[v] = true;
             return;
         }
         int tmid = tl + (tr - tl) / 2;
         _build(a, v*2, tl, tmid);
         _build(a, v*2+1, tmid+1, tr);
-        tree[v] = tree[v*2] + tree[v*2+1];
+        tree[v] = 0;
     }
-    void _update(int v, int tl, int tr, int pos, T val) {
-        if (tl > tr || pos > tr || pos < tl)
+    void _push(int v) {
+        if (mark[v]) {
+            tree[v*2] = tree[v*2+1] = tree[v];
+            mark[v*2] = mark[v*2+1] = true;
+            mark[v] = false;
+        }
+    }
+    void _update(int v, int tl, int tr, int l, int r, T val) {
+        if (l > r)
             return;
-        if (pos == tl && pos == tr) {
+        if (l == tl && r == tr) {
             tree[v] = val;
+            mark[v] = true;
             return;
         }
+        _push(v);
         int tmid = tl + (tr - tl) / 2;
-        _update(v*2, tl, tmid, pos, val);
-        _update(v*2+1, tmid+1, tr, pos, val);
+        _update(v*2, tl, tmid, l, min(r, tmid), val);
+        _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
     }
     T _query(int v, int tl, int tr, int l, int r) const {
         if (l > r || tr < l || tl > r)
             return 0;
-        if (tr <= r && tl >= l)
-            return tree[v];
+        if (mark[v] && tr >= r && tl <= l)
+            return tree[v] * (r-l+1);
         int tmid = tl + (tr - tl) / 2;
         return _query(v*2, tl, tmid, l, min(r, tmid)) +
                _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
     }
     T _get(int v, int tl, int tr, int pos) const {
-        if (tl == tr)
+        if (tl == tr || mark[v])
             return tree[v];
         int tmid = tl + (tr - tl) / 2;
         if (pos <= tmid)
@@ -52,11 +63,13 @@ private:
 public:
     SegTree(int n_) : n(n_) {
         tree.assign(4*n, 0);
+        mark.assign(4*n, false);
         vector<T> a(n, 0);
         _build(a, 1, 0, n-1);
     }
     SegTree(const vector<T>& a) : n(a.size()) {
         tree.assign(4*n, 0);
+        mark.assign(4*n, false);
         _build(a, 1, 0, n-1);
     }
     friend ostream& operator<<(ostream& os, const SegTree& st) {
@@ -65,7 +78,8 @@ public:
         return os;
     }
     void build(const vector<T>& a)   { _build(a, 1, 0, n-1); }
-    void update(T val, int pos)      { _update(1, 0, n-1, pos, val); }
+    void update(T val, int l, int r) { _update(1, 0, n-1, l,   r,   val); }
+    void update(T val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
     T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos)                   { return _get(1, 0, n-1, pos);  }
     T operator[](int pos)            { return get(pos); }

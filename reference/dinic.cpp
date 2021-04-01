@@ -1,8 +1,8 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
-#define pii pair<int,int>
-#define pll pair<long long,long long>
+/**
+ *  Reference solution using Dinic's algorithm for Max Flow
+ *  Codeforces 1426 E "Rock, Paper, Scissors"
+ *  https://codeforces.com/problemset/problem/1426/E
+ */
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,7 +11,7 @@ using namespace std;
 #define pll pair<long long,long long>
 
 struct FlowEdge {
-    int u, v;
+    int v, u;
     long long cap, flow = 0;
     FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) {}
 };
@@ -89,13 +89,43 @@ struct Dinic {
 int t = 1, n, m, k;
 
 void solve() {
-    ;
+    cin >> n;
+    array<int,3> a, b;
+    for (int i = 0; i < 3; i++)
+        cin >> a[i];
+    for (int i = 0; i < 3; i++)
+        cin >> b[i];
+    Dinic D(8, 0, 7);
+    D.add_edge(0, 1, b[0]);
+    D.add_edge(0, 2, b[1]);
+    D.add_edge(0, 3, b[2]);
+    D.add_edge(1, 4, min(b[0], a[0]));
+    D.add_edge(1, 5, min(b[0], a[1]));
+    D.add_edge(2, 5, min(b[1], a[1]));
+    D.add_edge(2, 6, min(b[1], a[2]));
+    D.add_edge(3, 6, min(b[2], a[2]));
+    D.add_edge(3, 4, min(b[2], a[0]));
+    D.add_edge(4, 7, a[0]);
+    D.add_edge(5, 7, a[1]);
+    D.add_edge(6, 7, a[2]);
+    Dinic E(8, 0, 7);
+    E.add_edge(0, 1, a[0]);
+    E.add_edge(0, 2, a[1]);
+    E.add_edge(0, 3, a[2]);
+    E.add_edge(1, 5, min(a[0], b[1]));
+    E.add_edge(2, 6, min(a[1], b[2]));
+    E.add_edge(3, 4, min(a[2], b[0]));
+    E.add_edge(4, 7, b[0]);
+    E.add_edge(5, 7, b[1]);
+    E.add_edge(6, 7, b[2]);
+    cout << n - D.flow() << "\n";
+    cout << E.flow() << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

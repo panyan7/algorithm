@@ -81,10 +81,11 @@ public:
     }
     friend ModNum pow(const ModNum& a, int e) {
         ModNum res = 1;
+        ModNum b(a);
         while (e) {
-            if (e % 2) res *= a;
+            if (e % 2) res *= b;
             e /= 2;
-            a *= a;
+            b *= b;
         }
         return res;
     }

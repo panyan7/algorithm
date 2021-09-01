@@ -10,6 +10,7 @@ In directory `algebra/`
 - Fraction as pair of integers `frac.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
+- Fast Fourier transform `fft.cpp`
 
 ### Geometry
 In directory `geometry/`

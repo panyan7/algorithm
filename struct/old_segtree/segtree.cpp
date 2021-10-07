@@ -3,24 +3,10 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-struct SumInt {
-    using T = int;
-    const T e = 0;
-    T f(T a, T b) { return a + b; }
-};
-struct MaxInt {
-    using T = int;
-    const T e = INT_MIN;
-    T f(T a, T b) const { return max(a, b); }
-};
-struct MinInt {
-    using T = int;
-    const T e = INT_MAX;
-    T f(T a, T b) const { return min(a, b); }
-};
-template <class B>
-struct SegTree : public B {
-    using T = typename B::T;
+
+/* Segment tree with assignment query and range sum query */
+template <typename T>
+struct SegTree {
     int n;
     vector<T> tree;
 private:
@@ -32,7 +18,7 @@ private:
         int tmid = tl + (tr - tl) / 2;
         _build(a, v*2, tl, tmid);
         _build(a, v*2+1, tmid+1, tr);
-        tree[v] = B::f(tree[v*2], tree[v*2+1]);
+        tree[v] = tree[v*2] + tree[v*2+1];
     }
     void _update(int v, int tl, int tr, int pos, T val) {
         if (tl > tr || pos > tr || pos < tl)
@@ -44,16 +30,16 @@ private:
         int tmid = tl + (tr - tl) / 2;
         _update(v*2, tl, tmid, pos, val);
         _update(v*2+1, tmid+1, tr, pos, val);
-        tree[v] = B::f(tree[v*2], tree[v*2+1]);
+        tree[v] = tree[v*2] + tree[v*2+1];
     }
     T _query(int v, int tl, int tr, int l, int r) const {
         if (l > r || tr < l || tl > r)
-            return B::e;
+            return 0;
         if (tr <= r && tl >= l)
             return tree[v];
         int tmid = tl + (tr - tl) / 2;
-        return B::f(_query(v*2, tl, tmid, l, min(r, tmid)),
-                    _query(v*2+1, tmid+1, tr, max(l, tmid+1), r));
+        return _query(v*2, tl, tmid, l, min(r, tmid)) +
+               _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
     }
     T _get(int v, int tl, int tr, int pos) const {
         if (tl == tr)
@@ -66,12 +52,12 @@ private:
     }
 public:
     SegTree(int n_) : n(n_) {
-        tree.assign(4*n, B::e);
-        vector<T> a(n, B::e);
+        tree.assign(4*n, 0);
+        vector<T> a(n, 0);
         _build(a, 1, 0, n-1);
     }
     SegTree(const vector<T>& a) : n(a.size()) {
-        tree.assign(4*n, B::e);
+        tree.assign(4*n, 0);
         _build(a, 1, 0, n-1);
     }
     friend ostream& operator<<(ostream& os, const SegTree& st) {

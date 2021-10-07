@@ -24,6 +24,7 @@ In directory `graph/`
 - Cycle detection (DFS) `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
+- Dinic's algorithm `dinic.cpp`
 - Floyd-Warshall algorithm `floyd_warshall.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
 - Kruskal's algorithm (MST) `kruskal.cpp`

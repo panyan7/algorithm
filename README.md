@@ -11,25 +11,28 @@ In directory `algebra/`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Fast Fourier transform `fft.cpp`
+- Testing primality `prime_test.cpp`
+- Prime factorization `prime_factorize.cpp`
 
 ### Geometry
 In directory `geometry/`
 - Basic geometry operations `basic.cpp`
+- Convex Hull `convex_hull.cpp`
 
 ### Graph Theory
 In directory `graph/`
-- Bellman-Ford algorithm `bellman_ford.cpp`
+- Bellman-Ford algorithm with negative cycle detection `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Bridge finding `bridge.cpp`
-- Cycle detection (DFS) `cycle.cpp`
+- Cycle detection with DFS `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
-- Dinic's algorithm `dinic.cpp`
-- Floyd-Warshall algorithm `floyd_warshall.cpp`
+- Dinic's algorithm for max flow `dinic.cpp`
+- Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm (topological sorting) `kahn.cpp`
-- Kruskal's algorithm (MST) `kruskal.cpp`
-- Prim's algorithm (MST) `prim.cpp`
-- Topological sorting (DFS) `toposort.cpp`
+- Kruskal's algorithm for MST construction `kruskal.cpp`
+- Prim's algorithm for MST construction `prim.cpp`
+- Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
 
 ### Optimization
@@ -39,14 +42,16 @@ In directory `optim/`
 
 ### String
 In directory `string/`
-- Aho-Corasick algorithm (string searching) `aho_corasick.cpp`
-- Knuth-Morris-Pratt (KMP) algorithm (string searching) `kmp.cpp`
+- Aho-Corasick algorithm for string searching `aho_corasick.cpp`
+- Knuth-Morris-Pratt (KMP) algorithm for string searching `kmp.cpp`
 - Two-pointers general template `two_pointers.cpp`
 
 ### Data Structures
 In directory `struct/`
+- Fenwick tree `fenwick.cpp`
 - Lowest common ancestor `lca.cpp`
 - Range minimum query `rmq.cpp`
-- Segment tree with range assignment query and range sum query `segtree.cpp`
-- Segment tree with range add query and range maximum query `segtree_add.cpp`
+- Segment tree with generic query function and assignment query `segtree.cpp`
+- Splay tree `splay.cpp`
 - Treap `treap.cpp`
+- Also several old segment tree, with range add query and range update query (laze update).

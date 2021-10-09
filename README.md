@@ -24,12 +24,13 @@ In directory `graph/`
 - Bellman-Ford algorithm with negative cycle detection `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Bridge finding `bridge.cpp`
+- Bipartite graph testing with BFS `bipartite.cpp`
 - Cycle detection with DFS `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
 - Dinic's algorithm for max flow `dinic.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
-- Kahn's algorithm (topological sorting) `kahn.cpp`
+- Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction `kruskal.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
 - Topological sorting with DFS `toposort.cpp`

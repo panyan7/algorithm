@@ -1,26 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-struct edge { int u, v, w; };
-
+#define ll long long
+#define pii pair<int,int>
+#define pll pair<long long,long long>
 const int INF = INT_MAX;
-int n;
-vector<vector<int>> d;
-vector<edge> edges;
+using edge = array<int,3>;
 
-void floyd_warshall() {
-    d.assign(n+1, vector<int> (n+1, INF));
-    for (edge e : edges) {
-        d[e.u][e.v] = e.w;
-        d[e.v][e.u] = e.w;
-    }
-    for (int i = 1; i <= n; ++i) d[i][i] = 0;
+int tt = 1, n, m, k;
 
-    for (int k = 1; k <= n; ++k) {
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= n; ++j) {
+// check long long
+void solve() {
+    cin >> n;
+    vector<vector<pii>> adj;
+    // make the adj list
+
+    vector<vector<int>> d(n, vector<int>(n, INF));
+    for (int i = 0; i < n; ++i)
+        d[i][i] = 0;
+
+    for (int k = 0; k < n; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
                 d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
             }
         }
     }
+    // d[i][j] shortest distance from i to j
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    return 0;
 }

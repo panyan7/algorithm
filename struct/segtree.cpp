@@ -6,7 +6,7 @@ using namespace std;
 struct SumInt {
     using T = int;
     const T e = 0;
-    T f(T a, T b) { return a + b; }
+    T f(T a, T b) const { return a + b; }
 };
 struct MaxInt {
     using T = int;

@@ -1,12 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define pii pair<int,int>
+#define pll pair<long long,long long>
 
+int tt = 1, n, m, k;
 vector<vector<int>> adj;
 vector<int> parent;
 vector<int> sz;
 
 void init() {
-    int n = adj.size();
+    //int n = adj.size();
     parent.resize(n);
     sz.assign(n, 1);
     for (int v = 0; v < n; ++v)
@@ -25,4 +29,19 @@ bool union_sets(int v, int u) {
     parent[u] = v;
     sz[v] += sz[u];
     return true;
+}
+
+// check long long
+void solve() {
+    init();
+}
+ 
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    return 0;
 }

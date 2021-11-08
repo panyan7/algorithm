@@ -1,5 +1,7 @@
 # Algorithms
-A collection of useful algorithms for competitive programming and coding interview. All algorithms are implemented in C++.
+A collection of useful algorithms for competitive programming (ACM-ICPC and Codeforces). All algorithms are implemented in C++.
+
+Many of them are adapted from [CP Algorithms](https://cp-algorithms.com/index.html). Thanks for creators of this website.
 
 I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
 

@@ -68,12 +68,29 @@ public:
 int tt = 1, n, m, q;
 
 void solve() {
+    cin >> n >> q;
+    LCA G(n);
+    for (int i = 0; i < n-1; i++) {
+        int u, v;
+        cin >> u >> v;
+        u--, v--;
+        G.adj[u].push_back(v);
+        G.adj[v].push_back(u);
+    }
+    G.init();
+    for (int i = 0; i < q; i++) {
+        int u, v;
+        cin >> u >> v;
+        u--, v--;
+        int x = G.query(u, v);
+        cout << (x == u ? "YES\n" : "NO\n");
+    }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> tt;
+    //cin >> tt;
     while (tt--) {
         solve();
     }

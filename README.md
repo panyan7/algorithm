@@ -34,6 +34,7 @@ In directory `graph/`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction `kruskal.cpp`
+- Lowest common ancestor with binary lifting `lca.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
 - Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
@@ -52,7 +53,6 @@ In directory `string/`
 ### Data Structures
 In directory `struct/`
 - Fenwick tree `fenwick.cpp`
-- Lowest common ancestor `lca.cpp`
 - Range minimum query `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
 - Splay tree `splay.cpp`

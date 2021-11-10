@@ -40,7 +40,6 @@ private:
             for (int j = 0; j <= lim; j++)
                 cout << anc[i][j] << " \n"[j==lim];
         }
-
     }
 public:
     LCA(int n_) : n(n_), lim(ceil(log(n_))) {

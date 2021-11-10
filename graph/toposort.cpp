@@ -21,7 +21,6 @@ bool dfs(int v) {
     ord.push_back(v);
     return true;
 }
- 
 bool topological_sort() {
     //vis.assign(n, false);
     ord.clear();

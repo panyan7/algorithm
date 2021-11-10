@@ -10,6 +10,7 @@ class LCA {
     vector<int> level;
 private:
     void _build(int v, int p, const vector<vector<int>>& adj) {
+        // binary lifting
         level[v] = level[p] + 1;
         anc[v][0] = p;
         for (int k = 1; k <= lim; ++k)
@@ -40,7 +41,7 @@ public:
     }
 };
 
-int t = 1, n, m, k, q;
+int tt = 1, n, m;
 
 void solve() {
 }
@@ -48,8 +49,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

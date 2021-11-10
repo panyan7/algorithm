@@ -81,7 +81,7 @@ struct Dinic {
     }
 }; 
 
-int t = 1, n, m, k;
+int tt = 1, n, m;
 
 void solve() {
     ;
@@ -90,8 +90,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> t;
-    while (t--) {
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

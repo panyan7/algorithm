@@ -94,7 +94,7 @@ public:
 const int MOD = 1e9+7;
 // const int MOD = 998244353;
 using num = ModNum<MOD>;
-int t = 1, n, m, k, q;
+int tt = 1, n, m;
 
 void solve() {
 }
@@ -102,8 +102,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> t;
-    while (t--)
+    cin >> tt;
+    while (tt--)
         solve();
     return 0;
 }

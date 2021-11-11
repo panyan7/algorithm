@@ -3,11 +3,7 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
-#define read(a) for (auto& x : a) cin >> x
-#define write(a) for (auto& x : a) cout << x << " "; cout << "\n"
-
-typedef complex<double> pt;
-int t = 1, n;
+#define pt  complex<double>
 
 pt add(pt a, pt b)                  { return a + b; }
 pt mult(pt a, double r)             { return r * a; }
@@ -32,6 +28,7 @@ pt intersection(pt a, pt b, pt p, pt q) {
     return (c1 * q - c2 * p) / (c1 - c2); // undefined if parallel
 }
 
+int tt = 1, n, m;
 void solve() {
 
 }
@@ -39,8 +36,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

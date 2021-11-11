@@ -5,15 +5,15 @@ using namespace std;
 #define pll pair<int64_t,int64_t>
 #define pt  array<double,2>
 
+// Convex hull using Graham scan
+// Should not contain duplicate points
 bool cw(pt a, pt b, pt c) {
     return a[0]*(b[1]-c[1])+b[0]*(c[1]-a[1])+c[0]*(a[1]-b[1]) <= 0;
 }
-
 bool ccw(pt a, pt b, pt c) {
     return a[0]*(b[1]-c[1])+b[0]*(c[1]-a[1])+c[0]*(a[1]-b[1]) > 0;
 }
-
-vector<pt>& convex_hull(vector<pt>& a) {
+vector<pt> convex_hull(vector<pt>& a) {
     if (a.size() == 1)
         return;
 
@@ -29,7 +29,7 @@ vector<pt>& convex_hull(vector<pt>& a) {
             up.push_back(a[i]);
         }
         if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
-            while(down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
+            while (down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
                 down.pop_back();
             down.push_back(a[i]);
         }
@@ -42,3 +42,19 @@ vector<pt>& convex_hull(vector<pt>& a) {
         res.push_back(down[i]);
     return res;
 }
+
+int tt = 1, n, m;
+
+void solve() {
+
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    return 0;
+

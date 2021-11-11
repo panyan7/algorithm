@@ -42,7 +42,7 @@ private:
         }
     }
 public:
-    LCA(int n_) : n(n_), lim(ceil(log(n_))) {
+    LCA(int n_) : n(n_), lim(ceil(log2(n_))) {
         tin.assign(n, 0);
         tout.assign(n, 0);
         adj.resize(n);
@@ -70,8 +70,8 @@ void solve() {
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
     cin >> tt;
     while (tt--) {
         solve();

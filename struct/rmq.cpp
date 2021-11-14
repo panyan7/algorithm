@@ -28,13 +28,13 @@ private:
             spt[0][i] = a[i];
         for (int k = 1; k <= lim; ++k)
             for (int i = 0; i <= n-(1<<k); ++i)
-                spt[k][i] = min(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
+                spt[k][i] = B::f(spt[k-1][i], spt[k-1][i+(1<<(k-1))]);
     }
 public:
     RMQ(const vector<T>& a) : n(a.size()), lim(floor(log2(n)+1)) { _build(a); }
     T query(int i, int j) const {
         int k = floor(log2(j-i+1));
-        T res = min(spt[k][i], spt[k][j-(1<<k)+1]);
+        T res = B::f(spt[k][i], spt[k][j-(1<<k)+1]);
         return res;
     }
 };

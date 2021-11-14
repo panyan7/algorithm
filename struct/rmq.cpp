@@ -4,10 +4,23 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-template <typename T>
-class RMQ {
-    vector<vector<T>> spt;
+// Range Minimum Query with sparse table
+// O(nlogn) preprocessing, O(1) query
+struct MaxInt {
+    using T = long long;
+    const T e = LLONG_MIN;
+    T f(T a, T b) const { return max(a, b); }
+};
+struct MinInt {
+    using T = long long;
+    const T e = LLONG_MAX;
+    T f(T a, T b) const { return min(a, b); }
+};
+template <class B>
+class RMQ : public B {
+    using T = typename B::T;
     int n, lim;
+    vector<vector<T>> spt;
 private:
     void _build (const vector<T>& a) {
         spt.assign(lim+1, vector<T>(n, 0));
@@ -26,16 +39,16 @@ public:
     }
 };
 
-int t = 1, n, m, k, q;
+int tt = 1, n, m;
 
 void solve() {
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

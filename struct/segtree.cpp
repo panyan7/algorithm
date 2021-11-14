@@ -4,18 +4,18 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 struct SumInt {
-    using T = int;
+    using T = long long;
     const T e = 0;
     T f(T a, T b) const { return a + b; }
 };
 struct MaxInt {
-    using T = int;
-    const T e = INT_MIN;
+    using T = long long;
+    const T e = LLONG_MIN;
     T f(T a, T b) const { return max(a, b); }
 };
 struct MinInt {
-    using T = int;
-    const T e = INT_MAX;
+    using T = long long;
+    const T e = LLONG_MAX;
     T f(T a, T b) const { return min(a, b); }
 };
 template <class B>

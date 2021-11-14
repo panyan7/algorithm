@@ -8,19 +8,15 @@ const int MAXN = 2e5+10;
 int tt = 1, n, m, k;
 int mob[MAXN];
 
-void mobius() 
-{
+void mobius() {
     mob[1] = 1;
-    for(int i = 2; i < MAXN; i++)
-    {
+    for (int i = 2; i < MAXN; i++) {
         mob[i]--;
-        for(int j = i + i; j < MAXN; j += i) 
-        {
-          mob[j] -= mob[i];
+        for (int j = i + i; j < MAXN; j += i) {
+            mob[j] -= mob[i];
         }
     }
 }
-
 
 // check long long
 void solve() {

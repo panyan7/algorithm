@@ -1,9 +1,9 @@
 # Algorithms
-A collection of useful algorithms for competitive programming (ACM-ICPC and Codeforces). All algorithms are implemented in C++.
+A collection of useful algorithms for competitive programming (ACM-ICPC and Codeforces). All algorithms are implemented in C++. 
 
-Many of them are adapted from [CP Algorithms](https://cp-algorithms.com/index.html). Thanks for creators of this website.
+Many of them are adapted from [CP Algorithms](https://cp-algorithms.com/index.html) and various [Codeforces](https://codeforces.com/) posts. 
 
-I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
+This repository is mainly for personal use. The codes might not be useful to others, but I'll make it public in case anyone needs it. I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
 
 ## Full List of Algorithms
 
@@ -11,10 +11,12 @@ I added my own template and predefined a command to copy the file in my shell, s
 In directory `algebra/`
 - Fraction as pair of integers `frac.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
+- M&ouml;bius inversion `mobius.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Fast Fourier transform `fft.cpp`
 - Testing primality `prime_test.cpp`
 - Prime factorization `prime_factorize.cpp`
+- Sieve of Eratosthenes `sieve.cpp`
 
 ### Geometry
 In directory `geometry/`
@@ -38,6 +40,7 @@ In directory `graph/`
 - Prim's algorithm for MST construction `prim.cpp`
 - Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
+- Union find as a struct `union_find_struct.cpp`
 
 ### Optimization
 In directory `optim/`

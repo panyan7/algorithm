@@ -5,12 +5,10 @@ using namespace std;
 #define pll pair<long long,long long>
 
 int tt = 1, n, m, k;
-vector<vector<int>> adj;
 vector<int> parent;
 vector<int> sz;
 
 void init() {
-    //int n = adj.size();
     parent.resize(n);
     sz.assign(n, 1);
     for (int v = 0; v < n; ++v)

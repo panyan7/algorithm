@@ -2,13 +2,21 @@
 using namespace std;
 #define ll long long
 #define pii pair<int,int>
-#define pll pair<int64_t, int64_t>
-
-/* Segment tree with range add query and range maximum query */
-template <typename T>
-class SegTree {
+#define pll pair<int64_t,int64_t>
+struct MaxInt {
+    using T = long long;
+    const T e = LLONG_MIN;
+    T f(T a, T b) const { return max(a, b); }
+};
+struct MinInt {
+    using T = long long;
+    const T e = LLONG_MAX;
+    T f(T a, T b) const { return min(a, b); }
+};
+template <class B>
+struct SegTree : public B {
+    using T = typename B::T;
     int n;
-    const int NEG_INF = -1e9;
     vector<T> tree;
     vector<T> add;
 private:
@@ -20,7 +28,7 @@ private:
         int tmid = tl + (tr - tl) / 2;
         _build(a, v*2, tl, tmid);
         _build(a, v*2+1, tmid+1, tr);
-        tree[v] = max(tree[v*2], tree[v*2+1]);
+        tree[v] = B::f(tree[v*2], tree[v*2+1]);
     }
     void _push(int v) {
         tree[v*2  ] += add[v];
@@ -41,18 +49,17 @@ private:
         int tmid = tl + (tr - tl) / 2;
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
-        tree[v] = max(tree[v*2], tree[v*2+1]);
+        tree[v] = B::f(tree[v*2], tree[v*2+1]);
     }
     T _query(int v, int tl, int tr, int l, int r) {
-        assert(v < 4*n);
-        if (l > r)
-            return NEG_INF;
-        if (l <= tl && r >= tr)
+        if (l > r || tr < l || tl > r)
+            return B::e;
+        if (tr <= r && tl >= l)
             return tree[v];
         _push(v);
         int tmid = tl + (tr - tl) / 2;
-        return max(_query(v*2, tl, tmid, l, min(r, tmid)),
-                   _query(v*2+1, tmid+1, tr, max(l, tmid+1), r));
+        return B::f(_query(v*2, tl, tmid, l, min(r, tmid)),
+                    _query(v*2+1, tmid+1, tr, max(l, tmid+1), r));
     }
     T _get(int v, int tl, int tr, int pos) {
         if (tl == tr)
@@ -66,17 +73,17 @@ private:
     }
 public:
     SegTree(int n_) : n(n_) {
-        tree.assign(4*n, 0);
+        tree.assign(4*n, B::e);
         add.assign(4*n, 0);
-        vector<T> a(n, 0);
+        vector<T> a(n, B::e);
         _build(a, 1, 0, n-1);
     }
-    SegTree(vector<T>& a) : n(a.size()) {
-        tree.assign(4*n, 0);
+    SegTree(const vector<T>& a) : n(a.size()) {
+        tree.assign(4*n, B::e);
         add.assign(4*n, 0);
         _build(a, 1, 0, n-1);
     }
-    friend ostream& operator<<(ostream& os, const SegTree& st) {
+    friend ostream& operator<<(ostream& os, SegTree& st) {
         for (int i = 0; i < st.n; ++i)
             os << st.get(i) << (i == st.n-1 ? "\n" : " ");
         return os;
@@ -89,7 +96,7 @@ public:
     T operator[](int pos)            { return get(pos); }
 };
 
-int t = 1, n, m, k, q;
+int t = 1, n, m;
 
 void solve() {
 }

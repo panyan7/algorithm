@@ -62,4 +62,3 @@ In directory `struct/`
 - Segment tree with range assignment query and sum query `segtree_range.cpp`
 - Splay tree `splay.cpp`
 - Treap `treap.cpp`
-- Also several old segment tree, with range add query and range update query (laze update).

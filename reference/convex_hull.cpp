@@ -15,7 +15,7 @@ bool ccw(pt a, pt b, pt c) {
 }
 vector<pt> convex_hull(vector<pt>& a) {
     if (a.size() == 1)
-        return;
+        return {};
     sort(a.begin(), a.end());
     pt p1 = a[0], p2 = a.back();
     vector<pt> u, d;
@@ -43,16 +43,35 @@ vector<pt> convex_hull(vector<pt>& a) {
 
 int tt = 1, n, m;
 
-void solve() {
+double d2(pt x, pt y) {
+    return (x[0]-y[0])*(x[0]-y[0]) + (x[1]-y[1])*(x[1]-y[1]);
+}
 
+void solve() {
+    cin >> n;
+    vector<pt> a(n);
+    for (auto& x : a)
+        cin >> x[0] >> x[1];
+    vector<pt> b = convex_hull(a);
+    m = b.size();
+    int j = 0;
+    double res = 0.0;
+    for (int i = 0; i < m; i++) {
+        while (d2(b[i],b[j]) < d2(b[i],b[(j+1)%n])) {
+            j++;
+            j %= n;
+        }
+        res = max(res, d2(b[i], b[j]));
+    }
+    cout << fixed << setprecision(10) << sqrt(res) << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> tt;
+    //cin >> tt;
     while (tt--) {
         solve();
     }
     return 0;
-
+}

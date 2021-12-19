@@ -32,7 +32,6 @@ In directory `graph/`
 - Cycle detection with DFS `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
-- Dinic's algorithm for max flow `dinic.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction `kruskal.cpp`
@@ -45,6 +44,9 @@ In directory `graph/`
 ### Optimization
 In directory `optim/`
 - Binary search `binary_search.cpp`
+- Dinic's algorithm for max flow `mf.cpp`
+- Minimum cost maximum flow `mcmf.cpp`
+- Simplex algorithm for linear programming `simplex.cpp`
 - Ternary search `ternary_search.cpp`
 
 ### String

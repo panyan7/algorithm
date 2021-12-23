@@ -18,6 +18,10 @@ In directory `algebra/`
 - Prime factorization `prime_factorize.cpp`
 - Sieve of Eratosthenes `sieve.cpp`
 
+### Combinatorics
+In directory `combinatorics/`
+
+
 ### Geometry
 In directory `geometry/`
 - Basic geometry operations `basic.cpp`
@@ -53,7 +57,6 @@ In directory `optim/`
 In directory `string/`
 - Aho-Corasick algorithm for string searching `aho_corasick.cpp`
 - Knuth-Morris-Pratt (KMP) algorithm for string searching `kmp.cpp`
-- Two-pointers general template `two_pointers.cpp`
 
 ### Data Structures
 In directory `struct/`
@@ -64,3 +67,8 @@ In directory `struct/`
 - Segment tree with range assignment query and sum query `segtree_range.cpp`
 - Splay tree `splay.cpp`
 - Treap `treap.cpp`
+
+### Generic Algorithm Design Techniques
+In directory `technique/`
+- Sweep Line `sweepline.cpp`
+- Two pointers `two_pointers.cpp`

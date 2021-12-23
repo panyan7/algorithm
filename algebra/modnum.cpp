@@ -8,7 +8,7 @@ template <int MOD>
 struct ModNum {
     int v;
     ModNum() : v(0) {}
-    ModNum(int64_t v_) : v(int(v_ % MOD)) {}
+    ModNum(int64_t v_) : v(int((v_ + MOD) % MOD)) {}
     explicit operator int() const { return v; }
     friend ostream& operator<<(ostream& os, const ModNum& m) {
         return os << m.v;

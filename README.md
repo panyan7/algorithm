@@ -41,6 +41,7 @@ In directory `graph/`
 - Kruskal's algorithm for MST construction `kruskal.cpp`
 - Lowest common ancestor with binary lifting `lca.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
+- Strongly connected components `scc.cpp`
 - Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
 - Union find as a struct `union_find_struct.cpp`

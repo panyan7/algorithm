@@ -14,10 +14,11 @@ vector<T_out> zeta_transform(vector<T_in>& a) {
         f[i] = a[i];
     for (int i = 0; i < n; i++) {
         for (int mask = 0; mask < (1 << n); mask++) {
-            f[mask] += f[mask^(1<<i)]
+            f[mask] += f[mask^(1<<i)];
         }
     }
     return f;
+
 }
 
 // check long long

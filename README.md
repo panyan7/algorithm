@@ -11,12 +11,14 @@ This repository is mainly for personal use. The codes might not be useful to oth
 In directory `algebra/`
 - Fraction as pair of integers `frac.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
-- M&ouml;bius inversion `mobius.cpp`
+- M&ouml;bius inversion `mobius_inversion.cpp`
+- M&ouml;bius transform `mobius_transform.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Fast Fourier transform `fft.cpp`
 - Testing primality `prime_test.cpp`
 - Prime factorization `prime_factorize.cpp`
 - Sieve of Eratosthenes `sieve.cpp`
+- Zeta transform `zeta_transform.cpp`
 
 ### Combinatorics
 In directory `combinatorics/`

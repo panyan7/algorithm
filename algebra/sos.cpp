@@ -7,7 +7,7 @@ using namespace std;
 int tt = 1, n, m, k;
 
 template<class T_in, class T_out>
-vector<T_out> mobius_transform(vector<T_in>& a) {
+vector<T_out> sos(vector<T_in>& a) {
     assert(a.size() == (1 << n));
     vector<T_out> f(1 << n);
     for (int i = 0; i < (1 << n); i++)

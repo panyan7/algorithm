@@ -51,8 +51,8 @@ In directory `graph/`
 ### Optimization
 In directory `optim/`
 - Binary search `binary_search.cpp`
-- Dinic's algorithm for max flow `mf.cpp`
-- Minimum cost maximum flow `mcmf.cpp`
+- Dinic's algorithm for max flow `max_flow.cpp`
+- Min cost flow or min cost max flow (supports both problems) `min_cost_flow.cpp`
 - Simplex algorithm for linear programming `simplex.cpp`
 - Ternary search `ternary_search.cpp`
 

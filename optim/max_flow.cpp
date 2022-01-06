@@ -84,7 +84,6 @@ struct Dinic {
 int tt = 1, n, m;
 
 void solve() {
-    ;
 }
 
 int main() {

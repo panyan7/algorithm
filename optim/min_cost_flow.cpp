@@ -4,23 +4,30 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
+struct FlowEdge {
+    int u, v;
+    long long cap, cost, flow = 0;
+    FlowEdge(int u, int v, long long cap, long long cost) : u(u), v(v), cap(cap), cost(cost) {}
+};
 struct MinCostFlow {
     vector<vector<int>> adj, cost, cap;
-    const int INF = 1e9;
-    int n, k, s, t;
-    MinCostFlow(int n, int k, int s, int t) : n(n), k(k), s(s), t(t) {
+    vector<FlowEdge> edges;
+    //vector<pii> ans;
+    const long long INF = 1e14;
+    int n, m = 0;
+    int s, t;
+    long long k;
+    MinCostFlow(int n, long long k, int s, int t) : n(n), k(k), s(s), t(t) {
         adj.assign(n, vector<int>());
-        cost.assign(n, vector<int>(n, 0));
-        cap.assign(n, vector<int>(n, 0));
     }
     void add_edge(int u, int v, long long cap_, long long cost_) {
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-        cost[u][v] = cost_;
-        cost[v][u] = -cost_;
-        cap[u][v] = cap_;
+        edges.emplace_back(u, v, cap_, cost_);
+        edges.emplace_back(v, u, 0, -cost_);
+        adj[u].push_back(m);
+        adj[v].push_back(m + 1);
+        m += 2;
     }
-    void shortest_paths(int v0, vector<int>& d, vector<int>& p) {
+    void shortest_paths(int v0, vector<long long>& d, vector<int>& p) {
         d.assign(n, INF);
         d[v0] = 0;
         vector<bool> inq(n, false);
@@ -31,10 +38,11 @@ struct MinCostFlow {
             int u = q.front();
             q.pop();
             inq[u] = false;
-            for (int v : adj[u]) {
-                if (cap[u][v] > 0 && d[v] > d[u] + cost[u][v]) {
-                    d[v] = d[u] + cost[u][v];
-                    p[v] = u;
+            for (int id : adj[u]) {
+                int v = edges[id].v;
+                if (edges[id].cap > 0 && d[v] > d[u] + edges[id].cost) {
+                    d[v] = d[u] + edges[id].cost;
+                    p[v] = id;
                     if (!inq[v]) {
                         inq[v] = true;
                         q.push(v);
@@ -43,30 +51,32 @@ struct MinCostFlow {
             }
         }
     }
-    int flow() {
-        int flow = 0;
-        int cost = 0;
-        vector<int> d, p;
+    long long flow() {
+        long long flow = 0;
+        long long cost = 0;
+        vector<long long> d;
+        vector<int> p;
         while (flow < k) {
             shortest_paths(s, d, p);
             if (d[t] == INF)
                 break;
             // find max flow on that path
-            int f = k - flow;
+            long long f = k - flow;
             int cur = t;
             while (cur != s) {
-                f = min(f, cap[p[cur]][cur]);
-                cur = p[cur];
+                f = min(f, edges[p[cur]].cap);
+                cur = edges[p[cur]].u;
             }
             // apply flow
             flow += f;
             cost += f * d[t];
             cur = t;
             while (cur != s) {
-                cap[p[cur]][cur] -= f;
-                cap[cur][p[cur]] += f;
-                cur = p[cur];
+                edges[p[cur]].cap -= f;
+                edges[p[cur]^1].cap += f;
+                cur = edges[p[cur]].u;
             }
+            //ans.push_back({flow, cost});
         }
         if (flow < k)
             return -1;
@@ -84,7 +94,7 @@ void solve() {
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> tt;
+    //cin >> tt;
     while (tt--) {
         solve();
     }

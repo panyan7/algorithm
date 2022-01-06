@@ -1,9 +1,8 @@
 /**
  *  Reference solution using Gaussian elimination for modular 
  *  Codeforces 1616 F "Tricolor Triangles"
- *  https://codeforces.com/problemset/problem/1616/F
+ *  https://codeforces.com/contest/1616/problem/F
  */
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

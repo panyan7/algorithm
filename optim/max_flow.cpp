@@ -10,7 +10,7 @@ struct FlowEdge {
     long long cap, flow = 0;
     FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) {}
 };
-struct Dinic {
+struct MaxFlow {
     const long long flow_inf = 1e18;
     vector<FlowEdge> edges;
     vector<vector<int>> adj;

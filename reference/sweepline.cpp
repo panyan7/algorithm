@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using sweepline technique
+ *  Codeforces 1420 D "Rescue Nibel!"
+ *  https://codeforces.com/contest/1420/problem/D
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

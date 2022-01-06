@@ -1,21 +1,21 @@
 /**
- *  Reference solution using Dinic's algorithm for Max Flow
- *  Codeforces 1426 E "Rock, Paper, Scissors"
- *  https://codeforces.com/problemset/problem/1426/E
+ *  Reference solution using max flow
+ *  Codeforces 1473 F "Strange Set"
+ *  https://codeforces.com/contest/1473/problem/F
  */
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
+// Dinic's algorithm for max flow
 struct FlowEdge {
-    int v, u;
+    int u, v;
     long long cap, flow = 0;
     FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) {}
 };
-struct Dinic {
+struct MaxFlow {
     const long long flow_inf = 1e18;
     vector<FlowEdge> edges;
     vector<vector<int>> adj;
@@ -23,7 +23,7 @@ struct Dinic {
     int s, t;
     vector<int> level, ptr;
     queue<int> q;
-    Dinic(int n, int s, int t) : n(n), s(s), t(t) {
+    MaxFlow(int n, int s, int t) : n(n), s(s), t(t) {
         adj.resize(n);
         level.resize(n);
         ptr.resize(n);
@@ -86,47 +86,40 @@ struct Dinic {
     }
 }; 
 
-int t = 1, n, m, k;
+int tt = 1, n, m;
 
 void solve() {
     cin >> n;
-    array<int,3> a, b;
-    for (int i = 0; i < 3; i++)
-        cin >> a[i];
-    for (int i = 0; i < 3; i++)
-        cin >> b[i];
-    Dinic D(8, 0, 7);
-    D.add_edge(0, 1, b[0]);
-    D.add_edge(0, 2, b[1]);
-    D.add_edge(0, 3, b[2]);
-    D.add_edge(1, 4, min(b[0], a[0]));
-    D.add_edge(1, 5, min(b[0], a[1]));
-    D.add_edge(2, 5, min(b[1], a[1]));
-    D.add_edge(2, 6, min(b[1], a[2]));
-    D.add_edge(3, 6, min(b[2], a[2]));
-    D.add_edge(3, 4, min(b[2], a[0]));
-    D.add_edge(4, 7, a[0]);
-    D.add_edge(5, 7, a[1]);
-    D.add_edge(6, 7, a[2]);
-    Dinic E(8, 0, 7);
-    E.add_edge(0, 1, a[0]);
-    E.add_edge(0, 2, a[1]);
-    E.add_edge(0, 3, a[2]);
-    E.add_edge(1, 5, min(a[0], b[1]));
-    E.add_edge(2, 6, min(a[1], b[2]));
-    E.add_edge(3, 4, min(a[2], b[0]));
-    E.add_edge(4, 7, b[0]);
-    E.add_edge(5, 7, b[1]);
-    E.add_edge(6, 7, b[2]);
-    cout << n - D.flow() << "\n";
-    cout << E.flow() << "\n";
+    vector<int> a(n), b(n);
+    for (auto& x : a)
+        cin >> x;
+    for (auto& x : b)
+        cin >> x;
+    MaxFlow G(n+2, n, n+1);
+    vector<int> last(101, -1);
+    ll res = 0;
+    for (int i = 0; i < n; i++) {
+        if (b[i] > 0) {
+            res += b[i];
+            G.add_edge(n, i, b[i]);
+        } else {
+            G.add_edge(i, n+1, -b[i]);
+        }
+        for (int j = 1; j <= 100; j++) {
+            if (a[i] % j == 0 && last[j] != -1) {
+                G.add_edge(i, last[j], 1e9);
+            }
+        }
+        last[a[i]] = i;
+    }
+    cout << res - G.flow() << "\n";
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    // cin >> t;
-    while (t--) {
+    //cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

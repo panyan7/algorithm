@@ -1,7 +1,7 @@
 /**
  *  Reference Solution using Range Minimun Query
  *  Codeforces 1473 D "Program"
- *  https://codeforces.com/problemset/problem/1473/D
+ *  https://codeforces.com/contest/1473/problem/D
  */
 #include <bits/stdc++.h>
 using namespace std;

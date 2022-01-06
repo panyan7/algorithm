@@ -1,7 +1,7 @@
 /**
  *  Reference solution using Segment Tree
  *  Codeforces 1478 E "Nezzar and Binary String"
- *  https://codeforces.com/problemset/problem/1478/E
+ *  https://codeforces.com/contest/1478/problem/E
  */
 #include <bits/stdc++.h>
 using namespace std;

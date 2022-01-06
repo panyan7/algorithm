@@ -1,3 +1,7 @@
+/**
+ *  Reference solution using lowest common ancestor
+ *  The problem directly asks if one node is the ancestor of the other.
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

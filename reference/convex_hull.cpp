@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using convex hull trick
+ *  15-451 Fall 2021 Homework 7 Programming "Farthest Pair"
+ *  https://www.cs.cmu.edu/~15451-f21/hws/hw7.pdf
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

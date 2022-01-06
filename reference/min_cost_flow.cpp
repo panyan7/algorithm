@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using min cost flow
+ *  Codeforces 1307 G "Cow and Exercise"
+ *  https://codeforces.com/contest/1307/problem/G
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

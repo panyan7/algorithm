@@ -69,8 +69,9 @@ In directory `struct/`
 - Fenwick tree `fenwick.cpp`
 - Range minimum query `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
-- Segment tree with range add query and max query `segtree_add.cpp`
-- Segment tree with range assignment query and sum query `segtree_range.cpp`
+- 2D Segment tree with generic query function and assignment query `segtree_2d.cpp`
+- Segment tree with range add query and max query `segtree_range_add.cpp`
+- Segment tree with range assignment query and sum query `segtree_range_assign.cpp`
 - Splay tree `splay.cpp`
 - Treap `treap.cpp`
 

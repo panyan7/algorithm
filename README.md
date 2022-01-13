@@ -14,6 +14,7 @@ In directory `algebra/`
 - Gaussian elimination `gaussian_elim.cpp`
 - Gaussian elimination with modular number `gaussian_elim_mod.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
+- Finding maximum pairwise xor value in array `max_xor.cpp`
 - M&ouml;bius inversion `mobius.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Testing primality `prime_test.cpp`

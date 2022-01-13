@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using calculation of maximum pairwise xor in array
+ *  Codeforces 1625 D "Binary Spiders"
+ *  https://codeforces.com/contest/1625/problem/D
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

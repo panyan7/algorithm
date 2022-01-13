@@ -18,7 +18,7 @@ struct MaxFlow {
     int s, t;
     vector<int> level, ptr;
     queue<int> q;
-    Dinic(int n, int s, int t) : n(n), s(s), t(t) {
+    MaxFlow(int n, int s, int t) : n(n), s(s), t(t) {
         adj.resize(n);
         level.resize(n);
         ptr.resize(n);

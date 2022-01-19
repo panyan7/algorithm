@@ -5,30 +5,31 @@ using namespace std;
 #define pll pair<long long,long long>
 
 int tt = 1, n, m, k;
-const int INF = 1e9;
+const int INF = 1e9; // Large value, INT_MAX may cause overflow
 vector<vector<pii>> adj;
 vector<int> dist, p;
 
 void dijkstra(vector<int>& source) {
-    d.assign(n, INF);
+    dist.assign(n, INF);
     p.assign(n, -1);
-    vector<bool> vis(n, 0);
-    for (int s : source)
+    set<pii> pq;
+    for (int s : source) {
+        pq.insert({0, s});
         dist[s] = 0;
-    for (int i = 0; i < n; i++) {
-        int v = -1;
-        for (int j = 0; j < n; j++) {
-            if (!vis[j] && (v == -1 || dist[j] < dist[v]))
-                v = j;
-        }
-        if (d[v] == INF)
-            break;
-        vis[v] = true;
+    }
+    while (!pq.empty()) {
+        int d = pq.begin()->first;
+        int v = pq.begin()->second;
+        pq.erase(pq.begin());
+        if (dist[v] != d) // Skip impossible paths
+            continue;
         for (auto e : adj[v]) {
             int u = e.first, w = e.second;
             if (dist[v] + w < dist[u]) {
+                pq.erase({dist[u], u});
                 dist[u] = dist[v] + w;
                 p[u] = v;
+                pq.push({dist[u], u});
             }
         }
     }

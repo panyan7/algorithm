@@ -12,23 +12,21 @@ vector<int> dist, p;
 void dijkstra(vector<int>& source) {
     dist.assign(n, INF);
     p.assign(n, -1);
-    set<pii> pq;
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
     for (int s : source) {
-        pq.insert({0, s});
+        pq.push({0, s});
         dist[s] = 0;
     }
     while (!pq.empty()) {
-        int d = pq.begin()->first;
-        int v = pq.begin()->second;
-        pq.erase(pq.begin());
+        int d = pq.top().first;
+        int v = pq.top().second;
+        pq.pop();
         if (dist[v] != d) // Skip impossible paths
             continue;
         for (auto e : adj[v]) {
             int u = e.first, w = e.second;
             if (dist[v] + w < dist[u]) {
-                pq.erase({dist[u], u});
                 dist[u] = dist[v] + w;
-                p[u] = v;
                 pq.push({dist[u], u});
             }
         }

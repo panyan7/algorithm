@@ -10,7 +10,7 @@ vector<vector<pii>> adj;
 vector<int> dist, p;
 
 void dijkstra(vector<int>& source) {
-    d.assign(n, INF);
+    dist.assign(n, INF);
     p.assign(n, -1);
     vector<bool> vis(n, 0);
     for (int s : source)

@@ -12,7 +12,7 @@ struct FlowEdge {
 struct MinCostFlow {
     vector<vector<int>> adj, cost, cap;
     vector<FlowEdge> edges;
-    vector<pll> ans;
+    vector<pair<long long, long long>> ans;
     const long long INF = 1e14;
     int n, m = 0;
     int s, t;
@@ -51,8 +51,7 @@ struct MinCostFlow {
         }
     }
     long long flow(long long k = -1) {
-        if (k == -1)
-            k = INF;
+        if (k == -1) k = INF;
         long long flow = 0;
         long long cost = 0;
         vector<long long> d;

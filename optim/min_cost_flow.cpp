@@ -12,12 +12,11 @@ struct FlowEdge {
 struct MinCostFlow {
     vector<vector<int>> adj, cost, cap;
     vector<FlowEdge> edges;
-    //vector<pii> ans;
+    vector<pll> ans;
     const long long INF = 1e14;
     int n, m = 0;
     int s, t;
-    long long k;
-    MinCostFlow(int n, long long k, int s, int t) : n(n), k(k), s(s), t(t) {
+    MinCostFlow(int n, int s, int t) : n(n), s(s), t(t) {
         adj.assign(n, vector<int>());
     }
     void add_edge(int u, int v, long long cap_, long long cost_) {
@@ -51,7 +50,9 @@ struct MinCostFlow {
             }
         }
     }
-    long long flow() {
+    long long flow(long long k = -1) {
+        if (k == -1)
+            k = INF;
         long long flow = 0;
         long long cost = 0;
         vector<long long> d;
@@ -72,13 +73,15 @@ struct MinCostFlow {
             cost += f * d[t];
             cur = t;
             while (cur != s) {
+                edges[p[cur]].flow += f;
+                edges[p[cur]^1].flow -= f;
                 edges[p[cur]].cap -= f;
                 edges[p[cur]^1].cap += f;
                 cur = edges[p[cur]].u;
             }
-            //ans.push_back({flow, cost});
+            ans.push_back({flow, cost});
         }
-        if (flow < k)
+        if (k < INF && flow < k)
             return -1;
         else
             return cost;

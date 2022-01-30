@@ -1,9 +1,12 @@
 # Algorithms
-A collection of useful algorithms for competitive programming (ACM-ICPC and Codeforces). All algorithms are implemented in C++. 
-
+I'm a noob who only started doing competitive programming during sophomore year in college. I collected several useful algorithms and tips in this repo for me to use in contests. All of them are implemented in C++. 
 Many of them are adapted from [CP Algorithms](https://cp-algorithms.com/index.html) and various [Codeforces](https://codeforces.com/) posts. 
 
 This repository is mainly for personal use. The codes might not be useful to others, but I'll make it public in case anyone needs it. I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
+
+My homepage: [Yan Pan](https://panyan7.github.io/)
+
+My Codeforces handles: [YanPan](https://codeforces.com/profile/YanPan) and [panyan7](https://codeforces.com/profile/panyan7).
 
 ## Full List of Algorithms
 
@@ -79,3 +82,14 @@ In directory `struct/`
 In directory `technique/`
 - Sweep Line `sweepline.cpp`
 - Two pointers `two_pointers.cpp`
+
+## Some Tips for Competitive Programming
+- Always think of two-pointers first when dealing with range and need a O(n) solution.
+- Similarly, always think of sweepline when you can transform inputs into ranges explicitly and need to consider the intersection of them.
+- You can also use sweepline to merge ranges.
+- Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
+- Always look at the constraints on input sizes first. A few examples:
+    - When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear.If O(1) or O(log n) solutions exist, they would give 1e9 range.
+    - Typically when the list is 1e5 and the numbers are 1e9, you cannot do square root time operations like prime factorization. But if they are 1e6, you probably want to consider that.
+- Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
+- Dinic's algorithm can be faster on unit flows.

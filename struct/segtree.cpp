@@ -18,6 +18,17 @@ struct MinInt {
     const T e = LLONG_MAX;
     T f(T a, T b) const { return min(a, b); }
 };
+struct GCDInt {
+    using T = long long;
+    const T e = 0;
+    T f(T a, T b) const {
+        if (a == 0)
+            return b;
+        if (b == 0)
+            return a;
+        return gcd(a, b);
+    }
+};
 template <class B>
 struct SegTree : public B {
     using T = typename B::T;

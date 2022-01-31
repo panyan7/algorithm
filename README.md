@@ -84,12 +84,15 @@ In directory `technique/`
 - Two pointers `two_pointers.cpp`
 
 ## Some Tips for Competitive Programming
+### Algorithm Design Ideas
 - Always think of two-pointers first when dealing with range and need a O(n) solution.
 - Similarly, always think of sweepline when you can transform inputs into ranges explicitly and need to consider the intersection of them.
 - You can also use sweepline to merge ranges.
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
-- Always look at the constraints on input sizes first. A few examples:
-    - When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear.If O(1) or O(log n) solutions exist, they would give 1e9 range.
-    - Typically when the list is 1e5 and the numbers are 1e9, you cannot do square root time operations like prime factorization. But if they are 1e6, you probably want to consider that.
 - Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
-- Dinic's algorithm can be faster on unit flows.
+### Using Input Range
+- When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear.If O(1) or O(log n) solutions exist, they would give 1e9 range.
+- When the numbers are 1e6 or smaller, the solution is probably pseudo-polynomial time and depends on the size of these numbers. Because otherwise they would give numbers of 1e9.
+- Typically when the list is 1e5 and the numbers are 1e9, you cannot do square root time operations like prime factorization. But if they are 1e6, you probably want to consider that.
+### Writing Clean Code
+- When you're making queries to sum of absolute values minus some number, you can precompute the points that the solution change, and calculate p, the number of positive - number of non-positive, and w, the sum of elements with signs +1 or -1. Then, you can calculate the query x by w - x * p. This is clean and easy to debug.

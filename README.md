@@ -90,9 +90,12 @@ In directory `technique/`
 - You can also use sweepline to merge ranges.
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
 - Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
+- Monotonic stack is also useful when you want to merge some elements, or erase those such that their effect are covered by others.
 ### Using Input Range
 - When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear.If O(1) or O(log n) solutions exist, they would give 1e9 range.
 - When the numbers are 1e6 or smaller, the solution is probably pseudo-polynomial time and depends on the size of these numbers. Because otherwise they would give numbers of 1e9.
 - Typically when the list is 1e5 and the numbers are 1e9, you cannot do square root time operations like prime factorization. But if they are 1e6, you probably want to consider that.
 ### Writing Clean Code
 - When you're making queries to sum of absolute values minus some number, you can precompute the points that the solution change, and calculate p, the number of positive - number of non-positive, and w, the sum of elements with signs +1 or -1. Then, you can calculate the query x by w - x * p. This is clean and easy to debug.
+- Tree operations are slow in constant. So avoid using ordered set and map in general if you don't really need them. Vector + sort + removing duplicate with `a.erase(std::unique(a.begin(), a.end()), a.end())` is much faster than set in practice. Priority queue is also much faster than multiset, although their query complexities are both O(log n).
+- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging.

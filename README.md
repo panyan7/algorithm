@@ -90,8 +90,9 @@ In directory `technique/`
 - You can also use sweepline to merge ranges.
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
 - Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
-### Using Input Range
-- When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear.If O(1) or O(log n) solutions exist, they would give 1e9 range.
+### Utilizing Input Range
+- It is important to read the input ranges correctly!
+- When the problem only gives a few inputs, and the range of the input is something like 1e6, it is probably linear. If O(1) or O(log n) solutions exist, they would give 1e9 range.
 - When the numbers are 1e6 or smaller, the solution is probably pseudo-polynomial time and depends on the size of these numbers. Because otherwise they would give numbers of 1e9.
 - Typically when the list is 1e5 and the numbers are 1e9, you cannot do square root time operations like prime factorization. But if they are 1e6, you probably want to consider that.
 ### Writing Clean Code

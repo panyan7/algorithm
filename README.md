@@ -83,8 +83,8 @@ In directory `technique/`
 - Sweep Line `sweepline.cpp`
 - Two pointers `two_pointers.cpp`
 
-### Important Problems
-In directory `problem/`
+### Miscellaneous Important Problems
+In directory `misc/`
 - Longest increasing subsequence `lis.cpp`
 - Maximum subarray sum `mss.cpp`
 

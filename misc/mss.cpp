@@ -6,7 +6,6 @@ using namespace std;
 
 int tt = 1, n, m, k;
 
-// check long long
 void solve() {
     cin >> n;
     vector<int> a(n);

@@ -6,7 +6,12 @@ using namespace std;
 
 int tt = 1, n, m, k;
 
-int max_xor(vector<int>& a) {
+void solve() {
+    // finds maximum xor of any two numbers in a
+    cin >> n;
+    vector<int> a(n);
+    for (auto& x : a)
+        cin >> x;
     int maxx = 0, mask = 0;
     unordered_set<int> se;
     for (int i = 30; i >= 0; i--) {
@@ -22,11 +27,7 @@ int max_xor(vector<int>& a) {
         }
         se.clear();
     }
-    return maxx;
-}
-
-// check long long
-void solve() {
+    // result is maxx
 }
 
 int main() {

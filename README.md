@@ -6,7 +6,7 @@ This repository is mainly for personal use. The codes might not be useful to oth
 
 My homepage: [Yan Pan](https://panyan7.github.io/)
 
-My Codeforces handles: [YanPan](https://codeforces.com/profile/YanPan) and [panyan7](https://codeforces.com/profile/panyan7).
+My Codeforces handles: [YanPan](https://codeforces.com/profile/YanPan).
 
 ## Full List of Algorithms
 

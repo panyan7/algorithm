@@ -1,3 +1,8 @@
+/**
+ *  Reference solution using fast Fourier transform (FFT)
+ *  Codeforces 827 E "Rusty String"
+ *  https://codeforces.com/contest/827/problem/E
+ */
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -56,6 +61,41 @@ vector<int> multiply(vector<int>& a, vector<int>& b) {
 int tt = 1, n, m, k;
 
 void solve() {
+    cin >> n;
+    string s;
+    cin >> s;
+    vector<int> a(n, 0), b(n, 0);
+    for (int i = 0; i < n; i++) {
+        if (s[i] == 'V') {
+            a[i] = 1;
+        }
+        if (s[i] == 'K') {
+            b[n-1-i] = 1;
+        }
+    }
+    vector<int> c = multiply(a, b);
+    vector<int> sieve(n+1, 0);
+    for (int i = 0; i < c.size(); i++)
+        if (c[i])
+            sieve[abs(i-n+1)] = 1;
+    for (int i = 1; i <= n; i++) {
+        for (int j = i; j <= n; j += i) {
+            if (sieve[j]) {
+                sieve[i] = 1;
+                break;
+            }
+        }
+    }
+    vector<int> res;
+    for (int i = 1; i <= n; i++) {
+        if (!sieve[i]) {
+            res.push_back(i);
+        }
+    }
+    cout << res.size() << "\n";
+    for (int x : res)
+        cout << x << " ";
+    cout << "\n";
 }
 
 int main() {

@@ -46,10 +46,10 @@ In directory `graph/`
 - Dijkstra's algorithm `dijkstra.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
-- Kruskal's algorithm for MST construction `kruskal.cpp`
+- Kruskal's algorithm for MST construction with union find `kruskal.cpp`
 - Lowest common ancestor with binary lifting `lca.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
-- Strongly connected components `scc.cpp`
+- Strongly connected components with DFS `scc.cpp`
 - Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
 - Union find as a struct `union_find_struct.cpp`

@@ -1,35 +1,65 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define pii pair<int,int>
+#define pll pair<long long,long long>
 
-struct edge {
-    int u, v, w;
-    bool operator < (const edge& o) {
-        return w < o.w;
+int tt = 1, n, m, k;
+vector<array<ll,3>> edges;
+vector<int> parent;
+vector<int> sz;
+
+void init() {
+    parent.resize(n);
+    sz.assign(n, 1);
+    for (int v = 0; v < n; ++v)
+        parent[v] = v;
+}
+int find_set(int v) {
+    if (parent[v] == v) return v;
+    return parent[v] = find_set(parent[v]); // Optimizes depth 
+}
+bool union_sets(int v, int u) {
+    v = find_set(v), u = find_set(u);
+    if (v == u)
+        return false;
+    if (sz[v] < sz[u])
+        swap(v, u); // Optimizes depth
+    parent[u] = v;
+    sz[v] += sz[u];
+    return true;
+}
+
+// check long long
+void solve() {
+    cin >> n >> m;
+    init();
+    for (int i = 0; i < m; i++) {
+        ll u, v, w;
+        cin >> u >> v >> w;
+        u--, v--;
+        edges.push_back({w, u, v});
     }
-};
-
-int n;
-vector<edge> edges;
-
-vector<pair<int, int>> kruskal() {
-    int cost = 0;
-    vector<int> tree_id (n, 0);
-    vector<pair<int, int>> res;
-    for (int i = 1; i <= n; ++i)
-        tree_id[i] = i;
-
     sort(edges.begin(), edges.end());
-
-    for (edge e : edges) {
-        if (tree_id[e.u] != tree_id[e.v]) {
-            cost += e.w;
-            res.push_back({e.u, e.v});
-
-            int old_id = tree_id[e.u], new_id = tree_id[e.v];
-            for (int i = 1; i <= n; ++i)
-                if (tree_id[i] == old_id)
-                    tree_id[i] = new_id;
+    ll cost = 0;
+    vector<array<ll,3>> res;
+    for (array<ll,3> e : edges) {
+        if (find_set(e[1]) != find_set(e[2])) {
+            cost += e[0];
+            res.push_back(e);
+            union_sets(e[1], e[2]);
         }
+        if (res.size() >= n-1)
+            break;
     }
-    return res;
+}
+ 
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    return 0;
 }

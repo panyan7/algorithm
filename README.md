@@ -20,6 +20,7 @@ In directory `algebra/`
 - Finding maximum pairwise xor value in array `max_xor.cpp`
 - M&ouml;bius inversion `mobius.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
+- Number theoretic transform `ntt.cpp`
 - Testing primality `prime_test.cpp`
 - Prime factorization `prime_factorize.cpp`
 - Sieve of Eratosthenes `sieve.cpp`

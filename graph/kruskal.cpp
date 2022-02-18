@@ -30,7 +30,6 @@ bool union_sets(int v, int u) {
     return true;
 }
 
-// check long long
 void solve() {
     cin >> n >> m;
     init();

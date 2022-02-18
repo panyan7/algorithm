@@ -48,7 +48,6 @@ bool find_cycle() {
     return true;
 }
 
-// check long long
 void solve() {
 }
 

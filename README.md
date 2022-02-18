@@ -42,12 +42,15 @@ In directory `graph/`
 - Bridge finding `bridge.cpp`
 - Bipartite graph testing with BFS `bipartite.cpp`
 - Cycle detection with DFS `cycle.cpp`
+- Cycle detection with DFS on undirected graph `cycle_ud.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
+- Dijkstra's algorithm with priority queue `dijkstra_pq.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction with union find `kruskal.cpp`
 - Lowest common ancestor with binary lifting `lca.cpp`
+- Longest path in a DAG `longest_path.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
 - Strongly connected components with DFS `scc.cpp`
 - Topological sorting with DFS `toposort.cpp`

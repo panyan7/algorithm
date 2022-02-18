@@ -36,6 +36,8 @@ bool topological_sort() {
 }
 
 void solve() {
+    // first do topological sort
+    // then do dp
 }
  
 int main() {

@@ -110,5 +110,15 @@ In directory `misc/`
 ### Writing Clean Code
 - When you're making queries to sum of absolute values minus some number, you can precompute the points that the solution change, and calculate p, the number of positive - number of non-positive, and w, the sum of elements with signs +1 or -1. Then, you can calculate the query x by w - x * p. This is clean and easy to debug.
 - Tree operations are slow in constant. So avoid using ordered set and map in general if you don't really need them. Vector + sort + removing duplicate with `a.erase(std::unique(a.begin(), a.end()), a.end())` is much faster than set in practice. Priority queue is also much faster than multiset, although their query complexities are both O(log n).
-- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging.
+- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging. Also, if you only need prefix sum, you can do stuff like `a[i] += a[i-1]` for each 
 - When you binary search for a fixed precision, you can run for a fixed iteration, which is something at least log(precision). Typically something like 100 works.
+
+### Debugging
+- Did you use long long? Especially, when you do bitwise shift, use 1LL.
+- Did you confuse max and min?
+- Did you confuse m and n?
+- Are the containers initialized correctly? If there are multiple test cases, did you clear the containers?
+- Are there array out of bound issues?
+- Are the base case (and index) of dp correct?
+- Did you do off by one for the index? Are the choices consistent throughout the program?
+- Did you try test cases that cover all parts of your solution?

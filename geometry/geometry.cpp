@@ -111,6 +111,15 @@ vector<line> tangent_circle(circle a, circle b) {
         ans[i].c -= ans[i].a * a.c.x + ans[i].b * a.c.y;
     return ans;
 }
+double polygon_area(const vector<pt>& fig) {
+    double res = 0;
+    for (int i = 0; i < (int)fig.size(); i++) {
+        pt p = i ? fig[i - 1] : fig.back();
+        pt q = fig[i];
+        res += (p.x - q.x) * (p.y + q.y);
+    }
+    return fabs(res) / 2;
+}
 
 void solve() {
 }

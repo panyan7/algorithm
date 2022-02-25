@@ -5,9 +5,9 @@ using namespace std;
 #define pll pair<long long,long long>
 
 int tt = 1, n, m, k;
-const int INF = 1e9;
-vector<vector<pii>> adj;
-vector<int> dist, p;
+const ll INF = 1e9;
+vector<vector<pll>> adj;
+vector<ll> dist, p;
 
 void dijkstra(vector<int>& source) {
     dist.assign(n, INF);

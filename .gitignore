@@ -1,6 +1,3 @@
 *.out
 .idea
 .DS_Store
-*.lua
-*.pdf
-*.css

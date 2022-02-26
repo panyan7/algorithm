@@ -29,7 +29,6 @@ In directory `algebra/`
 
 ### Combinatorics
 In directory `combinatorics/`
-- Stirling number of the second kind `stirling.cpp`
 
 
 ### Geometry

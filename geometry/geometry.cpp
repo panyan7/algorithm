@@ -52,6 +52,48 @@ struct pt {
     friend pt operator/(const pt& a, const double c) {
         return pt(a) /= c;
     }
+    friend double dot(pt a, pt b) {
+        return a.x * b.x + a.y * b.y;
+    }
+    friend double cross(pt a, pt b) {
+        return a.x * b.y - a.y * b.x;
+    }
+    friend double len(pt a) {
+        double s = a.x * a.x + a.y * a.y;
+        return sqrt(s);
+    }
+    friend double dist(pt a, pt b) {
+        return len(a - b);
+    }
+    friend pt intersect(pt a1, pt d1, pt a2, pt d2) {
+        // intersection between a1 + td1 and a2 + td2
+        return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
+    }
+    friend double polygon_area(const vector<pt>& fig) {
+        double res = 0;
+        for (int i = 0; i < (int)fig.size(); i++) {
+            pt p = i ? fig[i - 1] : fig.back();
+            pt q = fig[i];
+            res += (p.x - q.x) * (p.y + q.y);
+        }
+        return fabs(res) / 2;
+    }
+};
+struct line {
+    double a, b, c;
+    line() : a(0.0), b(0.0), c(0.0) {}
+    line(double a, double b, double c) : a(a), b(b), c(c) {}
+    friend ostream& operator<<(ostream& os, const line& l) {
+        return os << l.a << " " << l.b << " " << l.c;
+    }
+    friend line offset(line l, pt a, bool invert=false) {
+        // invert = false then (0,0) -> a, true then a -> (0,0)
+        if (invert)
+            l.c += l.a * a.x + l.b * a.y;
+        else
+            l.c -= l.a * a.x + l.b * a.y;
+        return l;
+    }
 };
 struct circle {
     pt c;
@@ -65,64 +107,31 @@ struct circle {
     friend istream& operator>>(istream& is, circle& a) {
         return is >> a.c >> a.r;
     }
-};
-struct line {
-    double a, b, c;
-    line() : a(0.0), b(0.0), c(0.0) {}
-    friend ostream& operator<<(ostream& os, const line& l) {
-        return os << l.a << " " << l.b << " " << l.c;
+    void line_circle_intersection(circle a, line l, vector<pt>& ans) {
+        l = offset(l, a.c, true);
+    }
+    void tangent_circle(circle a, circle b, vector<line>& ans) {
+        auto tangent_line = [&](pt c, double r1, double r2) {
+            double r = r2 - r1;
+            double z = c.x * c.x + c.y * c.y;
+            double d = z - r * r;
+            if (d < -EPS) return;
+            d = sqrt(abs(d));
+            line l;
+            l.a = (c.x * r + c.y * d) / z;
+            l.b = (c.y * r - c.x * d) / z;
+            l.c = r1; 
+            l = offset(l, a.c);
+            ans.push_back(l);
+        };
+        for (int i = -1; i <= 1; i += 2)
+            for (int j = -1; j <= 1; j += 2)
+                tangent_line(b.c - a.c, a.r * i, b.r * j);
     }
 };
-double dot(pt a, pt b) {
-    return a.x * b.x + a.y * b.y;
-}
-double cross(pt a, pt b) {
-    return a.x * b.y - a.y * b.x;
-}
-double len(pt a) {
-    double s = a.x * a.x + a.y * a.y;
-    return sqrt(s);
-}
-double dist(pt a, pt b) {
-    return len(a - b);
-}
-pt intersect(pt a1, pt d1, pt a2, pt d2) {
-    // intersection between a1 + td1 and a2 + td2
-    return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
-}
-vector<line> tangent_circle(circle a, circle b) {
-    vector<line> ans;
-    auto tangent_line = [&](pt c, double r1, double r2) {
-        double r = r2 - r1;
-        double z = c.x * c.x + c.y * c.y;
-        double d = z - r * r;
-        if (d < -EPS) return;
-        d = sqrt(abs(d));
-        line l;
-        l.a = (c.x * r + c.y * d) / z;
-        l.b = (c.y * r - c.x * d) / z;
-        l.c = r1;
-        ans.push_back(l);
-    };
-    for (int i = -1; i <= 1; i += 2)
-        for (int j = -1; j <= 1; j += 2)
-            tangent_line(b.c - a.c, a.r * i, b.r * j);
-    for (int i = 0; i < (int)ans.size(); i++)
-        ans[i].c -= ans[i].a * a.c.x + ans[i].b * a.c.y;
-    return ans;
-}
-double polygon_area(const vector<pt>& fig) {
-    double res = 0;
-    for (int i = 0; i < (int)fig.size(); i++) {
-        pt p = i ? fig[i - 1] : fig.back();
-        pt q = fig[i];
-        res += (p.x - q.x) * (p.y + q.y);
-    }
-    return fabs(res) / 2;
-}
 
 void solve() {
-}
+} 
 
 int main() {
     ios::sync_with_stdio(0);

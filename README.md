@@ -122,3 +122,4 @@ In directory `misc/`
 - Are the base case (and index) of dp correct?
 - Did you do off by one for the index? Are the choices consistent throughout the program?
 - Did you try test cases that cover all parts of your solution?
+- Does the test case allow negative numbers and did you forget it?

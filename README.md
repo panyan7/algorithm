@@ -123,3 +123,5 @@ In directory `misc/`
 - Did you do off by one for the index? Are the choices consistent throughout the program?
 - Did you try test cases that cover all parts of your solution?
 - Does the test case allow negative numbers and did you forget it?
+- Are there precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
+- Did you confuse = and ==?

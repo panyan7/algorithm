@@ -100,6 +100,7 @@ In directory `misc/`
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
 - Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
 - Monotonic stack is also useful when you want to merge some elements, or erase those such that their effect are covered by others.
+- Think about min-cut when you have precedence in max-flow problems. Only keep the objects having negative cost that is required by others and positive cost that requires some others.
 
 ### Utilizing Input Range
 - It is important to read the input ranges correctly!
@@ -110,8 +111,10 @@ In directory `misc/`
 ### Writing Clean Code
 - When you're making queries to sum of absolute values minus some number, you can precompute the points that the solution change, and calculate p, the number of positive - number of non-positive, and w, the sum of elements with signs +1 or -1. Then, you can calculate the query x by w - x * p. This is clean and easy to debug.
 - Tree operations are slow in constant. So avoid using ordered set and map in general if you don't really need them. Vector + sort + removing duplicate with `a.erase(std::unique(a.begin(), a.end()), a.end())` is much faster than set in practice. Priority queue is also much faster than multiset, although their query complexities are both O(log n).
-- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging. Also, if you only need prefix sum, you can do stuff like `a[i] += a[i-1]` for each 
+- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging. Also, if you only need prefix sum, you can do stuff like `a[i] += a[i-1]`.
+- Use `lower_bound` when you need to do binary search on an array, instead of implementing one yourself.
 - When you binary search for a fixed precision, you can run for a fixed iteration, which is something at least log(precision). Typically something like 100 works.
+- If you want to enumerate all subsets, use bitmask instead of precomputing stuff.
 
 ### Debugging
 - Did you use long long? Especially, when you do bitwise shift, use 1LL.
@@ -125,3 +128,4 @@ In directory `misc/`
 - Does the test case allow negative numbers and did you forget it?
 - Are there precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
 - Did you confuse = and ==?
+- For max flow, is the capacity constraint on edges or vertices?

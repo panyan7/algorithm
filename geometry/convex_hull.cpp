@@ -6,7 +6,6 @@ using namespace std;
 #define pt  array<double,2>
 
 // Convex hull using Graham scan
-// Should not contain dulicate points
 bool cw(pt a, pt b, pt c) {
     return a[0]*(b[1]-c[1])+b[0]*(c[1]-a[1])+c[0]*(a[1]-b[1]) <= 0;
 }
@@ -15,8 +14,9 @@ bool ccw(pt a, pt b, pt c) {
 }
 vector<pt> convex_hull(vector<pt>& a) {
     if (a.size() == 1)
-        return;
+        return {};
     sort(a.begin(), a.end());
+    a.erase(unique(a.begin(), a.end()), a.end());
     pt p1 = a[0], p2 = a.back();
     vector<pt> u, d;
     u.push_back(p1);
@@ -44,7 +44,6 @@ vector<pt> convex_hull(vector<pt>& a) {
 int tt = 1, n, m;
 
 void solve() {
-
 }
 
 int main() {
@@ -55,4 +54,4 @@ int main() {
         solve();
     }
     return 0;
-
+}

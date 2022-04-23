@@ -76,6 +76,7 @@ struct pt {
     }
     friend pt intersect(pt a1, pt d1, pt a2, pt d2) {
         // intersection between a1 + td1 and a2 + td2
+        assert(d1 != d2);
         return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
     }
     friend double polygon_area(const vector<pt>& fig) {
@@ -98,6 +99,43 @@ struct pt {
         pt proj_ba_bc = proj(ba, bc);
         pt rem = ba - proj_ba_bc;
         return len(rem);
+    }
+    friend bool cw(pt a, pt b, pt c) {
+        // clock-wise
+        return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) <= 0;
+    }
+    friend bool ccw(pt a, pt b, pt c) {
+        // counter clock-wise
+        return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+    }
+    friend vector<pt> convex_hull(vector<pt>& a) {
+        // Convex hull
+        if (a.size() == 1)
+            return {};
+        sort(a.begin(), a.end());
+        a.erase(unique(a.begin(), a.end()), a.end());
+        pt p1 = a[0], p2 = a.back();
+        vector<pt> u, d;
+        u.push_back(p1);
+        d.push_back(p1);
+        for (int i = 1; i < (int)a.size(); i++) {
+            if (i == a.size() - 1 || cw(p1, a[i], p2)) {
+                while (u.size() >= 2 && !cw(u[u.size()-2], u[u.size()-1], a[i]))
+                    u.pop_back();
+                u.push_back(a[i]);
+            }
+            if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
+                while (d.size() >= 2 && !ccw(d[d.size()-2], d[d.size()-1], a[i]))
+                    d.pop_back();
+                d.push_back(a[i]);
+            }
+        }
+        vector<pt> res;
+        for (int i = 0; i < (int)u.size(); i++)
+            res.push_back(u[i]);
+        for (int i = d.size() - 2; i > 0; i--)
+            res.push_back(d[i]);
+        return res;
     }
 };
 struct line {
@@ -150,42 +188,6 @@ struct circle {
                 tangent_line(b.c - a.c, a.r * i, b.r * j);
     }
 };
-
-// Convex hull
-bool cw(pt a, pt b, pt c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) <= 0;
-}
-bool ccw(pt a, pt b, pt c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
-}
-vector<pt> convex_hull(vector<pt>& a) {
-    if (a.size() == 1)
-        return {};
-    sort(a.begin(), a.end());
-    a.erase(unique(a.begin(), a.end()), a.end());
-    pt p1 = a[0], p2 = a.back();
-    vector<pt> u, d;
-    u.push_back(p1);
-    d.push_back(p1);
-    for (int i = 1; i < (int)a.size(); i++) {
-        if (i == a.size() - 1 || cw(p1, a[i], p2)) {
-            while (u.size() >= 2 && !cw(u[u.size()-2], u[u.size()-1], a[i]))
-                u.pop_back();
-            u.push_back(a[i]);
-        }
-        if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
-            while (d.size() >= 2 && !ccw(d[d.size()-2], d[d.size()-1], a[i]))
-                d.pop_back();
-            d.push_back(a[i]);
-        }
-    }
-    vector<pt> res;
-    for (int i = 0; i < (int)u.size(); i++)
-        res.push_back(u[i]);
-    for (int i = d.size() - 2; i > 0; i--)
-        res.push_back(d[i]);
-    return res;
-}
 
 void solve() {
 } 

@@ -89,8 +89,9 @@ In directory `technique/`
 
 ### Miscellaneous Important Problems
 In directory `misc/`
-- Longest increasing subsequence `lis.cpp`
-- Maximum subarray sum `mss.cpp`
+- Longest increasing subsequence `longest_increasing_subseq.cpp`
+- Maximum subarray sum `max_subarray_sum.cpp`
+- Maximum subarray sum with queries `max_subarray_sum_query.cpp`
 
 ## Some Tips for Competitive Programming
 ### Algorithm Design Ideas

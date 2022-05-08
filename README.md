@@ -40,6 +40,7 @@ In directory `geometry/`
 In directory `graph/`
 - Bellman-Ford algorithm with negative cycle detection `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
+- Binary lifting on forests `binary_lifting.cpp`
 - Bridge finding `bridge.cpp`
 - Bipartite graph testing with BFS `bipartite.cpp`
 - Cycle detection with DFS `cycle.cpp`
@@ -99,9 +100,10 @@ In directory `misc/`
 - Similarly, always think of sweepline when you can transform inputs into ranges explicitly and need to consider the intersection of them.
 - You can also use sweepline to merge ranges.
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
-- Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes.
-- Monotonic stack is also useful when you want to merge some elements, or erase those such that their effect are covered by others.
+- Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes (like O(log n)).
+- Monotonic stack is also useful when you want to merge some elements, or erase elements such that their effect are covered by others.
 - Think about min-cut when you have precedence in max-flow problems. Only keep the objects having negative cost that is required by others and positive cost that requires some others.
+- Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n).
 
 ### Utilizing Input Range
 - It is important to read the input ranges correctly!
@@ -112,8 +114,9 @@ In directory `misc/`
 ### Writing Clean Code
 - When you're making queries to sum of absolute values minus some number, you can precompute the points that the solution change, and calculate p, the number of positive - number of non-positive, and w, the sum of elements with signs +1 or -1. Then, you can calculate the query x by w - x * p. This is clean and easy to debug.
 - Tree operations are slow in constant. So avoid using ordered set and map in general if you don't really need them. Vector + sort + removing duplicate with `a.erase(std::unique(a.begin(), a.end()), a.end())` is much faster than set in practice. Priority queue is also much faster than multiset, although their query complexities are both O(log n).
-- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array. When you have fewer arrays, you don't have to modify a lot during debugging. Also, if you only need prefix sum, you can do stuff like `a[i] += a[i-1]`.
-- Use `lower_bound` when you need to do binary search on an array, instead of implementing one yourself.
+- If you want to calculate both the prefix and suffix quickly, you just need one prefix sum array, because it actually allows you to calculate the sum of every interval. When you have fewer arrays, you don't have to modify a lot during debugging. Also, if you only need prefix sum, you can do stuff like `a[i] += a[i-1]`.
+- If you don't need to modify the array, then use prefix sum or sparse table RMQ for range queries, instead of segment trees. The complexity is constant!
+- Use `lower_bound` or `upper_bound` when you need to do binary search on an array, instead of implementing one yourself.
 - When you binary search for a fixed precision, you can run for a fixed iteration, which is something at least log(precision). Typically something like 100 works.
 - If you want to enumerate all subsets, use bitmask instead of precomputing stuff.
 

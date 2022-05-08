@@ -14,8 +14,8 @@ void solve() {
     vector<int> d;
     for (int i = 0; i < n; i++) {
         // use lower_bound for increasing, upper_bound for non-decreasing
-        auto it = lower_bound(d.begin(), d.end(), a[i]);
-        // auto it = upper_bound(d.begin(), d.end(), a[i]);
+        auto it = lower_bound(d.begin(), d.end(), a[i]); // increasing
+        // auto it = upper_bound(d.begin(), d.end(), a[i]); // non-decreasing
         if (it != d.end())
             *it = a[i];
         else

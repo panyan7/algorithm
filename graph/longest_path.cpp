@@ -38,6 +38,11 @@ bool topological_sort() {
 void solve() {
     // first do topological sort
     // then do dp
+    vector<int> dp(n, 1);
+    for (int i = n-1; i >= 0; i--)
+        for (int u : adj[ord[i]])
+            dp[ord[i]] = max(dp[ord[i]], dp[u] + 1);
+    int res = *max_element(dp.begin(), dp.end());
 }
  
 int main() {

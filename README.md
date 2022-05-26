@@ -105,6 +105,7 @@ In directory `misc/`
 - Monotonic stack is also useful when you want to merge some elements, or erase elements such that their effect are covered by others.
 - Think about min-cut when you have precedence in max-flow problems. Only keep the objects having negative cost that is required by others and positive cost that requires some others.
 - Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n).
+- When you need to construct x operations to do something, first think of whether you can solve it with constant number of operations.
 
 ### Utilizing Input Range
 - It is important to read the input ranges correctly!
@@ -120,6 +121,7 @@ In directory `misc/`
 - Use `lower_bound` or `upper_bound` when you need to do binary search on an array, instead of implementing one yourself.
 - When you binary search for a fixed precision, you can run for a fixed iteration, which is something at least log(precision). Typically something like 100 works.
 - If you want to enumerate all subsets, use bitmask instead of precomputing stuff.
+- If you need to use the powers of some constant, precompute them. Don't trust C++'s `pow` function.
 
 ### Debugging
 - Did you use long long? Especially, when you do bitwise shift, use 1LL.

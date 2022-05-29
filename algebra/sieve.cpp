@@ -10,7 +10,7 @@ bool is_composite[MAXN];
 vector<int> prime;
 
 void sieve(int n) {
-	fill(is_composite, is_composite+n, false);
+    memset(is_composite, 0, sizeof(is_composite));
 	for (int i = 2; i < n; ++i) {
 		if (!is_composite[i])
             prime.push_back(i);
@@ -22,8 +22,15 @@ void sieve(int n) {
 	}
 }
 
+void sieve2(int m) {
+    memset(is_composite, 0, sizeof(is_composite));
+    for (int i = 2; i <= m; i++) {
+        for (int j = i; j <= m; j += i) {
+            is_composite[j] = true;
+        }
+    }
+}
 
-// check long long
 void solve() {
 }
 

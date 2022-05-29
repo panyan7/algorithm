@@ -27,8 +27,6 @@ bool MillerRabin(ll n) { // returns true if n is prime, else returns false.
 }
 
 void solve() {
-    // check long long
-    ;
 }
 
 int main() {

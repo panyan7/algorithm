@@ -12,22 +12,22 @@ void solve() {
     vector<int> a(n);
     for (auto& x : a)
         cin >> x;
-    int maxx = 0, mask = 0;
-    unordered_set<int> se;
+    int mx = 0, mask = 0;
+    unordered_set<int> st;
     for (int i = 30; i >= 0; i--) {
         mask |= (1 << i);
         for (int i = 0; i < (int)a.size(); ++i)
-            se.insert(a[i] & mask);
-        int new_maxx = maxx | (1 << i);
-        for (int prefix : se) {
-            if (se.count(new_maxx ^ prefix)) {
-                maxx = new_maxx;
+            st.insert(a[i] & mask);
+        int new_mx = mx | (1 << i);
+        for (int prefix : st) {
+            if (st.count(new_mx ^ prefix)) {
+                mx = new_mx;
                 break;
             }
         }
-        se.clear();
+        st.clear();
     }
-    // result is maxx
+    // result is mx
 }
 
 int main() {

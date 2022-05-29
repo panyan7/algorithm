@@ -22,7 +22,6 @@ void compute_phi(ll n) {
     }
 }
 
-// check long long
 void solve() {
 }
 

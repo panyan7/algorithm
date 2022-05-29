@@ -17,7 +17,6 @@ In directory `algebra/`
 - Gaussian elimination `gaussian_elim.cpp`
 - Gaussian elimination with modular number `gaussian_elim_mod.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
-- Finding maximum pairwise xor value in array `max_xor.cpp`
 - M&ouml;bius inversion `mobius.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Number theoretic transform `ntt.cpp`
@@ -75,6 +74,9 @@ In directory `string/`
 ### Data Structures
 In directory `struct/`
 - Fenwick tree `fenwick.cpp`
+- Minimum stack `min_stack.cpp`
+- Minimum queue `min_queue.cpp`
+- Ordered set with index `ordered_set.cpp`
 - Range minimum query `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
 - 2D Segment tree with generic query function and assignment query `segtree_2d.cpp`
@@ -82,6 +84,7 @@ In directory `struct/`
 - Segment tree with range assignment query and sum query `segtree_range_assign.cpp`
 - Splay tree `splay.cpp`
 - Treap `treap.cpp`
+- Trie `trie.cpp`
 
 ### Generic Algorithm Design Techniques
 In directory `technique/`
@@ -94,6 +97,7 @@ In directory `misc/`
 - Longest increasing subsequence `longest_increasing_subseq.cpp`
 - Maximum subarray sum `max_subarray_sum.cpp`
 - Maximum subarray sum with queries `max_subarray_sum_query.cpp`
+- Finding maximum pairwise xor value in array `max_xor.cpp`
 
 ## Some Tips for Competitive Programming
 ### Algorithm Design Ideas

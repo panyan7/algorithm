@@ -6,8 +6,8 @@ using namespace __gnu_pbds;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<long long,long long>
-typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> indexed_set;
-typedef tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update> indexed_multiset;
+typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+typedef tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
 // lower_bound and upper_bound should be swapped for indexed_multiset
 // currently cannot run on mac, need to use custom invocation
 

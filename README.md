@@ -1,12 +1,8 @@
 # Algorithms
-I'm a noob who only started doing competitive programming during sophomore year in college. I collected several useful algorithms and tips in this repo for me to use in contests. All of them are implemented in C++. 
+I collected several useful algorithms and tips in this repo for me to use in contests. All of them are implemented in C++.
 Many of them are adapted from [CP Algorithms](https://cp-algorithms.com/index.html) and various [Codeforces](https://codeforces.com/) posts. 
 
-This repository is mainly for personal use. The codes might not be useful to others, but I'll make it public in case anyone needs it. I added my own template and predefined a command to copy the file in my shell, so I can straightly work on these templates during a contest.
-
-My homepage: [Yan Pan](https://panyan7.github.io/)
-
-My Codeforces handles: [YanPan](https://codeforces.com/profile/YanPan).
+This repository is mainly for personal use. I do not guarantee that all the codes are correct.
 
 ## Full List of Algorithms
 

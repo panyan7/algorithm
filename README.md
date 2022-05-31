@@ -73,6 +73,7 @@ In directory `struct/`
 - Minimum stack `min_stack.cpp`
 - Minimum queue `min_queue.cpp`
 - Ordered set with indexing `ordered_set.cpp`
+- Randomized hash function for unordered_map `random_hash.cpp`
 - Range minimum/maximum query with sparse table `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
 - 2D Segment tree with generic query function and assignment query `segtree_2d.cpp`
@@ -124,7 +125,7 @@ In directory `misc/`
 - When you binary search for a fixed precision, you can run for a fixed iteration, which is something at least log(precision). Typically something like 100 works.
 - If you want to enumerate all subsets, use bitmask instead of precomputing stuff.
 - If you need to use the powers of some constant, precompute them. Don't trust C++'s `pow` function.
-- Do not use `unordered_map` and `unordered_set`!!!
+- Do not use `unordered_map` and `unordered_set`! They could be hacked. If you really need to fit into tighter time bound, use randomized hash function.
 
 ### Debugging
 - Did you use long long? Especially, when you do bitwise shift, use 1LL.

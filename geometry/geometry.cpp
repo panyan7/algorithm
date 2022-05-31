@@ -4,118 +4,116 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
-int tt = 1, n, m, k;
 const double EPS = 1e-9;
-
-struct pt {
+struct Point {
     double x, y;
-    pt() : x(0.0), y(0.0) {}
-    pt(double x, double y) : x(x), y(y) {}
-    friend ostream& operator<<(ostream& os, const pt& a) {
+    Point() : x(0.0), y(0.0) {}
+    Point(double x, double y) : x(x), y(y) {}
+    friend ostream& operator<<(ostream& os, const Point& a) {
         return os << "(" << a.x << "," << a.y << ")";
     }
-    friend istream& operator>>(istream& is, pt& a) {
+    friend istream& operator>>(istream& is, Point& a) {
         return is >> a.x >> a.y;
     }
-    friend bool operator==(const pt& a, const pt& b) {
+    friend bool operator==(const Point& a, const Point& b) {
         return a.x == b.x && a.y == b.y;
     }
-    friend bool operator!=(const pt& a, const pt& b) {
+    friend bool operator!=(const Point& a, const Point& b) {
         return !(a == b);
     }
-    friend bool operator<(const pt& a, const pt& b) {
+    friend bool operator<(const Point& a, const Point& b) {
         return (a.x == b.x) ? (a.y < b.y) : (a.x < b.x);
     }
-    pt& operator+=(const pt& a) {
+    Point& operator+=(const Point& a) {
         x += a.x;
         y += a.y;
         return *this;
     }
-    pt& operator-=(const pt& a) {
+    Point& operator-=(const Point& a) {
         x -= a.x;
         y -= a.y;
         return *this;
     }
-    pt& operator*=(const double c) {
+    Point& operator*=(const double c) {
         x *= c;
         y *= c;
         return *this;
     }
-    pt& operator/=(const double c) {
+    Point& operator/=(const double c) {
         x /= c;
         y /= c;
         return *this;
     }
-    friend pt operator+(const pt& a, const pt& b) {
-        return pt(a) += b;
+    friend Point operator+(const Point& a, const Point& b) {
+        return Point(a) += b;
     }
-    friend pt operator-(const pt& a, const pt& b) {
-        return pt(a) -= b;
+    friend Point operator-(const Point& a, const Point& b) {
+        return Point(a) -= b;
     }
-    friend pt operator*(const pt& a, const double c) {
-        return pt(a) *= c;
+    friend Point operator*(const Point& a, const double c) {
+        return Point(a) *= c;
     }
-    friend pt operator*(const double c, const pt& a) {
-        return pt(a) *= c;
+    friend Point operator*(const double c, const Point& a) {
+        return Point(a) *= c;
     }
-    friend pt operator/(const pt& a, const double c) {
-        return pt(a) /= c;
+    friend Point operator/(const Point& a, const double c) {
+        return Point(a) /= c;
     }
-    friend double dot(pt a, pt b) {
+    friend double dot(Point a, Point b) {
         return a.x * b.x + a.y * b.y;
     }
-    friend double cross(pt a, pt b) {
+    friend double cross(Point a, Point b) {
         return a.x * b.y - a.y * b.x;
     }
-    friend double len(pt a) {
+    friend double len(Point a) {
         double s = a.x * a.x + a.y * a.y;
         return sqrt(s);
     }
-    friend double dist(pt a, pt b) {
+    friend double dist(Point a, Point b) {
         return len(a - b);
     }
-    friend pt intersect(pt a1, pt d1, pt a2, pt d2) {
+    friend Point intersect(Point a1, Point d1, Point a2, Point d2) {
         // intersection between a1 + td1 and a2 + td2
         assert(d1 != d2);
         return a1 + cross(a2 - a1, d2) / cross(d1, d2) * d1;
     }
-    friend double polygon_area(const vector<pt>& fig) {
+    friend double polygon_area(const vector<Point>& fig) {
         double res = 0;
         for (int i = 0; i < (int)fig.size(); i++) {
-            pt p = i ? fig[i - 1] : fig.back();
-            pt q = fig[i];
+            Point p = i ? fig[i - 1] : fig.back();
+            Point q = fig[i];
             res += (p.x - q.x) * (p.y + q.y);
         }
         return fabs(res) / 2;
     }
-    friend pt proj(pt a, pt b) {
+    friend Point proj(Point a, Point b) {
         return b * dot(a, b) / dot(b, b);
     }
-    friend double dist_to_line(pt a, pt b, pt c) {
+    friend double dist_to_line(Point a, Point b, Point c) {
         // distance to line bc
         assert(b != c);
-        pt ba = a-b;
-        pt bc = c-b;
-        pt proj_ba_bc = proj(ba, bc);
-        pt rem = ba - proj_ba_bc;
+        Point ba = a-b;
+        Point bc = c-b;
+        Point proj_ba_bc = proj(ba, bc);
+        Point rem = ba - proj_ba_bc;
         return len(rem);
     }
-    friend bool cw(pt a, pt b, pt c) {
+    friend bool cw(Point a, Point b, Point c) {
         // clock-wise
         return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) <= 0;
     }
-    friend bool ccw(pt a, pt b, pt c) {
+    friend bool ccw(Point a, Point b, Point c) {
         // counter clock-wise
         return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
     }
-    friend vector<pt> convex_hull(vector<pt>& a) {
+    friend vector<Point> convex_hull(vector<Point>& a) {
         // Convex hull
         if (a.size() == 1)
             return {};
         sort(a.begin(), a.end());
         a.erase(unique(a.begin(), a.end()), a.end());
-        pt p1 = a[0], p2 = a.back();
-        vector<pt> u, d;
+        Point p1 = a[0], p2 = a.back();
+        vector<Point> u, d;
         u.push_back(p1);
         d.push_back(p1);
         for (int i = 1; i < (int)a.size(); i++) {
@@ -130,7 +128,7 @@ struct pt {
                 d.push_back(a[i]);
             }
         }
-        vector<pt> res;
+        vector<Point> res;
         for (int i = 0; i < (int)u.size(); i++)
             res.push_back(u[i]);
         for (int i = d.size() - 2; i > 0; i--)
@@ -138,14 +136,14 @@ struct pt {
         return res;
     }
 };
-struct line {
+struct Line {
     double a, b, c;
-    line() : a(0.0), b(0.0), c(0.0) {}
-    line(double a, double b, double c) : a(a), b(b), c(c) {}
-    friend ostream& operator<<(ostream& os, const line& l) {
+    Line() : a(0.0), b(0.0), c(0.0) {}
+    Line(double a, double b, double c) : a(a), b(b), c(c) {}
+    friend ostream& operator<<(ostream& os, const Line& l) {
         return os << l.a << " " << l.b << " " << l.c;
     }
-    friend line offset(line l, pt a, bool invert=false) {
+    friend Line offset(Line l, Point a, bool invert=false) {
         // invert = false then (0,0) -> a, true then a -> (0,0)
         if (invert)
             l.c += l.a * a.x + l.b * a.y;
@@ -154,29 +152,29 @@ struct line {
         return l;
     }
 };
-struct circle {
-    pt c;
+struct Circle {
+    Point c;
     double r;
-    circle() : r(0.0) {}
-    circle(double r) : r(r) {}
-    circle(pt c, double r) : c(c), r(r) {}
-    friend ostream& operator<<(ostream& os, const circle& a) {
+    Circle() : r(0.0) {}
+    Circle(double r) : r(r) {}
+    Circle(Point c, double r) : c(c), r(r) {}
+    friend ostream& operator<<(ostream& os, const Circle& a) {
         return os << a.c << " " << a.r;
     }
-    friend istream& operator>>(istream& is, circle& a) {
+    friend istream& operator>>(istream& is, Circle& a) {
         return is >> a.c >> a.r;
     }
-    void line_circle_intersection(circle a, line l, vector<pt>& ans) {
+    void line_circle_intersection(Circle a, Line l, vector<Point>& ans) {
         l = offset(l, a.c, true);
     }
-    void tangent_circle(circle a, circle b, vector<line>& ans) {
-        auto tangent_line = [&](pt c, double r1, double r2) {
+    void tangent_circle(Circle a, Circle b, vector<Line>& ans) {
+        auto tangent_line = [&](Point c, double r1, double r2) {
             double r = r2 - r1;
             double z = c.x * c.x + c.y * c.y;
             double d = z - r * r;
             if (d < -EPS) return;
             d = sqrt(abs(d));
-            line l;
+            Line l;
             l.a = (c.x * r + c.y * d) / z;
             l.b = (c.y * r - c.x * d) / z;
             l.c = r1; 
@@ -188,6 +186,8 @@ struct circle {
                 tangent_line(b.c - a.c, a.r * i, b.r * j);
     }
 };
+using pt = Point;
+int tt = 1, n, m, k;
 
 void solve() {
 } 

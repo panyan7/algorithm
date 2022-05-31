@@ -72,13 +72,14 @@ In directory `struct/`
 - Fenwick tree `fenwick.cpp`
 - Minimum stack `min_stack.cpp`
 - Minimum queue `min_queue.cpp`
-- Ordered set with index `ordered_set.cpp`
-- Range minimum query `rmq.cpp`
+- Ordered set with indexing `ordered_set.cpp`
+- Range minimum/maximum query with sparse table `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
 - 2D Segment tree with generic query function and assignment query `segtree_2d.cpp`
 - Segment tree with range add query and max query `segtree_range_add.cpp`
 - Segment tree with range assignment query and sum query `segtree_range_assign.cpp`
-- Splay tree `splay.cpp`
+- Splay tree (not finished) `splay.cpp`
+- SQRT decomposition `sqrt_decomposition.cpp`
 - Treap `treap.cpp`
 - Trie `trie.cpp`
 
@@ -106,6 +107,7 @@ In directory `misc/`
 - Think about min-cut when you have precedence in max-flow problems. Only keep the objects having negative cost that is required by others and positive cost that requires some others.
 - Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n).
 - When you need to construct x operations to do something, first think of whether you can solve it with constant number of operations.
+- When you need to keep track of the number of unique elements, you can store a table for the frequency of the elements, and increase the count when some frequency change from 0 to 1 and decrease when some frequency change from 1 to 0.
 
 ### Utilizing Input Range
 - It is important to read the input ranges correctly!

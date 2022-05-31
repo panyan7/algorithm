@@ -4,31 +4,31 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-struct Node {
+struct MaxSumInt {
     ll INF = 1e14;
     ll prefix_sum, suffix_sum, total_sum, subarray_sum;
-    Node() {
+    MaxSumInt() {
         prefix_sum = -INF;
         suffix_sum = -INF;
         total_sum = 0;
         subarray_sum = -INF; 
     }
-    Node(ll prefix_sum_, ll suffix_sum_, ll total_sum_, ll subarray_sum_) {
+    MaxSumInt(ll prefix_sum_, ll suffix_sum_, ll total_sum_, ll subarray_sum_) {
         prefix_sum = prefix_sum_;
         suffix_sum = suffix_sum_;
         total_sum = total_sum_;
         subarray_sum = subarray_sum_;
     }
 };
-struct STNode {
-    using T = Node;
-    const T e = Node();
+struct MaxSum {
+    using T = MaxSumInt;
+    const T e = MaxSumInt();
     T f(T a, T b) const {
         ll prefix_sum = max(a.prefix_sum, a.total_sum + b.prefix_sum);
         ll suffix_sum = max(b.suffix_sum, b.total_sum + a.suffix_sum);
         ll total_sum = a.total_sum + b.total_sum;
         ll subarray_sum = max({a.subarray_sum, b.subarray_sum, a.suffix_sum + b.prefix_sum});
-        return Node(prefix_sum, suffix_sum, total_sum, subarray_sum);
+        return MaxSumInt(prefix_sum, suffix_sum, total_sum, subarray_sum);
     }
 };
 template <class B>
@@ -106,11 +106,11 @@ void solve() {
     vector<ll> a(n);
     for (auto& x : a)
         cin >> x;
-    vector<Node> b(n);
+    vector<MaxSumInt> b(n);
     for (int i = 0; i < n; i++) {
-        b[i] = Node(a[i], a[i], a[i], a[i]);
+        b[i] = MaxSumInt(a[i], a[i], a[i], a[i]);
     }
-    SegTree<STNode> st(b);
+    SegTree<MaxSum> st(b);
     for (int i = 0; i < q; i++) {
         int l, r;
         cin >> l >> r;

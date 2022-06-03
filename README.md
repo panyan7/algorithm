@@ -24,7 +24,8 @@ In directory `algebra/`
 
 ### Combinatorics
 In directory `combinatorics/`
-
+- Combinatorics template `combinatorics.cpp`
+- Stirling number `stirling.cpp` (TODO)
 
 ### Geometry
 In directory `geometry/`
@@ -64,7 +65,7 @@ In directory `optim/`
 
 ### String
 In directory `string/`
-- Aho-Corasick algorithm for string searching `aho_corasick.cpp`
+- Aho-Corasick algorithm for string searching `aho_corasick.cpp` (TODO)
 - Knuth-Morris-Pratt (KMP) algorithm for string searching `kmp.cpp`
 
 ### Data Structures
@@ -140,3 +141,5 @@ In directory `misc/`
 - Are there precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
 - Did you confuse = and ==?
 - For max flow, is the capacity constraint on edges or vertices?
+- Did you change n and k to long long when it is necessary?
+- Did you use 1 to n or 0 to n-1? In the previous case, did you use `i <= n` instead of `i < n`?

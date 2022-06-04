@@ -80,7 +80,7 @@ In directory `struct/`
 - 2D Segment tree with generic query function and assignment query `segtree_2d.cpp`
 - Segment tree with range add query and max query `segtree_range_add.cpp`
 - Segment tree with range assignment query and sum query `segtree_range_assign.cpp`
-- Splay tree (not finished) `splay.cpp`
+- Splay tree `splay.cpp` (unfinished)
 - SQRT decomposition `sqrt_decomposition.cpp`
 - Treap `treap.cpp`
 - Trie `trie.cpp`
@@ -130,6 +130,7 @@ In directory `misc/`
 
 ### Debugging
 - Did you use long long? Especially, when you do bitwise shift, use 1LL.
+- When you use long long, did you use `LLONG_MAX` instead of `INT_MAX`?
 - Did you confuse max and min?
 - Did you confuse m and n?
 - Are the containers initialized correctly? If there are multiple test cases, did you clear the containers?
@@ -141,5 +142,5 @@ In directory `misc/`
 - Are there precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
 - Did you confuse = and ==?
 - For max flow, is the capacity constraint on edges or vertices?
-- Did you change n and k to long long when it is necessary?
+- Did you change n and k to long long when it is necessary? Especially when you use something like `k * (k - 1) / 2`.
 - Did you use 1 to n or 0 to n-1? In the previous case, did you use `i <= n` instead of `i < n`?

@@ -95,22 +95,23 @@ const int MOD = 1e9+7;
 // const int MOD = 998244353;
 using num = ModNum<MOD>;
 int tt = 1, n, m;
-const int MAXN = 1e6;
-num fact[MAXN+10], ifact[MAXN+10];
+const int MAXN = 1e6+10;
+num fact[MAXN], ifact[MAXN], inum[MAXN];
 
 void init() {
-    fact[0] = 1;
-    for (int i = 1; i <= MAXN; i++)
+    inum[1] = 1;
+    for (int i = 2; i < MAXN; ++i)
+        inum[i] = MOD - (MOD/i) * inum[MOD % i];
+    fact[0] = 1, ifact[0] = 1;
+    for (int i = 1; i < MAXN; i++)
         fact[i] = fact[i-1] * i;
-    for (int i = 0; i <= MAXN; i++)
-        ifact[i] = fact[i].inv();
+    for (int i = 1; i < MAXN; i++)
+        ifact[i] = ifact[i-1] * inum[i];
 }
-
 num A(int a, int b) {
     if (b < 0 || b > a) return 0;
     return fact[a] * ifact[a-b];
 }
-
 num C(int a, int b) {
     if (b < 0 || b > a) return 0;
     return fact[a] * ifact[a-b] * ifact[b];

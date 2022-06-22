@@ -6,27 +6,28 @@ using namespace std;
 
 const int K = 26;
 struct Vertex {
-    vector<int> nxt;
+    int nxt[K];
     bool leaf = false;
-    Vertex() { nxt.assign(K, -1); }
+    Vertex() {
+        fill(nxt, nxt + K, -1);
+    }
 };
 vector<Vertex> trie(1);
 void add_string(string const& s) {
     int v = 0;
     for (char ch : s) {
         int c = ch - 'a';
-        if (trie[v].next[c] == -1) {
-            trie[v].next[c] = trie.size();
+        if (trie[v].nxt[c] == -1) {
+            trie[v].nxt[c] = trie.size();
             trie.emplace_back();
         }
-        v = trie[v].next[c];
+        v = trie[v].nxt[c];
     }
     trie[v].leaf = true;
 }
 
 int tt = 1, n, m, k;
 
-// check long long
 void solve() {
 }
 

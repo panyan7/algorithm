@@ -65,7 +65,7 @@ In directory `optim/`
 
 ### String
 In directory `string/`
-- Aho-Corasick algorithm for string searching `aho_corasick.cpp` (TODO)
+- Aho-Corasick algorithm for string searching `aho_corasick.cpp`
 - Knuth-Morris-Pratt (KMP) algorithm for string searching `kmp.cpp`
 
 ### Data Structures

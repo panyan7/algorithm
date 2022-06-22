@@ -104,11 +104,11 @@ In directory `misc/`
 - Similarly, always think of sweepline when you can transform inputs into ranges explicitly and need to consider the intersection of them.
 - You can also use sweepline to merge ranges.
 - Binary search can be used on any monotonic sequences. This includes segment tree with range max/min query.
-- Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes (like O(log n)).
+- Think of brute force, or if you can reduce the problem to a brute force problem with better input sizes like O(log n) or constant (Example [1](https://codeforces.com/contest/1626/problem/D) [2](https://codeforces.com/contest/1689/problem/D)).
 - Monotonic stack is also useful when you want to merge some elements, or erase elements such that their effect are covered by others.
 - Think about min-cut when you have precedence in max-flow problems. Only keep the objects having negative cost that is required by others and positive cost that requires some others.
-- Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n).
-- When you need to construct x operations to do something, first think of whether you can solve it with constant number of operations.
+- Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n). (Example [1](https://codeforces.com/contest/500/problem/E))
+- When you need to find the minimum number of operations to do something, first think of whether you can solve it with constant number of operations. For example, is it possible that we can always solve with 2 operations? Then, we can just determine if it is possible to solve with 0 or 1 operations, which is in general easy. (Example [1](https://codeforces.com/contest/1689/problem/E) [2](https://codeforces.com/contest/1685/problem/C))
 - When you need to keep track of the number of unique elements, you can store a table for the frequency of the elements, and increase the count when some frequency change from 0 to 1 and decrease when some frequency change from 1 to 0.
 
 ### Utilizing Input Range

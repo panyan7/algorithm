@@ -97,6 +97,7 @@ In directory `misc/`
 - Maximum subarray sum `max_subarray_sum.cpp`
 - Maximum subarray sum with queries `max_subarray_sum_query.cpp`
 - Finding maximum pairwise xor value in array `max_xor.cpp`
+- Next greater element with monotonic stack `next_greater_elem.cpp`
 
 ## Some Tips for Competitive Programming
 ### Algorithm Design Ideas

@@ -73,7 +73,7 @@ In directory `struct/`
 - Fenwick tree `fenwick.cpp`
 - Minimum stack `min_stack.cpp`
 - Minimum queue `min_queue.cpp`
-- Ordered set with indexing `ordered_set.cpp`
+- Ordered set with index `ordered_set.cpp`
 - Randomized hash function for unordered_map `random_hash.cpp`
 - Range minimum/maximum query with sparse table `rmq.cpp`
 - Segment tree with generic query function and assignment query `segtree.cpp`
@@ -134,14 +134,14 @@ In directory `misc/`
 - When you use long long, did you use `LLONG_MAX` instead of `INT_MAX`?
 - Did you confuse max and min?
 - Did you confuse m and n?
-- Are the containers initialized correctly? If there are multiple test cases, did you clear the containers?
-- Are there array out of bound issues?
-- Are the base case (and index) of dp correct?
+- Were the containers initialized correctly? If there are multiple test cases, did you clear the containers?
+- Were there array out of bound issues?
+- Were the base case (and index) of DP correct?
 - Did you do off by one for the index? Are the choices consistent throughout the program?
 - Did you try test cases that cover all parts of your solution?
-- Does the test case allow negative numbers and did you forget it?
-- Are there precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
+- Did the test case allow negative numbers and did you forget it?
+- Were there potentially precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
 - Did you confuse = and ==?
-- For max flow, is the capacity constraint on edges or vertices?
-- Did you change n and k to long long when it is necessary? Especially when you use something like `k * (k - 1) / 2`.
+- For max flow, was the capacity constraint on edges or vertices?
+- Did you change n and k to long long when it is necessary? Especially when you used something like `k * (k - 1) / 2`.
 - Did you use 1 to n or 0 to n-1? In the previous case, did you use `i <= n` instead of `i < n`?

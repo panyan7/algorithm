@@ -4,8 +4,8 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-// Range Minimum Query with sparse table
-// O(nlogn) preprocessing, O(1) query
+// Range Maximum/Minimum Query with sparse table
+// O(n log n) preprocessing, O(1) query
 struct MaxInt {
     using T = long long;
     const T e = LLONG_MIN;
@@ -15,6 +15,17 @@ struct MinInt {
     using T = long long;
     const T e = LLONG_MAX;
     T f(T a, T b) const { return min(a, b); }
+};
+struct GCDInt {
+    using T = long long;
+    const T e = 0;
+    T f(T a, T b) const {
+        if (a == 0)
+            return b;
+        if (b == 0)
+            return a;
+        return gcd(a, b);
+    }
 };
 template <class B>
 class RMQ : public B {

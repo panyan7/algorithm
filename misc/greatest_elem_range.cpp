@@ -20,6 +20,8 @@ void solve() {
             q.pop_back();
         q.push_back(i);
         l[i] = q.front();
+        // l[i] is index of the greatest element in (i-k, i]
+        // typically used in dp
     }
 }
 

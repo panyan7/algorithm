@@ -92,6 +92,7 @@ In directory `technique/`
 
 ### Miscellaneous Important Problems
 In directory `misc/`
+- Greatest element in range (i-k, i] with monotonic stack `greatest_elem_range.cpp`
 - Number of inversions with segment tree `inversions.cpp`
 - Longest increasing subsequence `longest_increasing_subseq.cpp`
 - Maximum subarray sum `max_subarray_sum.cpp`

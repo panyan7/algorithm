@@ -91,12 +91,11 @@ public:
     }
 };
 
-const int MOD = 7340033;
-// const int MOD = 998244353;
+const int MOD = 998244353;
 using num = ModNum<MOD>;
-const num root = 5;
-const num root_1 = 4404020;
-const int root_pw = 1 << 20;
+const num root = 3;
+const num root_1 = root.inv();
+const int root_pw = 1 << 23;
 int tt = 1, n, m;
 
 void ntt(vector<num>& a, bool invert) {

@@ -108,11 +108,11 @@ void init() {
     for (int i = 1; i < MAXN; i++)
         ifact[i] = ifact[i-1] * inum[i];
 }
-num A(int a, int b) {
+num permute(int a, int b) {
     if (b < 0 || b > a) return 0;
     return fact[a] * ifact[a-b];
 }
-num C(int a, int b) {
+num choose(int a, int b) {
     if (b < 0 || b > a) return 0;
     return fact[a] * ifact[a-b] * ifact[b];
 }

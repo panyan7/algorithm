@@ -11,6 +11,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 // find_by_order(k) returns to an iterator to the kth element
 // order_of_key(k) returns to the number of items strictly smaller than k
 // lower_bound and upper_bound should be swapped for indexed_multiset
+// but order_of_key works the same for both set and multiset
 // currently cannot run on mac, need to use custom invocation
 
 int tt = 1, n, m, k;

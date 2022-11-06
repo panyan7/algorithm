@@ -4,16 +4,18 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
+// Edmonds-Karp with SPFA for min cost max flow
 struct FlowEdge {
     int u, v;
     long long cap, cost, flow = 0;
     FlowEdge(int u, int v, long long cap, long long cost) : u(u), v(v), cap(cap), cost(cost) {}
 };
 struct MinCostFlow {
-    vector<vector<int>> adj, cost, cap;
+    vector<vector<int>> adj;
+    vector<vector<long long>> cost, cap;
     vector<FlowEdge> edges;
     vector<pair<long long, long long>> ans;
-    const long long INF = 1e14;
+    const long long INF = 1e18;
     int n, m = 0;
     int s, t;
     MinCostFlow(int n, int s, int t) : n(n), s(s), t(t) {
@@ -60,14 +62,12 @@ struct MinCostFlow {
             shortest_paths(s, d, p);
             if (d[t] == INF)
                 break;
-            // find max flow on that path
             long long f = k - flow;
             int cur = t;
             while (cur != s) {
                 f = min(f, edges[p[cur]].cap);
                 cur = edges[p[cur]].u;
             }
-            // apply flow
             flow += f;
             cost += f * d[t];
             cur = t;

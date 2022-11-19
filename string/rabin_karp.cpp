@@ -49,10 +49,10 @@ constexpr const long long MOD_LIST[] = {
  * F should be decltype(f) for lambda function f
  */
 template <size_t I = 0, size_t N, class C, class F>
-typename enable_if<(I == N), void>::type
+typename enable_if<(I == N)>::type
 foreachmod(C& a, F& f) { return; }
 template <size_t I = 0, size_t N, class C, class F>
-typename enable_if<(I < N), void>::type
+typename enable_if<(I < N)>::type
 foreachmod(C& a, F& f) {
     constexpr const long long M = MOD_LIST[I];
     RabinKarp<M> RK(a);

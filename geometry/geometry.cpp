@@ -5,10 +5,12 @@ using namespace std;
 #define pll pair<long long,long long>
 
 const double EPS = 1e-9;
+template <typename T>
 struct Point {
-    double x, y;
+    T x, y;
     Point() : x(0.0), y(0.0) {}
-    Point(double x, double y) : x(x), y(y) {}
+    Point(T x, T y) : x(x), y(y) {}
+    Point(vector<T>& a) : x(a[0]), y(a[1]) {}
     friend ostream& operator<<(ostream& os, const Point& a) {
         return os << "(" << a.x << "," << a.y << ")";
     }
@@ -98,18 +100,27 @@ struct Point {
         Point rem = ba - proj_ba_bc;
         return len(rem);
     }
-    friend bool cw(Point a, Point b, Point c) {
-        // clock-wise
-        return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) <= 0;
+    friend int orientation(Point a, Point b, Point c) {
+        T v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
+        if (v < 0) return -1; // clockwise
+        if (v > 0) return +1; // counter-clockwise
+        return 0;
     }
-    friend bool ccw(Point a, Point b, Point c) {
-        // counter clock-wise
-        return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+    friend bool cw(Point a, Point b, Point c, bool include_collinear=false) {
+        int o = orientation(a, b, c);
+        return o < 0 || (include_collinear && o == 0);
     }
-    friend vector<Point> convex_hull(vector<Point>& a) {
+    friend bool ccw(Point a, Point b, Point c, bool include_collinear=false) {
+        int o = orientation(a, b, c);
+        return o > 0 || (include_collinear && o == 0);
+    }
+    friend bool collinear(Point a, Point b, Point c) {
+        return orientation(a, b, c) == 0;
+    }
+    friend vector<Point> convex_hull(vector<Point>& a, bool include_collinear=false) {
         // Convex hull
         if (a.size() == 1)
-            return {};
+            return a;
         sort(a.begin(), a.end());
         a.erase(unique(a.begin(), a.end()), a.end());
         Point p1 = a[0], p2 = a.back();
@@ -117,16 +128,23 @@ struct Point {
         u.push_back(p1);
         d.push_back(p1);
         for (int i = 1; i < (int)a.size(); i++) {
-            if (i == a.size() - 1 || cw(p1, a[i], p2)) {
-                while (u.size() >= 2 && !cw(u[u.size()-2], u[u.size()-1], a[i]))
+            if (i == a.size() - 1 || cw(p1, a[i], p2, include_collinear)) {
+                while (u.size() >= 2
+                        && !cw(u[u.size()-2], u[u.size()-1], a[i], include_collinear))
                     u.pop_back();
                 u.push_back(a[i]);
             }
-            if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
-                while (d.size() >= 2 && !ccw(d[d.size()-2], d[d.size()-1], a[i]))
+            if (i == a.size() - 1 || ccw(p1, a[i], p2, include_collinear)) {
+                while (d.size() >= 2
+                        && !ccw(d[d.size()-2], d[d.size()-1], a[i], include_collinear))
                     d.pop_back();
                 d.push_back(a[i]);
             }
+        }
+        if (include_collinear && a.size() == u.size()) {
+            vector<Point> res = a;
+            reverse(res.begin(), res.end());
+            return res;
         }
         vector<Point> res;
         for (int i = 0; i < (int)u.size(); i++)
@@ -143,7 +161,7 @@ struct Line {
     friend ostream& operator<<(ostream& os, const Line& l) {
         return os << l.a << " " << l.b << " " << l.c;
     }
-    friend Line offset(Line l, Point a, bool invert=false) {
+    friend Line offset(Line l, Point<double> a, bool invert=false) {
         // invert = false then (0,0) -> a, true then a -> (0,0)
         if (invert)
             l.c += l.a * a.x + l.b * a.y;
@@ -153,22 +171,22 @@ struct Line {
     }
 };
 struct Circle {
-    Point c;
+    Point<double> c;
     double r;
     Circle() : r(0.0) {}
     Circle(double r) : r(r) {}
-    Circle(Point c, double r) : c(c), r(r) {}
+    Circle(Point<double> c, double r) : c(c), r(r) {}
     friend ostream& operator<<(ostream& os, const Circle& a) {
         return os << a.c << " " << a.r;
     }
     friend istream& operator>>(istream& is, Circle& a) {
         return is >> a.c >> a.r;
     }
-    void line_circle_intersection(Circle a, Line l, vector<Point>& ans) {
+    void line_circle_intersection(Circle a, Line l, vector<Point<double>>& ans) {
         l = offset(l, a.c, true);
     }
     void tangent_circle(Circle a, Circle b, vector<Line>& ans) {
-        auto tangent_line = [&](Point c, double r1, double r2) {
+        auto tangent_line = [&](Point<double> c, double r1, double r2) {
             double r = r2 - r1;
             double z = c.x * c.x + c.y * c.y;
             double d = z - r * r;
@@ -186,7 +204,8 @@ struct Circle {
                 tangent_line(b.c - a.c, a.r * i, b.r * j);
     }
 };
-using pt = Point;
+
+using pt = Point<double>;
 int tt = 1, n, m, k;
 
 void solve() {

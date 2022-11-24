@@ -4,193 +4,165 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
-// Splay Tree Node
-template<typename T>
-struct Node {
-    Node *l, *r, *p;
-    T v;
-    size_t n;
-    Node() : l(nullptr), r(nullptr), p(nullptr), v(0), n(1) {};
-    Node(T v_) : l(nullptr), r(nullptr), p(nullptr), v(v_), n(1) {};
-    Node(T v_, Node *l_, Node *r_) : l(l_), r(r_), p(nullptr), v(v_), n(1) {
-        if (l != nullptr)
-            l->p = this, n += l->n;
-        if (r != nullptr)
-            r->p = this, n += r->n;
-    };
-    Node(T v_, Node *l_, Node *r_, Node *p_) : l(l_), r(r_), p(p_), v(v_), n(1) {
-        if (l != nullptr)
-            l->p = this, n += l->n;
-        if (r != nullptr)
-            r->p = this, n += r->n;
-    };
-};
-// Splay Tree
-template<typename T>
+template <typename T>
 struct SplayTree {
-    Node<T>* root;
-    const int CNT = 4;
-    SplayTree() : root(nullptr) {};
-private:
-    void print_util(Node<T> *x, int s) { // for debugging
-        if (x == nullptr)
-            return;
-        if (s != 0) {
-            assert(x->p != nullptr);
-            assert(x->p->l == x || x->p->r == x);
+	struct Node {
+		Node() {}
+		Node(T val_): val(val_) {}
+		T val = 0;
+		array<Node*, 2> child;
+		Node* parent;
+		bool side() const {
+			return parent->child[1] == this;
+		}
+		void rotate() {
+			const auto p = parent;
+			const bool i = side();
+
+			if (p->parent) {
+				p->parent->attach(p->side(), this);
+			} else {
+				parent = nullptr;
+			}
+			p->attach(i, child[!i]);
+			attach(!i, p);
+		}
+		void splay() {
+			for (; parent; rotate()) {
+				if (parent->parent) {
+					(side() == parent->side() ? parent: this)->rotate();
+				}
+			}
+		}
+		array<Node*, 2> split() {
+			splay();
+			const auto right = child[1];
+			if (right) {
+				right->parent = nullptr;
+			}
+			this->right = nullptr;
+			return {this, right};
+		}
+		void attach(bool side, Node *const new_node) {
+			if (new_node) {
+				new_node->parent = this;
+			}
+			child[side] = new_node;
+		}
+	};
+	struct iterator {
+		using iterator_category = bidirectional_iterator_tag;
+		using value_type = T;
+		using pointer = T*;
+		using reference = T&;
+		using difference_type = ll;
+    public:
+		void operator--() { advance<false>(); }
+		void operator++() { advance<true>(); }
+		const T &operator*() { return node->value; }
+		Node *node;
+		iterator(Node *node_arg) : node(node_arg) {}
+		bool operator==(const iterator oth) const {
+			return node == oth.node;
+		}
+		bool operator!=(const iterator oth) const {
+            return !(*this == oth);
         }
-        s += CNT;
-        print_util(x->r, s);
-        cout << endl;
-        cout << string(s-CNT, ' ');
-        cout << x->v << "[" << x->n << "]\n";
-        print_util(x->l, s);
-    }
-    void update_n(Node<T> *x) {
-        x->n = 1;
-        if (x->l != nullptr)
-            x->n += x->l->n;
-        if (x->r != nullptr)
-            x->n += x->r->n;
-    }
-public:
-    void print() {
-        assert(root->p == nullptr);
-        print_util(root, 0);
-    }
-    void left_rotate(Node<T> *y) {
-        Node<T> *x = y->r, *p = y->p, *B = x->l;
-        // assert(x != nullptr);
-        if (p) {
-            if (p->r == y)
-                p->r = x;
-            else
-                p->l = x;
-        } else {
-            // assert(root == y);
-            root = x;
-        }
-        if (B) {
-            B->p = y;
-        }
-        x->p = p;
-        x->l = y;
-        y->p = x;
-        y->r = B;
-        update_n(y);
-        update_n(x);
-    }
-    void right_rotate(Node<T> *y) {
-        Node<T> *x = y->l, *p = y->p, *B = x->r;
-        // assert(x != nullptr);
-        if (p) {
-            if (p->r == y)
-                p->r = x;
-            else
-                p->l = x;
-        } else {
-            // assert(root == y);
-            root = x;
-        }
-        if (B) {
-            B->p = y;
-        }
-        x->p = p;
-        x->r = y;
-        y->p = x;
-        y->l = B;
-        update_n(y);
-        update_n(x);
-    }
-    void splay(Node<T> *x) { // splay a node
-        while (x->p != nullptr) { // a single splay step
-            Node<T> *y = x->p, *z = y->p;
-            if (z == nullptr && y->l == x) { // zig
-                right_rotate(y);
-            } else if (z == nullptr && y->r == x) {
-                left_rotate(y);
-            } else if (z->l == y && y->r == x) { // zig-zag
-                left_rotate(y);
-                right_rotate(z);
-            } else if (z->r == y && y->l == x) { // zig-zag
-                right_rotate(y);
-                left_rotate(z);
-            } else if (z->l == y && y->l == x) { // zig-zig 
-                right_rotate(z);
-                right_rotate(y);
-            } else if (z->r == y && y->r == x) { // zig-zig
-                left_rotate(z);
-                left_rotate(y);
-            }
-        }
-        root = x;
-    }
-private:
-    Node<T> *get_util(Node<T> *x, size_t index) {
-        // Find the node with index in O(log n) time, assuming balanced
-        // assert(0 <= index && index < x->n);
-        size_t ls = 0;
-        if (x->l != nullptr)
-            ls = x->l->n;
-        if (index < ls)
-            return get_util(x->l, index);
-        else if (index == ls)
-            return x;
-        else
-            return get_util(x->r, index-ls-1);
-    }
-public:
-    Node<T> *get(size_t index) {
-        // assert(root != nullptr);
-        return get_util(root, index);
-    }
-    void insert_left(Node<T> *x, T v) {
-        x->l = new Node<T>(v, x->l, nullptr, x);
-        update_n(x->l);
-        update_n(x);
-        splay(x->l);
-    }
-    void insert_right(Node<T> *x, T v) {
-        x->r = new Node<T>(v, nullptr, x->r, x);
-        update_n(x->r);
-        update_n(x);
-        splay(x->r);
-    }
-    void insert(T v) {
-        
-    }
+    private:
+		template <bool dir> void advance() {
+			if (node->child[1]) {
+				node = extremum<!dir>(node->child[1]);
+				return;
+			}
+            while (node->parent && node->side() == dir)
+                node = node->parent;
+			node = node->parent;
+		}
+	};
+	Node* root = nullptr;
+	ll n = 0;
+	SplayTree() {}
+	~SplayTree() { destroy(root); }
+	static void destroy(Node* const node) {
+		if (!node) {
+			return;
+		}
+		for (Node* const child : node->child) {
+			destroy(child);
+		}
+		delete node;
+	}
+	void insert(Node* const x) {
+		++n;
+		if (!root) {
+			root = x;
+			return;
+		}
+		auto y = root;
+		while (true) {
+			auto& nw = y->child[x->value > y->value];
+			if (!nw) {
+				nw = x;
+				nw->parent = y;
+				root = nw;
+				nw->splay();
+				return;
+			}
+			y = nw;
+		}
+		return;
+	}
+	void insert(const T& key) {
+		insert(new Node{key});
+	}
+	void erase(Node* const x) {
+		assert(x);
+		x->splay();
+		root = join(x->child[0], x->child[1]);
+		delete x;
+		--n;
+	}
+	void erase(const T& key) { erase(find(key)); }
+	template <bool i> static Node* extremum(Node* x) {
+		/* Return the extremum of the subtree x. Minimum if i is false,
+		 * maximum if i is true.*/
+		assert(x);
+		for(; x->child[i]; x = x->child[i]);
+		return x;
+	}
+	static Node* join(Node* const a, Node* const b) {
+		if (!a) {
+			b->parent = nullptr;
+			return b;
+		}
+		Node* const mx = extremum<true>(a);
+		mx->splay();
+		assert(mx->child[1] == nullptr);
+		mx->child[1] = b;
+		mx->parent = nullptr;
+		return mx;
+	}
+	Node* find(const T& key) {
+		auto x = root;
+		while(x && key != x->value){
+			const auto next = x->child[key > x->value];
+			if(!next){
+				x->splay();
+			}
+			x = next;
+		}
+		return x;
+	}
+    size_t size() const { return n; }
+	bool empty() const { return size() == 0; }
+	iterator begin() { return iterator{extremum<false>(root)}; }
+	iterator end() { return iterator{nullptr}; }
 };
 
 int tt = 1, n, m, k;
 
 // check long long
 void solve() {
-    using Node = Node<int>;
-    SplayTree<int> st;
-    Node *D = new Node(0);
-    Node *E = new Node(2);
-    Node *F = new Node(4);
-    Node *G = new Node(6);
-    Node *B = new Node(1, D, E);
-    Node *C = new Node(5, F, G);
-    Node *A = new Node(3, B, C);
-    assert(A->l == B);
-    assert(A->r == C);
-    assert(B->p == A);
-    assert(C->p == A);
-    st.root = A;
-    st.left_rotate(B);
-    st.left_rotate(A);
-    st.right_rotate(C);
-    st.right_rotate(A);
-    st.splay(D);
-    st.print();
-    st.insert_right(G, 7);
-    st.print();
-    st.splay(F);
-    st.insert_left(D, -1);
-    st.print();
-    printf("Finished");
 }
 
 int main() {

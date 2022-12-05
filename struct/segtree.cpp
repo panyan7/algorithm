@@ -3,6 +3,7 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
+
 // Vanilla Segment Tree
 // O(n log n) preprocessing, O(log n) query, O(log n) update
 struct SumInt {

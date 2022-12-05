@@ -3,6 +3,7 @@ using namespace std;
 #define ll long long
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
+
 struct MaxInt {
     using T = long long;
     const T e = LLONG_MIN;

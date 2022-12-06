@@ -79,6 +79,12 @@ public:
         vector<T> a(n, B::e);
         _build(a, 1, 0, n-1);
     }
+    SegTree(int n_, T val) : n(n_) {
+        tree.assign(4*n, B::e);
+        add.assign(4*n, 0);
+        vector<T> a(n, val);
+        _build(a, 1, 0, n-1);
+    }
     SegTree(const vector<T>& a) : n(a.size()) {
         tree.assign(4*n, B::e);
         add.assign(4*n, 0);

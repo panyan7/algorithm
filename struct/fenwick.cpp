@@ -1,11 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define pii pair<int,int>
+#define pll pair<int64_t,int64_t>
 
 struct FenwickTree {
     vector<int> bit;
     int n;
     FenwickTree(int n_) : n(n_) { bit.assign(n, 0); }
-    FenwickTree(vector<int>& a) : FenwickTree(a.size()) {
+    FenwickTree(const vector<int>& a) : FenwickTree(a.size()) {
         for (int i = 0; i < n; ++i)
             add(i, a[i]);
     }
@@ -24,4 +27,17 @@ struct FenwickTree {
     }
 };
 
-int t = 1, n, m, k, q;
+int tt = 1, n, m;
+
+void solve() {
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    return 0;
+}

@@ -25,22 +25,6 @@ private:
         }
         tout[v] = ++timer;
     }
-    bool is_ancestor(int u, int v) {
-        return tin[u] <= tin[v] && tout[u] >= tout[v];
-    }
-    void print() {
-        cout << "tin\n";
-        for (int i = 0; i < n; i++)
-            cout << tin[i] << " \n"[i+1==n];
-        cout << "tout\n";
-        for (int i = 0; i < n; i++)
-            cout << tout[i] << " \n"[i+1==n];
-        cout << "anc\n";
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j <= lim; j++)
-                cout << anc[i][j] << " \n"[j==lim];
-        }
-    }
 public:
     LCA(int n_) : n(n_), lim(ceil(log2(n_))) {
         tin.assign(n, 0);
@@ -48,8 +32,20 @@ public:
         adj.resize(n);
         anc.assign(n, vector<int>(lim+1, 0));
     }
+    LCA(const vector<vector<int>>& adj_, int root = 0) : n(adj_.size()), adj(adj_), lim(ceil(log2(adj_.size()))) {
+        tin.assign(n, 0);
+        tout.assign(n, 0);
+        anc.assign(n, vector<int>(lim+1, 0));
+        init(root);
+    }
     void init(int root = 0) {
         dfs(root, root);
+    }
+    int get_parent(int v) {
+        return anc[v][0];
+    }
+    bool is_ancestor(int u, int v) {
+        return tin[u] <= tin[v] && tout[u] >= tout[v];
     }
     int query(int u, int v) {
         if (is_ancestor(u, v))
@@ -61,6 +57,15 @@ public:
                 u = anc[u][i];
         }
         return anc[u][0];
+    }
+    // Get the child of u that is an ancestor of v
+    int get_child(int u, int v) {
+        assert(is_ancestor(u, v));
+        for (int i = lim; i >= 0; --i) {
+            if (!is_ancestor(anc[v][i], u))
+                v = anc[v][i];
+        }
+        return v;
     }
 };
 

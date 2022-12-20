@@ -34,7 +34,6 @@ void dijkstra(vector<int>& source) {
     }
 }
 
-// check long long
 void solve() {
 }
 

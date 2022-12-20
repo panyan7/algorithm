@@ -32,7 +32,8 @@ public:
         adj.resize(n);
         anc.assign(n, vector<int>(lim+1, 0));
     }
-    LCA(const vector<vector<int>>& adj_, int root = 0) : n(adj_.size()), adj(adj_), lim(ceil(log2(adj_.size()))) {
+    LCA(const vector<vector<int>>& adj_, int root = 0)
+        : n(adj_.size()), adj(adj_), lim(ceil(log2(adj_.size()))) {
         tin.assign(n, 0);
         tout.assign(n, 0);
         anc.assign(n, vector<int>(lim+1, 0));

@@ -61,15 +61,20 @@ struct Point {
     friend Point operator/(const Point& a, const double c) {
         return Point(a) /= c;
     }
-    friend double dot(Point a, Point b) {
+    friend T dot(Point a, Point b) {
         return a.x * b.x + a.y * b.y;
     }
-    friend double cross(Point a, Point b) {
+    friend T cross(Point a, Point b) {
         return a.x * b.y - a.y * b.x;
     }
+    friend T len2(Point a) {
+        return a.x * a.x + a.y * a.y;
+    }
     friend double len(Point a) {
-        double s = a.x * a.x + a.y * a.y;
-        return sqrt(s);
+        return sqrt((double)len2(a));
+    }
+    friend T dist2(Point a, Point b) {
+        return len2(a - b);
     }
     friend double dist(Point a, Point b) {
         return len(a - b);
@@ -117,7 +122,8 @@ struct Point {
     friend bool collinear(Point a, Point b, Point c) {
         return orientation(a, b, c) == 0;
     }
-    friend vector<Point> convex_hull(vector<Point>& a, bool include_collinear=false) {
+    friend vector<Point> convex_hull(vector<Point>& a,
+            bool include_collinear=false) {
         // Convex hull
         if (a.size() == 1)
             return a;
@@ -153,6 +159,12 @@ struct Point {
             res.push_back(d[i]);
         return res;
     }
+    friend bool compare_angles(Point u, Point v1, Point v2) {
+        // Compare the angles between (u, v1) and (u, v2)
+        T f1 = dot(u, v1) * abs(dot(u, v1)) * len2(v2);
+        T f2 = dot(u, v2) * abs(dot(u, v2)) * len2(v1);
+        return f1 < f2;
+    };
 };
 struct Line {
     double a, b, c;

@@ -34,6 +34,7 @@ In directory `geometry/`
 
 ### Graph Theory
 In directory `graph/`
+- 2-SAT `2sat.cpp`
 - Bellman-Ford algorithm with negative cycle detection `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Binary lifting on forests `binary_lifting.cpp`

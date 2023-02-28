@@ -12,7 +12,6 @@ struct FlowEdge {
 };
 struct MinCostFlow {
     vector<vector<int>> adj;
-    vector<vector<long long>> cost, cap;
     vector<FlowEdge> edges;
     vector<pair<long long, long long>> ans;
     const long long INF = 1e18;
@@ -89,14 +88,13 @@ struct MinCostFlow {
 
 int tt = 1, n, m, k;
 
-// check long long
 void solve() {
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    //cin >> tt;
+    // cin >> tt;
     while (tt--) {
         solve();
     }

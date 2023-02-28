@@ -18,7 +18,8 @@ with open("print.md", 'w') as f:
 for folder in os.listdir():
     if os.path.isdir(folder) and not folder.startswith("."):
         for file in os.listdir(folder):
-            filename = os.path.join(folder, file)
-            read_file(filename)
-            print(filename)
+            if not file.startswith("."):
+                filename = os.path.join(folder, file)
+                read_file(filename)
+                print(filename)
 

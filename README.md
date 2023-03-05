@@ -142,7 +142,9 @@ In directory `misc/`
 - Did you do off by one for the index? Are the choices consistent throughout the program?
 - Did you try test cases that cover all parts of your solution?
 - Did the test case allow negative numbers and did you forget it?
-- Were there potentially precision errors? Specifically, when you use Python, int and float has different precisions, and float cannot represent large integers well.
+- Were there potentially precision errors?
+- When you use Python, int and float has different precisions, and float cannot represent large integers well.
+- For pi, a convenient way with high precision is to use `acos(0) * 2`.
 - Did you confuse = and ==?
 - For max flow, was the capacity constraint on edges or vertices?
 - Did you change n and k to long long when it is necessary? Especially when you used something like `k * (k - 1) / 2`.

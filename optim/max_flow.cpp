@@ -79,6 +79,24 @@ struct MaxFlow {
         }
         return f;
     }
+    vector<bool> min_cut() {
+        vector<bool> vis(n, 0);
+        q = queue<int>();
+        q.push(s);
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            vis[u] = true;
+            for (auto id : adj[u]) {
+                auto& e = edges[id];
+                if (e.cap - e.flow > 0 && !vis[e.v]) {
+                    vis[e.v] = true;
+                    q.push(e.v);
+                }
+            }
+        }
+        return vis;
+    }
 }; 
 
 int tt = 1, n, m;

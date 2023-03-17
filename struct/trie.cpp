@@ -27,7 +27,7 @@ struct Trie {
         }
         trie[v].leaf = true;
     }
-    int find_string(const string& s) {
+    int find(const string& s) {
         int v = 0;
         for (char ch : s) {
             int c = ch - 'a';
@@ -36,6 +36,14 @@ struct Trie {
             v = trie[v].nxt[c];
         }
         return v;
+    }
+    bool search(const string& s) {
+        int v = find(s);
+        return v != -1 && trie[v].leaf;
+    }
+    bool has_prefix(const string& s) {
+        int v = find(s);
+        return v != -1;
     }
 };
 

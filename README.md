@@ -51,8 +51,7 @@ In directory `graph/`
 - Lowest common ancestor with binary lifting `lca.cpp`
 - Longest path in a DAG `longest_path.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
-- Strongly connected components with DFS `scc.cpp`
-- Topological sorting with DFS `toposort.cpp`
+- Strongly connected components with DFS `scc.cpp` Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
 - Union find as a struct `union_find_struct.cpp`
 
@@ -113,6 +112,7 @@ In directory `misc/`
 - Binary lifting can be used to solve non-LCA problems too! Whenever you're doing something like `x = nxt[x]`, and there is a topological ordering of the elements, it is a good idea to use binary lifting to improve the running time to O(log n). (Example [1](https://codeforces.com/contest/500/problem/E))
 - When you need to find the minimum number of operations to do something, first think of whether you can solve it with constant number of operations. For example, is it possible that we can always solve with 2 operations? Then, we can just determine if it is possible to solve with 0 or 1 operations, which is in general easy. (Example [1](https://codeforces.com/contest/1689/problem/E) [2](https://codeforces.com/contest/1685/problem/C))
 - When you need to keep track of the number of unique elements, you can store a table for the frequency of the elements, and increase the count when some frequency change from 0 to 1 and decrease when some frequency change from 1 to 0.
+- The lcm of a sequence of number can only increase for log(1e9) times before it goes out of range. This gives better running time for many brute force algorithms related to lcm.
 
 ### Utilizing Input Range
 - It is important to read the input ranges correctly!

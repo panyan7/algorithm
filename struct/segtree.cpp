@@ -32,6 +32,21 @@ struct GCDInt {
         return gcd(a, b);
     }
 };
+struct LCMInt {
+    using T = long long;
+    const T e = 1;
+    T _gcd(T a, T b) const {
+        if (a == 0)
+            return b;
+        if (b == 0)
+            return a;
+        return gcd(a, b);
+    }
+    T f(T a, T b) const {
+        assert(a != 0 && b != 0);
+        return a * b / gcd(a, b);
+    }
+};
 struct XORInt {
     using T = long long;
     const T e = 0;

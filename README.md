@@ -12,10 +12,12 @@ In directory `algebra/`
 - Fraction as pair of integers `frac.cpp`
 - Gaussian elimination `gaussian_elim.cpp`
 - Gaussian elimination with modular number `gaussian_elim_mod.cpp`
+- Count pairs of integers with gcd `gcd_pairs.cpp`
 - Matrix with efficient multiplication and exponentiation `matrix.cpp`
 - M&ouml;bius inversion `mobius.cpp`
 - Modular number with exponentiation and inverse `modnum.cpp`
 - Number theoretic transform `ntt.cpp`
+- Euler phi function `phi.cpp`
 - Testing primality `prime_test.cpp`
 - Prime factorization `prime_factorize.cpp`
 - Sieve of Eratosthenes `sieve.cpp`
@@ -23,9 +25,9 @@ In directory `algebra/`
 - Inverse sum over subsets `sos_inv.cpp`
 
 ### Combinatorics
-In directory `combinatorics/`
-- Combinatorics template `combinatorics.cpp`
-- Stirling number `stirling.cpp` (TODO)
+In directory `combo/`
+- Combinatorics template `combo.cpp`
+- Counting number of $x \ge a, y \ge b$ such that $xy \le n$ `sqrt_count.cpp`
 
 ### Geometry
 In directory `geometry/`
@@ -38,22 +40,22 @@ In directory `graph/`
 - Bellman-Ford algorithm with negative cycle detection `bellman_ford.cpp`
 - Breadth-first search `bfs.cpp`
 - Binary lifting on forests `binary_lifting.cpp`
-- Bridge finding `bridge.cpp`
 - Bipartite graph testing with BFS `bipartite.cpp`
+- Bridge finding `bridge.cpp`
 - Cycle detection with DFS `cycle.cpp`
 - Cycle detection with DFS on undirected graph `cycle_ud.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
-- Dijkstra's algorithm with priority queue `dijkstra_pq.cpp`
+- Dijkstra's algorithm in dense graphs `dijkstra_dense.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction with union find `kruskal.cpp`
 - Lowest common ancestor with binary lifting `lca.cpp`
 - Longest path in a DAG `longest_path.cpp`
 - Prim's algorithm for MST construction `prim.cpp`
-- Strongly connected components with DFS `scc.cpp` Topological sorting with DFS `toposort.cpp`
+- Strongly connected components with DFS `scc.cpp`
+- Topological sorting with DFS `toposort.cpp`
 - Union find `union_find.cpp`
-- Union find as a struct `union_find_struct.cpp`
 
 ### Optimization
 In directory `optim/`
@@ -67,12 +69,14 @@ In directory `optim/`
 In directory `string/`
 - Aho-Corasick algorithm for string searching `aho_corasick.cpp`
 - Knuth-Morris-Pratt (KMP) algorithm for string searching `kmp.cpp`
+- Rabin-Karp finger print `rabin_karp.cpp`
 
 ### Data Structures
 In directory `struct/`
+- Using array to store a map of integers `array_map.cpp`
 - Fenwick tree `fenwick.cpp`
-- Minimum stack `min_stack.cpp`
 - Minimum queue `min_queue.cpp`
+- Minimum stack `min_stack.cpp`
 - Ordered set with index `ordered_set.cpp`
 - Randomized hash function for unordered_map `random_hash.cpp`
 - Range minimum/maximum query with sparse table `rmq.cpp`

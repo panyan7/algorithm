@@ -153,3 +153,4 @@ In directory `misc/`
 - For max flow, was the capacity constraint on edges or vertices?
 - Did you change n and k to long long when it is necessary? Especially when you used something like `k * (k - 1) / 2`.
 - Did you use 1 to n or 0 to n-1? In the previous case, did you use `i <= n` instead of `i < n`?
+- When the size of the array depends on the maximum value, did you consider multiple test cases, where you need to reset the array everytime?

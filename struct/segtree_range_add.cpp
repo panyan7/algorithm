@@ -96,8 +96,8 @@ public:
         return os;
     }
     void build(const vector<T>& a)   { _build(a, 1, 0, n-1); }
-    void update(T val, int l, int r) { _update(1, 0, n-1, l,   r,   val); }
-    void update(T val, int pos)      { _update(1, 0, n-1, pos, pos, val); }
+    void update(int l, int r, T val) { _update(1, 0, n-1, l,   r,   val); }
+    void update(int pos, T val)      { _update(1, 0, n-1, pos, pos, val); }
     T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos)                   { return _get(1, 0, n-1, pos);  }
     T operator[](int pos)            { return get(pos); }

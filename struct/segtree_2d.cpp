@@ -105,7 +105,7 @@ public:
         return os;
     }
     void build(const vector<T>& a)              { _build(a, 1, 0, n-1); }
-    void update(T val, int x, int y)            { _update_x(1, 0, n-1, x, y, val); }
+    void update(int x, int y, T val)            { _update_x(1, 0, n-1, x, y, val); }
     T query(int lx, int rx, int ly, int ry)     { return _query_x(1, 0, n-1, lx, rx, ly, ry); }
 };
 

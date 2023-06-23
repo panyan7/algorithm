@@ -27,7 +27,6 @@ void dfs2(int v) {
             dfs2(u);
 }
 
-// check long long
 void solve() {
     cin >> n >> m;
     adj.clear();

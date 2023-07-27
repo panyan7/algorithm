@@ -4,7 +4,7 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<int64_t,int64_t>
 
-/* Segment tree with range assignment query and range sum query */
+/* Segment tree with range assignment query and point query */
 template <typename T>
 struct SegTree {
     int n;
@@ -42,18 +42,10 @@ private:
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
     }
-    T _query(int v, int tl, int tr, int l, int r) const {
-        if (l > r || tr < l || tl > r)
-            return 0;
-        if (mark[v] && tr >= r && tl <= l)
-            return tree[v] * (r-l+1);
-        int tmid = tl + (tr - tl) / 2;
-        return _query(v*2, tl, tmid, l, min(r, tmid)) +
-               _query(v*2+1, tmid+1, tr, max(l, tmid+1), r);
-    }
     T _get(int v, int tl, int tr, int pos) const {
         if (tl == tr || mark[v])
             return tree[v];
+        _push(v);
         int tmid = tl + (tr - tl) / 2;
         if (pos <= tmid)
             return _get(v*2, tl, tmid, pos);
@@ -86,7 +78,6 @@ public:
     void build(const vector<T>& a)   { _build(a, 1, 0, n-1); }
     void update(int l, int r, T val) { _update(1, 0, n-1, l,   r,   val); }
     void update(int pos, T val)      { _update(1, 0, n-1, pos, pos, val); }
-    T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos)                   { return _get(1, 0, n-1, pos);  }
     T operator[](int pos)            { return get(pos); }
 };

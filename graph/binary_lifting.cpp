@@ -16,7 +16,9 @@ void solve() {
     vector<vector<ll>> cost(n, vector<ll>(lim, 0));
     for (int i = 0; i < n; i++) {
         up[i][0] = parent[i];
-        for (int j = 1; j < lim; j++) {
+    }
+    for (int j = 1; j < lim; j++) {
+        for (int i = 0; i < n; i++) {
             up[i][j] = up[up[i][j-1]][j-1];
             cost[i][j] = cost[i][j-1] + cost[up[i][j-1]][j-1];
         }

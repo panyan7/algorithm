@@ -81,7 +81,7 @@ public:
     }
     friend ostream& operator<<(ostream& os, const SegTree& st) {
         for (int i = 0; i < st.n; ++i)
-            os << st.get(i) << (i == st.n-1 ? "\n" : " ");
+            os << st.get(i) << " ";
         return os;
     }
     void build(const vector<T>& a)   { _build(a, 1, 0, n-1); }

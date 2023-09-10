@@ -20,7 +20,7 @@ struct ArrayMap {
     typename vector<T>::reverse_iterator rend()   { return data.rend();     }
     friend ostream& operator<<(ostream& os, const ArrayMap& mp) {
         for (int i = 0; i < mp.size(); i++)
-            os << mp[i] << " \n"[i+1 == mp.size()];
+            os << mp[i] << " ";
         return os;
     }
 };

@@ -20,9 +20,7 @@ struct Point {
     friend bool operator==(const Point& a, const Point& b) {
         return a.x == b.x && a.y == b.y;
     }
-    friend bool operator!=(const Point& a, const Point& b) {
-        return !(a == b);
-    }
+    friend bool operator!=(const Point& a, const Point& b) { return !(a == b); }
     friend bool operator<(const Point& a, const Point& b) {
         return (a.x == b.x) ? (a.y < b.y) : (a.x < b.x);
     }
@@ -46,39 +44,17 @@ struct Point {
         y /= c;
         return *this;
     }
-    friend Point operator+(const Point& a, const Point& b) {
-        return Point(a) += b;
-    }
-    friend Point operator-(const Point& a, const Point& b) {
-        return Point(a) -= b;
-    }
-    friend Point operator*(const Point& a, const double c) {
-        return Point(a) *= c;
-    }
-    friend Point operator*(const double c, const Point& a) {
-        return Point(a) *= c;
-    }
-    friend Point operator/(const Point& a, const double c) {
-        return Point(a) /= c;
-    }
-    friend T dot(Point a, Point b) {
-        return a.x * b.x + a.y * b.y;
-    }
-    friend T cross(Point a, Point b) {
-        return a.x * b.y - a.y * b.x;
-    }
-    friend T len2(Point a) {
-        return a.x * a.x + a.y * a.y;
-    }
-    friend double len(Point a) {
-        return sqrt((double)len2(a));
-    }
-    friend T dist2(Point a, Point b) {
-        return len2(a - b);
-    }
-    friend double dist(Point a, Point b) {
-        return len(a - b);
-    }
+    friend Point operator+(const Point& a, const Point& b) { return Point(a) += b; }
+    friend Point operator-(const Point& a, const Point& b) { return Point(a) -= b; }
+    friend Point operator*(const Point& a, const double c) { return Point(a) *= c; }
+    friend Point operator*(const double c, const Point& a) { return Point(a) *= c; }
+    friend Point operator/(const Point& a, const double c) { return Point(a) /= c; }
+    friend T dot(Point a, Point b)       { return a.x * b.x + a.y * b.y; }
+    friend T cross(Point a, Point b)     { return a.x * b.y - a.y * b.x; }
+    friend T len2(Point a)               { return a.x * a.x + a.y * a.y; }
+    friend double len(Point a)           { return sqrt((double)len2(a)); }
+    friend T dist2(Point a, Point b)     { return len2(a - b); }
+    friend double dist(Point a, Point b) { return len(a - b); }
     friend Point intersect(Point a1, Point d1, Point a2, Point d2) {
         // intersection between a1 + td1 and a2 + td2
         assert(d1 != d2);
@@ -91,7 +67,7 @@ struct Point {
             Point q = fig[i];
             res += (p.x - q.x) * (p.y + q.y);
         }
-        return fabs(res) / 2;
+        return fabs(res) / 2.0;
     }
     friend Point proj(Point a, Point b) {
         return b * dot(a, b) / dot(b, b);
@@ -99,11 +75,17 @@ struct Point {
     friend double dist_to_line(Point a, Point b, Point c) {
         // distance to line bc
         assert(b != c);
-        Point ba = a-b;
-        Point bc = c-b;
+        Point ba = a - b;
+        Point bc = c - b;
         Point proj_ba_bc = proj(ba, bc);
         Point rem = ba - proj_ba_bc;
         return len(rem);
+    }
+    friend double vdist_to_line(Point a, Point b, Point c) {
+        // vertical distance to line bc
+        assert(b != c);
+        double res = b.y - (b.x-a.x)/(c.x-b.x)*(c.y-b.y) - a.y;
+        return res;
     }
     friend int orientation(Point a, Point b, Point c) {
         T v = a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y);
@@ -122,9 +104,9 @@ struct Point {
     friend bool collinear(Point a, Point b, Point c) {
         return orientation(a, b, c) == 0;
     }
-    friend vector<Point> convex_hull(vector<Point>& a,
-            bool include_collinear=false) {
-        // Convex hull
+    friend vector<Point> convex_hull(vector<Point>& a, bool include_collinear=false,
+                                     bool upper_set=false) {
+        // Convex hull, clockwise
         if (a.size() == 1)
             return a;
         sort(a.begin(), a.end());
@@ -136,13 +118,13 @@ struct Point {
         for (int i = 1; i < (int)a.size(); i++) {
             if (i == a.size() - 1 || cw(p1, a[i], p2, include_collinear)) {
                 while (u.size() >= 2
-                        && !cw(u[u.size()-2], u[u.size()-1], a[i], include_collinear))
+                       && !cw(u[u.size()-2], u[u.size()-1], a[i], include_collinear))
                     u.pop_back();
                 u.push_back(a[i]);
             }
             if (i == a.size() - 1 || ccw(p1, a[i], p2, include_collinear)) {
                 while (d.size() >= 2
-                        && !ccw(d[d.size()-2], d[d.size()-1], a[i], include_collinear))
+                       && !ccw(d[d.size()-2], d[d.size()-1], a[i], include_collinear))
                     d.pop_back();
                 d.push_back(a[i]);
             }
@@ -155,7 +137,9 @@ struct Point {
         vector<Point> res;
         for (int i = 0; i < (int)u.size(); i++)
             res.push_back(u[i]);
-        for (int i = d.size() - 2; i > 0; i--)
+        if (upper_set)
+            return res;
+        for (int i = (int)d.size() - 2; i > 0; i--)
             res.push_back(d[i]);
         return res;
     }

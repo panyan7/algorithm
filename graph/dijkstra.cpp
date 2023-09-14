@@ -32,6 +32,31 @@ void dijkstra(vector<int>& source) {
         }
     }
 }
+void dijkstra_dense(vector<int>& source) {
+    dist.assign(n, INF);
+    p.assign(n, -1);
+    vector<bool> vis(n, 0);
+    for (int s : source)
+        dist[s] = 0;
+    for (int i = 0; i < n; i++) {
+        int v = -1;
+        for (int j = 0; j < n; j++) {
+            if (!vis[j] && (v == -1 || dist[j] < dist[v]))
+                v = j;
+        }
+        if (d[v] == INF)
+            break;
+        vis[v] = true;
+        for (auto e : adj[v]) {
+            int u = e.first, w = e.second;
+            if (dist[v] + w < dist[u]) {
+                dist[u] = dist[v] + w;
+                p[u] = v;
+            }
+        }
+    }
+}
+
 
 void solve() {
 }

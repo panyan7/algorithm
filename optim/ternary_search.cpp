@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int ternery_search(vector<int> a) {
+int ternery_search(vector<int>& a) {
     int lo = 0, hi = a.size()-1;
     while (lo + 2 < hi) {
         int mid1 = lo + (hi - lo) / 3;

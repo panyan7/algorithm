@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
+using bool_func = function<bool(int)>;
+using real_func = function<double(double)>;
 
 // Standard binary search for some integer
-int binary_search(vector<int> a, int k) {
+int binary_search(const vector<int>& a, int k) {
     int lo = 0, hi = a.size();
     while (lo < hi) {
-        //@loop_invariant A[0:lo) < k, A[hi, n) > k
-        int mid = lo + (hi - lo) / 2; // avoid overflow
+        int mid = lo + (hi - lo) / 2;
         if (a[mid] == k) return mid;
         else if (a[mid] < k) lo = mid+1;
         else hi = mid;
@@ -14,36 +15,37 @@ int binary_search(vector<int> a, int k) {
     return -1;
 }
 
-// Find minimum true
-int binary_search_true(int n) {
+int binary_search_bool(bool_func& f, int n) {
     int lo = -1, hi = n;
     while (lo + 1 < hi) {
         int mid = lo + (hi - lo) / 2;
-        if (check(mid)) hi = mid;
+        if (f(mid)) hi = mid;
         else lo = mid;
     }
-    return hi;
+    // return lo; // max false
+    return hi; // min true
 }
 
-// Find maximum false
-int binary_search_false(int n) {
-    int lo = -1, hi = n;
-    while (lo + 1 < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (check(mid)) hi = mid;
-        else lo = mid;
-    }
-    return lo;
-}
-
-int lower_bound(int n) { // C++ stl lower_bound
+int lower_bound(bool_func& f, int n) { // C++ std::lower_bound
     int lo = 0, hi = n;
     while (lo < hi) {
         int mid = lo + (hi - lo) / 2;
-        if (check(mid)) hi = mid;
+        if (f(mid)) hi = mid;
         else lo = mid + 1;
     }
     return lo;
+}
+
+double solve(real_func& f, double target, double lo, double hi) {
+    const double EPS = 1e-9;
+    while (hi - lo < EPS) {
+        double mid = lo + (hi - lo) / 2.;
+        if (f(mid) - target >= EPS)
+            hi = mid;
+        else
+            lo = mid;
+    }
+    return hi;
 }
 
 /** Examples **/

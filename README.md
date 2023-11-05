@@ -45,6 +45,7 @@ In directory `graph/`
 - Cycle detection with DFS `cycle.cpp`
 - Depth-first search `dfs.cpp`
 - Dijkstra's algorithm `dijkstra.cpp`
+- Euler tour algorithm `euler_tour.cpp`
 - Floyd-Warshall algorithm for all sources shortest path `floyd_warshall.cpp`
 - Kahn's algorithm for topological sorting `kahn.cpp`
 - Kruskal's algorithm for MST construction with union find `kruskal.cpp`
@@ -149,6 +150,7 @@ In directory `misc/`
 - For pi, a convenient way with high precision is to use `acos(0) * 2`.
 - Did you confuse = and ==?
 - For max flow, was the capacity constraint on edges or vertices?
+- For max flow, did you constraint the capacity on some vertices?
 - Did you change n and k to long long when it is necessary? Especially when you used something like `k * (k - 1) / 2`.
 - Did you use 1 to n or 0 to n-1? In the previous case, did you use `i <= n` instead of `i < n`?
 - When the size of the array depends on the maximum value, did you consider multiple test cases, where you need to reset the array everytime?

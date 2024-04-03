@@ -44,7 +44,7 @@ void dijkstra_dense(vector<int>& source) {
             if (!vis[j] && (v == -1 || dist[j] < dist[v]))
                 v = j;
         }
-        if (d[v] == INF)
+        if (dist[v] == INF)
             break;
         vis[v] = true;
         for (auto e : adj[v]) {

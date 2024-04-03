@@ -44,6 +44,7 @@ private:
 public:
     RMQ(const vector<T>& a) : n(a.size()), lim(floor(log2(n)+1)) { _build(a); }
     T query(int i, int j) const {
+        if (i > j) return B::e;
         int k = floor(log2(j-i+1));
         T res = B::f(spt[k][i], spt[k][j-(1<<k)+1]);
         return res;

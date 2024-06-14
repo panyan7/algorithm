@@ -42,7 +42,7 @@ private:
         _update(v*2, tl, tmid, l, min(r, tmid), val);
         _update(v*2+1, tmid+1, tr, max(l, tmid+1), r, val);
     }
-    T _get(int v, int tl, int tr, int pos) const {
+    T _get(int v, int tl, int tr, int pos) {
         if (tl == tr || mark[v])
             return tree[v];
         _push(v);

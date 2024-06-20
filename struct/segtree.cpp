@@ -52,6 +52,16 @@ struct XORInt {
     const T e = 0;
     T f(T a, T b) const { return (a ^ b); }
 };
+struct ORInt {
+    using T = long long;
+    const T e = 0;
+    T f(T a, T b) const { return (a | b); }
+};
+struct ANDInt {
+    using T = long long;
+    const T e = LLONG_MAX;
+    T f(T a, T b) const { return (a & b); }
+};
 template <class B>
 struct SegTree : public B {
     using T = typename B::T;

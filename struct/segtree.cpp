@@ -133,31 +133,27 @@ public:
     T query(int l, int r)            { return _query(1, 0, n-1, l, r); }
     T get(int pos) const             { return _get(1, 0, n-1, pos);  }
     T operator[](int pos)            { return get(pos); }
+    template<class Compare>
+    int lower_bound(int l, int r, const T& val, Compare comp) {
+        int lo = l, hi = r;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (comp(query(l, mid), val)) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
+    template<class Compare>
+    int upper_bound(int l, int r, const T& val, Compare comp) {
+        int lo = l, hi = r;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (!comp(val, query(l, mid))) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
 };
-template<class SegTree, class T, class Compare>
-int lower_bound(SegTree& st, int l, int r, const T& val, Compare comp) {
-    int lo = l, hi = r;
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (comp(st.query(l, mid), val))
-            lo = mid + 1;
-        else
-            hi = mid;
-    }
-    return lo;
-}
-template<class SegTree, class T, class Compare>
-int upper_bound(SegTree& st, int l, int r, const T& val, Compare comp) {
-    int lo = l, hi = r;
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (!comp(val, st.query(l, mid)))
-            lo = mid + 1;
-        else
-            hi = mid;
-    }
-    return lo;
-}
 
 
 int tt = 1, n, m;

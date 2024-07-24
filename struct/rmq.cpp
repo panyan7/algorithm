@@ -59,6 +59,26 @@ public:
         T res = B::f(spt[k][i], spt[k][j-(1<<k)+1]);
         return res;
     }
+    template<class Compare>
+    int lower_bound(int l, int r, const T& val, Compare comp) {
+        int lo = l, hi = r;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (comp(query(l, mid), val)) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
+    template<class Compare>
+    int upper_bound(int l, int r, const T& val, Compare comp) {
+        int lo = l, hi = r;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (!comp(val, query(l, mid))) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
 };
 
 int tt = 1, n, m;

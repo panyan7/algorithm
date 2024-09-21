@@ -8,14 +8,14 @@ template <int K>
 struct Trie {
     struct Vertex {
         int nxt[K];
-        bool leaf = false;
+        int leaf = -1;
         Vertex() {
             fill(nxt, nxt + K, -1);
         }
     };
     vector<Vertex> trie;
     Trie() { trie.emplace_back(); }
-    void add_string(const string& s) {
+    void add_string(const string& s, int idx = 0) {
         int v = 0;
         for (char ch : s) {
             int c = ch - 'a';
@@ -25,7 +25,7 @@ struct Trie {
             }
             v = trie[v].nxt[c];
         }
-        trie[v].leaf = true;
+        trie[v].leaf = idx;
     }
     int find(const string& s) {
         int v = 0;
@@ -39,7 +39,7 @@ struct Trie {
     }
     bool search(const string& s) {
         int v = find(s);
-        return v != -1 && trie[v].leaf;
+        return v != -1 && (trie[v].leaf != -1);
     }
     bool has_prefix(const string& s) {
         int v = find(s);

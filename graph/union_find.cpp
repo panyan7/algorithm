@@ -31,7 +31,6 @@ struct UnionFind {
     }
 };
 
-// check long long
 void solve() {
 }
  

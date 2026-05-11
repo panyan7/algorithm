@@ -93,13 +93,12 @@ public:
 
 const int MOD = 998244353;
 using num = ModNum<MOD>;
-const num root = 3;
-const num root_1 = root.inv();
-const int root_pw = 1 << 23;
+const int root = 3;
 int tt = 1, n, m;
 
 void ntt(vector<num>& a, bool invert) {
-    assert(n == n);
+    int n = a.size();
+    assert((n & (n - 1)) == 0);
     for (int i = 1, j = 0; i < n; i++) {
         int bit = n >> 1;
         for (; j & bit; bit >>= 1)
@@ -109,9 +108,9 @@ void ntt(vector<num>& a, bool invert) {
             swap(a[i], a[j]);
     }
     for (int len = 2; len <= n; len <<= 1) {
-        num wlen = invert ? root_1 : root;
-        for (int i = len; i < root_pw; i <<= 1)
-            wlen = wlen * wlen;
+        num wlen = pow(num(root), (MOD - 1) / len);
+        if (invert)
+            wlen = wlen.inv();
         for (int i = 0; i < n; i += len) {
             num w = 1;
             for (int j = 0; j < len / 2; j++) {
@@ -130,9 +129,11 @@ void ntt(vector<num>& a, bool invert) {
 }
 
 vector<int> multiply(vector<int>& a, vector<int>& b) {
+    if (a.empty() || b.empty())
+        return {};
     vector<num> fa(a.begin(), a.end()), fb(b.begin(), b.end());
     int N = 1;
-    while (N < a.size() + b.size()) 
+    while (N < (int)a.size() + (int)b.size() - 1)
         N <<= 1;
     fa.resize(N);
     fb.resize(N);
@@ -141,8 +142,8 @@ vector<int> multiply(vector<int>& a, vector<int>& b) {
     for (int i = 0; i < N; i++)
         fa[i] = fa[i] * fb[i];
     ntt(fa, true);
-    vector<int> result(N);
-    for (int i = 0; i < N; i++)
+    vector<int> result(a.size() + b.size() - 1);
+    for (int i = 0; i < (int)result.size(); i++)
         result[i] = (int)fa[i];
     return result;
 }

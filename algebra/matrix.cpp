@@ -19,9 +19,10 @@ struct Matrix {
     }
 public:
     vector<T>& operator [] (int i) { return data[i]; }
+    const vector<T>& operator [] (int i) const { return data[i]; }
     T& operator [] (pair<int, int> id) { return data[id.first][id.second]; }
+    const T& operator [] (pair<int, int> id) const { return data[id.first][id.second]; }
     Matrix tp() {
-        // Transpose the Matrix
         Matrix<T> res(n, m);
         for (int i = 0; i < m; ++i)
             for (int j = 0; j < n; ++j)
@@ -58,12 +59,9 @@ public:
                 os << a.data[i][j] << (j+1 == a.n ? "\n" : " ");
         return os;
     }
-    friend istream& operator>>(istream& is, const Matrix& a) {
-        int m, n;
-        is >> m >> n;
-        a = Matrix(m, n);
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
+    friend istream& operator>>(istream& is, Matrix& a) {
+        for (int i = 0; i < a.m; ++i)
+            for (int j = 0; j < a.n; ++j)
                 is >> a[i][j];
         return is;
     }
@@ -130,7 +128,7 @@ public:
                     prod[i][k] += a.data[i][j] * b.data[j][k];
         return prod;
     }
-    friend Matrix operator==(const Matrix& a, const Matrix& b) {
+    friend bool operator==(const Matrix& a, const Matrix& b) {
         assert(a.n == b.n);
         assert(a.m == b.m);
         for (int i = 0; i < a.m; ++i)
@@ -139,12 +137,12 @@ public:
                     return false;
         return true;
     }
-    friend Matrix operator!=(const Matrix& a, const Matrix& b) {
+    friend bool operator!=(const Matrix& a, const Matrix& b) {
         return !(a == b);
     }
     friend Matrix pow(const Matrix& a, int e) {
         assert(a.m == a.n);
-        Matrix res = I(a.m), b = a;
+        Matrix res = Matrix::I(a.m), b = a;
         while (e) {
             if (e % 2) res = res * b;
             e /= 2;
@@ -157,7 +155,7 @@ template <int MOD>
 struct ModNum {
     int v;
     ModNum() : v(0) {}
-    ModNum(int64_t v_) : v(int(v_ % MOD)) {}
+    ModNum(int64_t v_) : v(int((v_ % MOD + MOD) % MOD)) {}
     explicit operator int() const { return v; }
     friend ostream& operator<<(ostream& os, const ModNum& m) {
         return os << m.v;
@@ -243,7 +241,7 @@ public:
 const int MOD = 1e9+7;
 using num = ModNum<MOD>;
 using mat = Matrix<num>;
-int t = 1, n, m, k, q;
+int tt = 1, n, m, k, q;
 
 void solve() {
 }
@@ -251,8 +249,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> t;
-    while (t--) {
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;

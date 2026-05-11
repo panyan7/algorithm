@@ -4,7 +4,7 @@ using namespace std;
 #define pii pair<int,int>
 #define pll pair<long long,long long>
 
-int t = 1, n, m, k;
+int tt = 1, n, m, k;
 
 vector<pll> factorize(ll n) {
     vector<pll> res;
@@ -32,8 +32,8 @@ void solve() {
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cin >> t;
-    while (t--) {
+    cin >> tt;
+    while (tt--) {
         solve();
     }
     return 0;
